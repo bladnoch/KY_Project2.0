@@ -236,7 +236,6 @@ if __name__ == "__main__":
     room5='/Users/doungukkim/Desktop/workspace/python/restinpeace/myway/excel/room_five.xlsx'
     room6='/Users/doungukkim/Desktop/workspace/python/restinpeace/myway/excel/room_six.xlsx'
 
-
     og_file= openpyxl.load_workbook(home, data_only=True) #초기 시트 위치 저장(값으로)
 
     og_sheets=[og_file['식당판매'], og_file['매점판매'], og_file['장의용품'], og_file['상복'], og_file['기타']]  #시트 리스트에 저장 시트 이름 바꾸면 같이 바꿔야 함
