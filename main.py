@@ -106,70 +106,70 @@ def setlist(): #셀 값 저장 => og_l 시트 5개 기준(column 3개)
             row = []
     # for i in range(len(og_l)):
     #     print(og_l[i])
-def left_double(event): #왼쪽 물품 더블클릭
-    def close():
-        center_tree()
-        count_item.quit()
-        count_item.destroy()
-    def go(): #확인 버튼
-        num=int(amount.get()) #입력된 텍스트(수량)저장
-        selectedItem = tree.selection()[0]  # tree 선택한 위치 받기
-        #물품명 단가 수량 금액
-
-        row=[] #지역변수 리셋 필요 없음
-        if(((tree.item(selectedItem)['values'][2])==None)| (tree.item(selectedItem)['values'][2]<num)):
-            messagebox.showinfo("","수량보다 많이 입력하였습니다.")
-        else:
-            # tree.item(selectedItem)['values'][2]=num-int(tree.item(selectedItem)['values'][2])
-            print(tree.item(selectedItem)['values'][2])
-
-            row.append(tree.item(selectedItem)['values'][0]) #물품명
-            row.append(tree.item(selectedItem)['values'][1]) #단가
-            row.append(num) #수량
-            row.append(row[1]*num) #금액
-            # messagebox.showinfo("",tree.item(selectedItem)['values'][0]) 물품명만 받기
-            new_p.append(row) #new_p에 저장(선택한 값 모두 받기
-        print(new_p)
-        close()
-    def go_enter(event): #엔터 사용을 위한 함수
-        num = int(amount.get())
-        selectedItem = tree.selection()[0]
-        row = []
-        if (((tree.item(selectedItem)['values'][2]) == None) | (tree.item(selectedItem)['values'][2] < num)):
-            messagebox.showinfo("", "수량보다 많이 입력하였습니다.")
-        else:
-            row.append(tree.item(selectedItem)['values'][0])  # 물품명
-            row.append(tree.item(selectedItem)['values'][1])  # 단가
-            row.append(num)  # 수량
-            row.append(row[1] * num)  # 금액
-            # messagebox.showinfo("",tree.item(selectedItem)['values'][0]) 물품명만 받기
-            new_p.append(row)
-        print(new_p)
-        close()
-
-
-    count_item = Tk()  # 불러오기 하면 나오는 화면
-
-    count_item.geometry("200x150+500+300")  # 창의 크기
-    count_item.title("수량 입력")  # 창의 제목
-    count_item.option_add("*Font", "맑은고딕 14")  # 전체 폰트
-
-    ontk = Label(count_item) #수량 레이블
-    ontk.config(text="수량", width=10, relief="solid")
-    ontk.pack(side="top", pady=10)
-
-    amount = Entry(count_item) #수량 엔트리 go_enter 연결
-    amount.config(width=10, relief="solid", borderwidth=0)
-    amount.focus()
-    amount.bind("<Return>", go_enter)
-    amount.place(x=60,y=50)
-    amount.pack()
-
-    conf = Button(count_item, text="확인") #확인 버튼
-    conf.config(width=10, height=3, command=go) #go 연결
-    # conf.place(x=30,y=200)
-    conf.pack(side="bottom",pady=10)
-    count_item.mainloop()
+# def left_double(event): #왼쪽 물품 더블클릭
+#     def close():
+#         center_tree()
+#         count_item.quit()
+#         count_item.destroy()
+#     def go(): #확인 버튼
+#         num=int(amount.get()) #입력된 텍스트(수량)저장
+#         selectedItem = tree.selection()[0]  # tree 선택한 위치 받기
+#         #물품명 단가 수량 금액
+#
+#         row=[] #지역변수 리셋 필요 없음
+#         if(((tree.item(selectedItem)['values'][2])==None)| (tree.item(selectedItem)['values'][2]<num)):
+#             messagebox.showinfo("","수량보다 많이 입력하였습니다.")
+#         else:
+#             # tree.item(selectedItem)['values'][2]=num-int(tree.item(selectedItem)['values'][2])
+#             print(tree.item(selectedItem)['values'][2])
+#
+#             row.append(tree.item(selectedItem)['values'][0]) #물품명
+#             row.append(tree.item(selectedItem)['values'][1]) #단가
+#             row.append(num) #수량
+#             row.append(row[1]*num) #금액
+#             # messagebox.showinfo("",tree.item(selectedItem)['values'][0]) 물품명만 받기
+#             new_p.append(row) #new_p에 저장(선택한 값 모두 받기
+#         print(new_p)
+#         close()
+#     def go_enter(event): #엔터 사용을 위한 함수
+#         num = int(amount.get())
+#         selectedItem = tree.selection()[0]
+#         row = []
+#         if (((tree.item(selectedItem)['values'][2]) == None) | (tree.item(selectedItem)['values'][2] < num)):
+#             messagebox.showinfo("", "수량보다 많이 입력하였습니다.")
+#         else:
+#             row.append(tree.item(selectedItem)['values'][0])  # 물품명
+#             row.append(tree.item(selectedItem)['values'][1])  # 단가
+#             row.append(num)  # 수량
+#             row.append(row[1] * num)  # 금액
+#             # messagebox.showinfo("",tree.item(selectedItem)['values'][0]) 물품명만 받기
+#             new_p.append(row)
+#         print(new_p)
+#         close()
+#
+#
+#     count_item = Tk()  # 불러오기 하면 나오는 화면
+#
+#     count_item.geometry("200x150+500+300")  # 창의 크기
+#     count_item.title("수량 입력")  # 창의 제목
+#     count_item.option_add("*Font", "맑은고딕 14")  # 전체 폰트
+#
+#     ontk = Label(count_item) #수량 레이블
+#     ontk.config(text="수량", width=10, relief="solid")
+#     ontk.pack(side="top", pady=10)
+#
+#     amount = Entry(count_item) #수량 엔트리 go_enter 연결
+#     amount.config(width=10, relief="solid", borderwidth=0)
+#     amount.focus()
+#     amount.bind("<Return>", go_enter)
+#     amount.place(x=60,y=50)
+#     amount.pack()
+#
+#     conf = Button(count_item, text="확인") #확인 버튼
+#     conf.config(width=10, height=3, command=go) #go 연결
+#     # conf.place(x=30,y=200)
+#     conf.pack(side="bottom",pady=10)
+#     count_item.mainloop()
 def center_tree():
     del_t2()
     for i in range(len(new_p)):
@@ -223,11 +223,109 @@ def trees5():
     b=[]
     for x in range(2,(og_sheets[4].max_row+1)):
         for y in range(1,4):
-            row.append(og_sheets[4].cell(x,y).value)
+            if y==2:
+                print(2)
+                row.append(int(float(og_sheets[4].cell(x,y).value))) #가격이 str로 저장되어 있어서 int로 바꿔줌...
+            elif (y==3):
+                print(3)
+                if(type(og_sheets[4].cell(x, y).value)==str):
+                    row.append(int(float(og_sheets[4].cell(x, y).value)))
+                elif(type(og_sheets[4].cell(x, y).value)==float):
+                    row.append(int(og_sheets[4].cell(x, y).value))
+                else:
+                    row.append(og_sheets[4].cell(x, y).value) #수량이 None이거나
+            else:
+                print(1)
+                row.append(og_sheets[4].cell(x, y).value)
+
         b.append(row)
         row=[]
         tree.insert('', 'end', text="", values=b[x-2])
 
+
+def l_double(event): #왼쪽 물품 더블클릭
+    def close():
+        center_tree()
+        count_item.quit()
+        count_item.destroy()
+    def go(): #확인 버튼
+        num=int(amount.get()) #입력된 텍스트(수량)저장
+        selectedItem = tree.selection()[0]  # tree 선택한 위치 받기
+        #물품명 단가 수량 금액
+        print(int(float(tree.item(selectedItem)['values'][2])))
+        print(type(tree.item(selectedItem)['values'][2]))
+        row=[] #지역변수 리셋 필요 없음
+        if(((tree.item(selectedItem)['values'][2])==None)| (tree.item(selectedItem)['values'][2]<num)):
+            messagebox.showinfo("","수량보다 많이 입력하였습니다.")
+        else:
+            for i in range(5):
+                for row2 in og_sheets[i].iter_rows(min_row=2):
+                    for cell in row2:
+                        if cell.value == tree.item(selectedItem)['values'][0]:
+                            row2[2].value = int(tree.item(selectedItem)['values'][2])-num
+                            og_file.save(home)
+            # tree.item(selectedItem)['values'][2]=num-int(tree.item(selectedItem)['values'][2])
+            del_t()
+
+            trees1()
+            trees2()
+            trees3()
+            trees4()
+            trees5()
+
+
+            row.append(tree.item(selectedItem)['values'][0]) #물품명
+            row.append(tree.item(selectedItem)['values'][1]) #단가
+            row.append(num) #수량
+            row.append(row[1]*num) #금액
+            # messagebox.showinfo("",tree.item(selectedItem)['values'][0]) 물품명만 받기
+            new_p.append(row) #new_p에 저장(선택한 값 모두 받기
+        print(new_p)
+        close()
+    def go_enter(event): #엔터 사용을 위한 함수
+        num = int(amount.get())
+        selectedItem = tree.selection()[0]
+        row = []
+        if (((tree.item(selectedItem)['values'][2]) == None) | int(tree.item(selectedItem)['values'][2] < num)):
+            messagebox.showinfo("", "수량보다 많이 입력하였습니다.")
+        else:
+            for i in range(5):
+                for row2 in og_sheets[i].iter_rows(min_row=2):
+                    for cell in row2:
+                        if cell.value == tree.item(selectedItem)['values'][0]:
+                            row2[2].value = int(tree.item(selectedItem)['values'][2]) - num
+                            og_file.save(home)
+            row.append(tree.item(selectedItem)['values'][0])  # 물품명
+            row.append(tree.item(selectedItem)['values'][1])  # 단가
+            row.append(num)  # 수량
+            row.append(row[1] * num)  # 금액
+            # messagebox.showinfo("",tree.item(selectedItem)['values'][0]) 물품명만 받기
+            new_p.append(row)
+        print(new_p)
+        close()
+
+    count_item = Tk()  # 불러오기 하면 나오는 화면
+
+    count_item.geometry("200x150+500+300")  # 창의 크기
+    count_item.title("수량 입력")  # 창의 제목
+    count_item.option_add("*Font", "맑은고딕 14")  # 전체 폰트
+
+    ontk = Label(count_item) #수량 레이블
+    ontk.config(text="수량", width=10, relief="solid")
+    ontk.pack(side="top", pady=10)
+
+    amount = Entry(count_item) #수량 엔트리 go_enter 연결
+    amount.config(width=10, relief="solid", borderwidth=0)
+    amount.focus()
+    amount.bind("<Return>", go_enter)
+    amount.place(x=60,y=50)
+    amount.pack()
+
+    conf = Button(count_item, text="확인") #확인 버튼
+    conf.config(width=10, height=3, command=go) #go 연결
+    # conf.place(x=30,y=200)
+    conf.pack(side="bottom",pady=10)
+    count_item.mainloop()
 
 if __name__ == "__main__":
 #시트기준
@@ -329,7 +427,7 @@ if __name__ == "__main__":
     시트5.place(x=370,y=10)
 
     tree.place(x=10,y=200)
-    tree.bind("<Double-Button-1>",left_double)
+    tree.bind("<Double-Button-1>",l_double)
     tree2.place(x=500,y=200)
     # tree2.bind("<Double-Button-1>",center_double)
 
