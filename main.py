@@ -1,52 +1,4 @@
-# #rules
-# og_l은 모조건 왼쪽 물건의 목록을 저장하는 용도로 사용한다.
-# new_l은 무조건 오른쪽 물건의 목록을 저장하는 용도로 사용한다.
-#
-# og_show는 왼쪽 물건의 목록을 표시하는 용도로 사용한다.
-# new_show는 오른쪽 물건의 목록을 표시하는 용도로 사용한다.
-#
-# test.xlsx는 3종류의 목록을 3시트에 나눠서 보관한다.
-#
-# 왼쪽 목록을 표시할때마다 사용하는 메소드를 분리를 한다.
-#
-# 오른쪽 목록을 표시 할때만다 사용하는 메소드를 분리해서 만든다.
-#
-# 개발 주의사향
-# ++메소드는 최대한 여러번 사용할 수 있어야 하고 디테일하게 나눠야 한다.
-# ++화면에 보이는 상태와 뒤에서 데이터 처리를 할 때의 상태를 구분할 필요가 있음
 
-
-
-# 구현 해야하는 개발 목록
-# --4년이상 개인정보를 보호할 용도의 시트 또는 xl파일을 따로 생성.
-# --왼쪽 목록의 시트를 3개로 구분해야 하고 프리셋을 넣을 가능성 높음
-# --수량과 가격 입력 기능
-# --날짜 추가
-# --총 수납 관련 계산
-
-
-# -----------
-#
-# og_l 규칙
-# 왼쪽 시트 불러올때마다 새로운 시트로 업데이트
-#     -og_l 비우기
-#     -사용할 시트 결정
-#     -시트 row 길이 구하기
-#     -og_l에 해당 시트 저장
-#     -og_show 비우기
-#     -og_l 정보 og_show에 저장
-#
-# 오른쪽 시트 바뀔때마다 새로운 시트로 업데이트(수량 체크)
-#
-# new_l 규칙
-# 왼쪽에서 물건 넘어올때 업데이트
-# 오른쪽에서 물건 사라질 때마다 업데이트
-# 불러올때 업데이트
-#
-# temp_l -정의 안됨
-# 저장버튼이 안 눌러지면 다시 temp_l을 불러와서
-# 저장이 안되면 temp_l
-# 저장되면 new_l
 
 import tkinter
 from tkinter import * # tkinter의 모든 함수 가져오기
@@ -65,17 +17,6 @@ def del_t(): #오른쪽 트리 삭제용
 def del_t2(): #오른쪽 트리 삭제용
     tree2.delete(*tree2.get_children())
 
-# def left_tree1():
-#     og_p=[]
-#     del_t()
-#     og_sheets_row()
-#     setlist()
-#
-#     for i in range(1,(og_row[0])):
-#         tree.insert('', 'end', text="", values=og_l[0][i])
-#         og_p.append(og_l[0][i])
-#         # print(og_p[i - 1])
-#     tree.place(x=10, y=200)200]
 def l_tree1():
     global temp_sheet
     del_t()
@@ -108,6 +49,7 @@ def l_tree3():
     tree.place(x=10, y=200)
 def l_tree4():
     global temp_sheet
+    temp_sheet=[]
     del_t()
     og_sheets_row()
     setlist()
@@ -115,16 +57,23 @@ def l_tree4():
     temp_sheet = og_sheets[3]
     for i in range(1, og_row[3]):
         tree.insert('', 'end', text="", values=og_l[3][i])
+    print(temp_sheet.cell(2, 1).value)
+    temp_sheet.cell(2, 1).value = 3
+    print(temp_sheet.cell(2, 1).value)
+    print(og_sheets[3].cell(2,1).value)
     tree.place(x=10, y=200)
 def l_tree5():
     global temp_sheet
+    temp_sheet=[]
     del_t()
     og_sheets_row()
     setlist()
-
     temp_sheet = og_sheets[4]
     for i in range(1, og_row[4]):
         tree.insert('', 'end', text="", values=og_l[4][i])
+    print(temp_sheet.cell(2, 1).value)
+    temp_sheet.cell(2, 1).value=3
+    print(temp_sheet.cell(2,1).value)
     tree.place(x=10, y=200)
 
 
@@ -227,6 +176,59 @@ def center_tree():
         tree2.insert('', 'end', text="", values=new_p[i])
     tree2.place(x=500, y=200)
 
+
+def trees1():
+    del_t()
+    row=[]
+    b=[]
+    for x in range(2, (og_sheets[0].max_row + 1)):
+        for y in range(1, 4):
+            row.append(og_sheets[0].cell(x, y).value)
+        b.append(row)
+        row = []
+        tree.insert('', 'end', text="", values=b[x - 2])
+def trees2():
+    del_t()
+    row=[]
+    b=[]
+    for x in range(2, (og_sheets[1].max_row + 1)):
+        for y in range(1, 4):
+            row.append(og_sheets[1].cell(x, y).value)
+        b.append(row)
+        row = []
+        tree.insert('', 'end', text="", values=b[x - 2])
+def trees3():
+    del_t()
+    row=[]
+    b=[]
+    for x in range(2, (og_sheets[2].max_row + 1)):
+        for y in range(1, 4):
+            row.append(og_sheets[2].cell(x, y).value)
+        b.append(row)
+        row = []
+        tree.insert('', 'end', text="", values=b[x - 2])
+def trees4():
+    del_t()
+    row=[]
+    b=[]
+    for x in range(2, (og_sheets[3].max_row + 1)):
+        for y in range(1, 4):
+            row.append(og_sheets[3].cell(x, y).value)
+        b.append(row)
+        row = []
+        tree.insert('', 'end', text="", values=b[x - 2])
+def trees5():
+    del_t()
+    row=[]
+    b=[]
+    for x in range(2,(og_sheets[4].max_row+1)):
+        for y in range(1,4):
+            row.append(og_sheets[4].cell(x,y).value)
+        b.append(row)
+        row=[]
+        tree.insert('', 'end', text="", values=b[x-2])
+
+
 if __name__ == "__main__":
 #시트기준
 
@@ -249,7 +251,9 @@ if __name__ == "__main__":
     og_row=['','','','',''] #길이 저장
     og_l=[[],[],[],[],[]] #column 2개에 있는 cell info each list에 저장
     new_l=[] #불러오거나 저장핳때 사용할 예정
-    temp_sheet=None
+    global temp_l #목록만 기록
+    temp_l=[]
+    temp_sheet=[]
 
     global og_p #왼쪽 목록 폼 출력용
     global new_p #중앙 목록 폼 출력용
@@ -305,23 +309,23 @@ if __name__ == "__main__":
     #-------------------------------------------------
 
     시트1 = Button(win, text = "식당판매")
-    시트1.config(width=7,height=2,command=l_tree1)
+    시트1.config(width=7,height=2,command=trees1)
     시트1.place(x=10,y=10)
 
     시트2 = Button(win, text = "매점판매")
-    시트2.config(width=7,height=2,command=l_tree2)
+    시트2.config(width=7,height=2,command=trees2)
     시트2.place(x=100,y=10)
 
     시트3 = Button(win, text = "장의용품")
-    시트3.config(width=7,height=2,command=l_tree3)
+    시트3.config(width=7,height=2,command=trees3)
     시트3.place(x=190,y=10)
 
     시트4 = Button(win, text = "상복")
-    시트4.config(width=7,height=2,command=l_tree4)
+    시트4.config(width=7,height=2,command=trees4)
     시트4.place(x=280,y=10)
 
     시트5 = Button(win, text = "기타")
-    시트5.config(width=7,height=2,command=l_tree5)
+    시트5.config(width=7,height=2,command=trees5)
     시트5.place(x=370,y=10)
 
     tree.place(x=10,y=200)
