@@ -209,7 +209,6 @@ def left_double(event): #왼쪽 물품 더블클릭
     # conf.place(x=30,y=200)
     conf.pack(side="bottom",pady=10)
     count_item.mainloop()
-
 def center_tree():
     del_t2()
     for i in range(len(new_p)):
@@ -225,18 +224,13 @@ if __name__ == "__main__":
     # sp102
     # sp201
     # sp202
-    # ahn1
-    # ahn2
-    # ahn3
+
 
     home = 'xl/test.xlsx'
-    room1='/Users/doungukkim/Desktop/workspace/python/restinpeace/myway/excel/room_one.xlsx'
-    room2='/Users/doungukkim/Desktop/workspace/python/restinpeace/myway/excel/room_two.xlsx'
-    room3='/Users/doungukkim/Desktop/workspace/python/restinpeace/myway/excel/room_three.xlsx'
-    room5='/Users/doungukkim/Desktop/workspace/python/restinpeace/myway/excel/room_five.xlsx'
-    room6='/Users/doungukkim/Desktop/workspace/python/restinpeace/myway/excel/room_six.xlsx'
+    info_xl='xl/personal.xlsx'
 
     og_file= openpyxl.load_workbook(home, data_only=True) #초기 시트 위치 저장(값으로)
+    info_file=openpyxl.load_workbook(info_xl,data_only=True) #개인정보, 빈소별 물품정보 저장 공간(값으로)
 
     og_sheets=[og_file['식당판매'], og_file['매점판매'], og_file['장의용품'], og_file['상복'], og_file['기타']]  #시트 리스트에 저장 시트 이름 바꾸면 같이 바꿔야 함
     og_row=['','','','',''] #길이 저장
