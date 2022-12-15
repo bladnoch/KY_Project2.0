@@ -65,58 +65,70 @@ def del_t(): #오른쪽 트리 삭제용
 def del_t2(): #오른쪽 트리 삭제용
     tree2.delete(*tree2.get_children())
 
-def left_tree1():
-    og_p=[]
+# def left_tree1():
+#     og_p=[]
+#     del_t()
+#     og_sheets_row()
+#     setlist()
+#
+#     for i in range(1,(og_row[0])):
+#         tree.insert('', 'end', text="", values=og_l[0][i])
+#         og_p.append(og_l[0][i])
+#         # print(og_p[i - 1])
+#     tree.place(x=10, y=200)200]
+def l_tree1():
+    global temp_sheet
     del_t()
     og_sheets_row()
     setlist()
 
-    for i in range(1,(og_row[0])):
+    temp_sheet=og_sheets[0]
+    for i in range(1,og_row[0]):
         tree.insert('', 'end', text="", values=og_l[0][i])
-        og_p.append(og_l[0][i])
-        # print(og_p[i - 1])
-    tree.place(x=10, y=200)
-def left_tree2():
-    og_p = []
+    tree.place(x=10,y=200)
+def l_tree2():
+    global temp_sheet
     del_t()
     og_sheets_row()
     setlist()
 
-    for i in range(1, (og_row[1])):
+    temp_sheet = og_sheets[1]
+    for i in range(1, og_row[1]):
         tree.insert('', 'end', text="", values=og_l[1][i])
-        og_p.append(og_l[1][i])
-        # print(og_p[i - 1])
-
     tree.place(x=10, y=200)
-def left_tree3():
-    og_p = []
+def l_tree3():
+    global temp_sheet
     del_t()
     og_sheets_row()
     setlist()
 
-    for i in range(1, (og_row[2])):
+    temp_sheet = og_sheets[2]
+    for i in range(1, og_row[2]):
         tree.insert('', 'end', text="", values=og_l[2][i])
-        og_p.append(og_l[2][i])
     tree.place(x=10, y=200)
-def left_tree4():
-    og_p=[]
+def l_tree4():
+    global temp_sheet
     del_t()
     og_sheets_row()
     setlist()
-    for i in range(1, (og_row[3])):
+
+    temp_sheet = og_sheets[3]
+    for i in range(1, og_row[3]):
         tree.insert('', 'end', text="", values=og_l[3][i])
-        og_p.append(og_l[3][i])
     tree.place(x=10, y=200)
-def left_tree5():
-    og_p=[]
+def l_tree5():
+    global temp_sheet
     del_t()
     og_sheets_row()
     setlist()
-    for i in range(1, (og_row[4])):
+
+    temp_sheet = og_sheets[4]
+    for i in range(1, og_row[4]):
         tree.insert('', 'end', text="", values=og_l[4][i])
-        og_p.append(og_l[4][i])
-        # print(og_p[i-1])
     tree.place(x=10, y=200)
+
+
+
 def og_sheets_row(): #왼쪽 시트별 길이 저장 =>og_row(5개 기준)
     count = 0
     for i in range(len(og_sheets)):
@@ -159,7 +171,7 @@ def left_double(event): #왼쪽 물품 더블클릭
         if(((tree.item(selectedItem)['values'][2])==None)| (tree.item(selectedItem)['values'][2]<num)):
             messagebox.showinfo("","수량보다 많이 입력하였습니다.")
         else:
-            tree.item(selectedItem)['values'][2]=num-int(tree.item(selectedItem)['values'][2])
+            # tree.item(selectedItem)['values'][2]=num-int(tree.item(selectedItem)['values'][2])
             print(tree.item(selectedItem)['values'][2])
 
             row.append(tree.item(selectedItem)['values'][0]) #물품명
@@ -230,12 +242,14 @@ if __name__ == "__main__":
     info_xl='xl/personal.xlsx'
 
     og_file= openpyxl.load_workbook(home, data_only=True) #초기 시트 위치 저장(값으로)
-    info_file=openpyxl.load_workbook(info_xl,data_only=True) #개인정보, 빈소별 물품정보 저장 공간(값으로)
+    info_file=openpyxl.load_workbook(info_xl,data_only=True) #개인정보, 빈소별 물품정보 저장 공간(값으)
 
+    inf_sheets=[info_file['빈소1']]
     og_sheets=[og_file['식당판매'], og_file['매점판매'], og_file['장의용품'], og_file['상복'], og_file['기타']]  #시트 리스트에 저장 시트 이름 바꾸면 같이 바꿔야 함
     og_row=['','','','',''] #길이 저장
     og_l=[[],[],[],[],[]] #column 2개에 있는 cell info each list에 저장
     new_l=[] #불러오거나 저장핳때 사용할 예정
+    temp_sheet=None
 
     global og_p #왼쪽 목록 폼 출력용
     global new_p #중앙 목록 폼 출력용
@@ -291,23 +305,23 @@ if __name__ == "__main__":
     #-------------------------------------------------
 
     시트1 = Button(win, text = "식당판매")
-    시트1.config(width=7,height=2,command=left_tree1)
+    시트1.config(width=7,height=2,command=l_tree1)
     시트1.place(x=10,y=10)
 
     시트2 = Button(win, text = "매점판매")
-    시트2.config(width=7,height=2,command=left_tree2)
+    시트2.config(width=7,height=2,command=l_tree2)
     시트2.place(x=100,y=10)
 
     시트3 = Button(win, text = "장의용품")
-    시트3.config(width=7,height=2,command=left_tree3)
+    시트3.config(width=7,height=2,command=l_tree3)
     시트3.place(x=190,y=10)
 
     시트4 = Button(win, text = "상복")
-    시트4.config(width=7,height=2,command=left_tree4)
+    시트4.config(width=7,height=2,command=l_tree4)
     시트4.place(x=280,y=10)
 
     시트5 = Button(win, text = "기타")
-    시트5.config(width=7,height=2,command=left_tree5)
+    시트5.config(width=7,height=2,command=l_tree5)
     시트5.place(x=370,y=10)
 
     tree.place(x=10,y=200)
