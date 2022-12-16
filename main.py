@@ -79,7 +79,6 @@ def left_double(event): #왼쪽 물품 더블클릭
     conf.pack(side="bottom",pady=10)
     count_item.mainloop()
 
-
 def center_tree():
     del_t2()
     for i in range(len(new_p)):
@@ -87,15 +86,25 @@ def center_tree():
     tree2.place(x=500, y=200)
 def btn1():
     insert_tree(og_sheets[0])
+    global temp_sheet
+    temp_sheet = og_sheets[0]
 def btn2():
     insert_tree(og_sheets[1])
+    global temp_sheet
+    temp_sheet = og_sheets[1]
 def btn3():
     insert_tree(og_sheets[2])
+    global temp_sheet
+    temp_sheet = og_sheets[2]
 def btn4():
     insert_tree(og_sheets[3])
+    global temp_sheet
+    temp_sheet = og_sheets[3]
 def btn5():
     insert_tree(og_sheets[4])
-def insert_tree(sheet):
+    global temp_sheet
+    temp_sheet=og_sheets[4]
+def insert_tree(sheet): #자료형 변환해서 화면 표시, 저장
     del_t()
     row = []
     modified_sheet = []
@@ -116,7 +125,6 @@ def insert_tree(sheet):
         tree.insert('', 'end', text="", values=modified_sheet[x - 2])
     og_file.save(home)
 
-
 def l_double(event): #왼쪽 물품 더블클릭
     def close():
         center_tree()
@@ -126,22 +134,17 @@ def l_double(event): #왼쪽 물품 더블클릭
         num=int(amount.get()) #입력된 텍스트(수량)저장
         selectedItem = tree.selection()[0]  # tree 선택한 위치 받기
         #물품명 단가 수량 금액
-        print(int(float(tree.item(selectedItem)['values'][2])))
-        print(type(tree.item(selectedItem)['values'][2]))
+        tree.item(selectedItem)['values'][2]
         row=[] #지역변수 리셋 필요 없음
         if(((tree.item(selectedItem)['values'][2])==None)| (tree.item(selectedItem)['values'][2]<num)):
             messagebox.showinfo("","수량보다 많이 입력하였습니다.")
         else:
-            for i in range(5):
-                for row2 in og_sheets[i].iter_rows(min_row=2):
-                    for cell in row2:
-                        if cell.value == tree.item(selectedItem)['values'][0]:
-                            row2[2].value = int(tree.item(selectedItem)['values'][2])-num
-                            og_file.save(home)
+            for row2 in temp_sheet.iter_rows(min_row=2):
+                for cell in row2:
+                    if cell.value == tree.item(selectedItem)['values'][0]:
+                        row2[2].value = int(tree.item(selectedItem)['values'][2])-num
+                        og_file.save(home)
             # tree.item(selectedItem)['values'][2]=num-int(tree.item(selectedItem)['values'][2])
-            del_t()
-
-
             row.append(tree.item(selectedItem)['values'][0]) #물품명
             row.append(tree.item(selectedItem)['values'][1]) #단가
             row.append(num) #수량
@@ -171,6 +174,9 @@ def l_double(event): #왼쪽 물품 더블클릭
             new_p.append(row)
         print(new_p)
         close()
+
+    global temp_sheet
+    print(temp_sheet)
 
     count_item = Tk()  # 불러오기 하면 나오는 화면
 
@@ -212,19 +218,16 @@ if __name__ == "__main__":
     og_file= openpyxl.load_workbook(home, data_only=True) #초기 시트 위치 저장(값으로)
     info_file=openpyxl.load_workbook(info_xl,data_only=True) #개인정보, 빈소별 물품정보 저장 공간(값으)
 
-    inf_sheets=[info_file['빈소1']]
+    info_sheets=[info_file['빈소1']] #지금은 하나만 사용하지만 빈소 창이 생기면 9개로 늘어날 것임
     og_sheets=[og_file['식당판매'], og_file['매점판매'], og_file['장의용품'], og_file['상복'], og_file['기타']]  #시트 리스트에 저장 시트 이름 바꾸면 같이 바꿔야 함
-    og_row=['','','','',''] #길이 저장
-    og_l=[[],[],[],[],[]] #column 2개에 있는 cell info each list에 저장
-    new_l=[] #불러오거나 저장핳때 사용할 예정
-    global temp_l #목록만 기록
-    temp_l=[]
-    temp_sheet=[]
 
-    global og_p #왼쪽 목록 폼 출력용
+    og_row=['','','','',''] #길이 저장
+
+
+    global temp_sheet
+
     global new_p #중앙 목록 폼 출력용
     new_p=[]
-    global count
 
 
 
@@ -253,8 +256,8 @@ if __name__ == "__main__":
 
     #-------------------------------------------------
 
-    tree2 = tkinter.ttk.Treeview(win, columns=["one", "two", "three","four"],
-                                displaycolumns=["one", "two", "three","four"], height=24)  # 4개 창 생성
+    tree2 = tkinter.ttk.Treeview(win, columns=["one", "two", "three","four","five"],
+                                displaycolumns=["one", "two", "three","four","five"], height=24)  # 4개 창 생성
 
     tree2.column("#0", width=10, anchor="center")  # 0
     tree2.heading("#0", text="", anchor="center")
@@ -270,6 +273,9 @@ if __name__ == "__main__":
 
     tree2.column("#4", width=100, anchor="center")  # 4
     tree2.heading("#4", text="금액", anchor="center")
+
+    tree2.column("#5", width=100, anchor="center")  # 5
+    tree2.heading("#5", text="단위", anchor="center")
 
 
     #-------------------------------------------------
