@@ -1,5 +1,3 @@
-
-
 import tkinter
 from tkinter import * # tkinter의 모든 함수 가져오기
 from tkinter import messagebox, filedialog
@@ -16,36 +14,6 @@ def del_t(): #오른쪽 트리 삭제용
     tree.delete(*tree.get_children())
 def del_t2(): #오른쪽 트리 삭제용
     tree2.delete(*tree2.get_children())
-
-
-def og_sheets_row(): #왼쪽 시트별 길이 저장 =>og_row(5개 기준)
-    count = 0
-    for i in range(len(og_sheets)):
-        for rows in og_sheets[i].iter_rows():  # ws시트 row 길이를 count에 저장
-            count += 1
-        og_row[i]=count
-        count=0
-def setlist(): #셀 값 저장 => og_l 시트 5개 기준(column 3개)
-    og_sheets_row() #사용할때마다 row를 다시 구한다
-    row=[]
-    for i in range(len(og_l)): #og_l리스트 길이만큼(5)
-         for k in range(1, (og_row[i] + 1)):  # og_l[i] row 길이만큼 반복
-            for j in range(1, 4): #column 1,2,3 저장 (품명,가격,수량)
-                if(k==1):
-                    row.append(og_sheets[i].cell(k,j).value)
-                elif(type(og_sheets[i].cell(k, j).value)==float):
-                    row.append(int(og_sheets[i].cell(k,j).value))
-                    # print(type(int(og_sheets[i].cell(k, j).value)))
-                elif((og_sheets[i].cell(k, j).value==None)):
-                    row.append(int(0))
-                else:
-                    row.append(og_sheets[i].cell(k, j).value)
-
-            og_l[i].append(row)
-            # print(og_l[i])
-            row = []
-    # for i in range(len(og_l)):
-    #     print(og_l[i])
 def left_double(event): #왼쪽 물품 더블클릭
     def close():
         center_tree()
@@ -110,45 +78,13 @@ def left_double(event): #왼쪽 물품 더블클릭
     # conf.place(x=30,y=200)
     conf.pack(side="bottom",pady=10)
     count_item.mainloop()
+
+
 def center_tree():
     del_t2()
     for i in range(len(new_p)):
         tree2.insert('', 'end', text="", values=new_p[i])
     tree2.place(x=500, y=200)
-
-def trees5():
-    del_t()
-    row=[]
-    b=[]
-
-    for x in range(2, (og_sheets[4].max_row + 1)):
-        for y in range(1, 4):
-            if(og_sheets[4].cell(x,1).value==None) | (og_sheets[4].cell(x,1).value=='') | (og_sheets[4].cell(x,1).value==0): #물품명이 None, '', 0 이면 참조 끝
-                break
-            elif og_sheets[4].cell(x, y).value==None:
-                row.append(0)
-            else:
-                row.append(og_sheets[4].cell(x, y).value)
-        b.append(row)
-        row = []
-        tree.insert('', 'end', text="", values=b[x - 2])
-        # for x in range(2,(og_sheets[4].max_row+1)):
-        #     for y in range(1,4):
-        #         if y==2:
-        #             print(2)
-        #             row.append(int(float(og_sheets[4].cell(x,y).value))) #가격이 str로 저장되어 있어서 int로 바꿔줌...
-        #         elif (y==3):
-        #             print(3)
-        #             if(type(og_sheets[4].cell(x, y).value)==str):
-        #                 row.append(int(float(og_sheets[4].cell(x, y).value)))
-        #             elif(type(og_sheets[4].cell(x, y).value)==float):
-        #                 row.append(int(og_sheets[4].cell(x, y).value))
-        #             else:
-        #                 row.append(og_sheets[4].cell(x, y).value) #수량이 None이거나
-        #         else:
-        #             print(1)
-        #             row.append(og_sheets[4].cell(x, y).value)
-
 def btn1():
     insert_tree(og_sheets[0])
 def btn2():
@@ -159,11 +95,10 @@ def btn4():
     insert_tree(og_sheets[3])
 def btn5():
     insert_tree(og_sheets[4])
-
 def insert_tree(sheet):
     del_t()
     row = []
-    b = []
+    modified_sheet = []
 
     for x in range(2, (sheet.max_row + 1)):
         for y in range(1, 4):
@@ -171,17 +106,15 @@ def insert_tree(sheet):
                 break
             elif sheet.cell(x, y).value == None: #None이면 0으로
                 row.append(0)
-            elif y!=1:
+            elif (y!=1) & (type(sheet.cell(x,y).value)==str): #
+                print(1)
                 row.append(int(float(sheet.cell(x,y).value)))
             else:
                 row.append(sheet.cell(x, y).value)
-        b.append(row)
+        modified_sheet.append(row)
         row = []
-        tree.insert('', 'end', text="", values=b[x - 2])
-
-
-
-
+        tree.insert('', 'end', text="", values=modified_sheet[x - 2])
+    og_file.save(home)
 
 
 def l_double(event): #왼쪽 물품 더블클릭
