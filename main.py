@@ -14,21 +14,7 @@ def del_t(): #오른쪽 트리 삭제용
     tree.delete(*tree.get_children())
 def del_t2(): #오른쪽 트리 삭제용
     tree2.delete(*tree2.get_children())
-def center_tree(): #중앙 트리뷰에 표시
-    del_t2()
-    for i in range(len(new_p)):
-        tree2.insert('', 'end', text="", values=new_p[i])
-    tree2.place(x=500, y=200)
 
-    save()
-def save(): #개인 정보 물품에 저장
-    print(new_p)
-    for i in range(len(new_p)):
-        info_sheets[0].delete_rows(0)
-    for x in range(1,(len(new_p))):
-        for y in range(1,6):
-            info_sheets[0].cell(x,y).value=new_p[x-1][y-1]
-            info_file.save(info_xl)
 def btn1():
     insert_tree(og_sheets[0])
     global temp_sheet
@@ -80,8 +66,8 @@ def l_double(event): #왼쪽 물품 더블클릭
     def go(): #확인 버튼
         num=int(amount.get()) #입력된 텍스트(수량)저장
         selectedItem = tree.selection()[0]  # tree 선택한 위치 받기
-        #물품명 단가 수량 금액
-        # tree.item(selectedItem)['values'][2]
+
+
         row=[] #지역변수 리셋 필요 없음
         if(((tree.item(selectedItem)['values'][2])==None)| (tree.item(selectedItem)['values'][2]<num)):
             messagebox.showinfo("","수량보다 많이 입력하였습니다.")
@@ -91,22 +77,27 @@ def l_double(event): #왼쪽 물품 더블클릭
                     if cell.value == tree.item(selectedItem)['values'][0]:
                         row2[2].value = int(tree.item(selectedItem)['values'][2])-num
                         og_file.save(home)
-            # tree.item(selectedItem)['values'][2]=num-int(tree.item(selectedItem)['values'][2])
-            row.append(tree.item(selectedItem)['values'][0]) #물품명
-            row.append(tree.item(selectedItem)['values'][1]) #단가
-            row.append(num) #수량
-            row.append(row[1]*num) #금액
+
+            row.append(tree.item(selectedItem)['values'][0])  # 물품명
+            row.append(tree.item(selectedItem)['values'][1])  # 단가
+            row.append(num)  # 수량
+            row.append(row[1] * num)  # 금액
             row.append(tree.item(selectedItem)['values'][3])
-            # messagebox.showinfo("",tree.item(selectedItem)['values'][0]) 물품명만 받기
-            new_p.append(row) #new_p에 저장(선택한 값 모두 받기
-        print(new_p)
-        insert_tree(temp_sheet)
+            new_p.append(row)  # new_p에 저장(선택한 값 모두 받기
+
+            for i in range(len(new_p)-1):
+                if (new_p[i][0] == tree.item(selectedItem)['values'][0]):
+                    new_p[i][2] += num
+                    new_p[i][3] = tree.item(selectedItem)['values'][1] * new_p[i][2]
+                    new_p.remove(row)
+            insert_tree(temp_sheet)
         close()
+
+        # print(new_p[0][0])
     def go_enter(event): #엔터 사용을 위한 함수
         num = int(amount.get())  # 입력된 텍스트(수량)저장
         selectedItem = tree.selection()[0]  # tree 선택한 위치 받기
-        # 물품명 단가 수량 금액
-        # tree.item(selectedItem)['values'][2]
+
         row = []  # 지역변수 리셋 필요 없음
         if (((tree.item(selectedItem)['values'][2]) == None) | (tree.item(selectedItem)['values'][2] < num)):
             messagebox.showinfo("", "수량보다 많이 입력하였습니다.")
@@ -116,16 +107,20 @@ def l_double(event): #왼쪽 물품 더블클릭
                     if cell.value == tree.item(selectedItem)['values'][0]:
                         row2[2].value = int(tree.item(selectedItem)['values'][2]) - num
                         og_file.save(home)
-            # tree.item(selectedItem)['values'][2]=num-int(tree.item(selectedItem)['values'][2])
+
             row.append(tree.item(selectedItem)['values'][0])  # 물품명
             row.append(tree.item(selectedItem)['values'][1])  # 단가
             row.append(num)  # 수량
             row.append(row[1] * num)  # 금액
             row.append(tree.item(selectedItem)['values'][3])
-            # messagebox.showinfo("",tree.item(selectedItem)['values'][0]) 물품명만 받기
             new_p.append(row)  # new_p에 저장(선택한 값 모두 받기
-        print(new_p)
-        insert_tree(temp_sheet)
+
+            for i in range(len(new_p) - 1):
+                if (new_p[i][0] == tree.item(selectedItem)['values'][0]):
+                    new_p[i][2] += num
+                    new_p[i][3] = tree.item(selectedItem)['values'][1] * new_p[i][2]
+                    new_p.remove(row)
+            insert_tree(temp_sheet)
         close()
 
     global temp_sheet
@@ -153,6 +148,21 @@ def l_double(event): #왼쪽 물품 더블클릭
     # conf.place(x=30,y=200)
     conf.pack(side="bottom",pady=10)
     count_item.mainloop()
+def center_tree(): #중앙 트리뷰에 표시
+    del_t2()
+    for i in range(len(new_p)):
+        tree2.insert('', 'end', text="", values=new_p[i])
+    tree2.place(x=500, y=200)
+    save()
+def save(): #개인 정보 물품에 저장
+    print(new_p)
+    for i in range(len(new_p)):
+        info_sheets[0].delete_rows(0) #-----------info_sheets[0]은 시트가 늘어나면 숭자가 바뀔 예정
+    for x in range(1,(len(new_p)+1)):
+        for y in range(1,6):
+            info_sheets[0].cell(x,y).value=new_p[x-1][y-1]
+            info_file.save(info_xl)
+
 
 if __name__ == "__main__":
 #시트기준
