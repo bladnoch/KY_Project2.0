@@ -11,8 +11,11 @@ def og_rows(): #왼쪽 시트별 길이 저장 =>og_row(5개 기준)
 
 
 def print_sheet():
+    count=0
     for i in range(5):
+        print(count)
         for row in og_sheets[i].iter_rows(min_row=2):
+            count+=1
             for cell in row:
                 if cell.value=="치킨":
                     row[2].value=100

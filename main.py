@@ -17,66 +17,6 @@ def del_t(): #오른쪽 트리 삭제용
 def del_t2(): #오른쪽 트리 삭제용
     tree2.delete(*tree2.get_children())
 
-def l_tree1():
-    global temp_sheet
-    del_t()
-    og_sheets_row()
-    setlist()
-
-    temp_sheet=og_sheets[0]
-    for i in range(1,og_row[0]):
-        tree.insert('', 'end', text="", values=og_l[0][i])
-    tree.place(x=10,y=200)
-def l_tree2():
-    global temp_sheet
-    del_t()
-    og_sheets_row()
-    setlist()
-
-    temp_sheet = og_sheets[1]
-    for i in range(1, og_row[1]):
-        tree.insert('', 'end', text="", values=og_l[1][i])
-    tree.place(x=10, y=200)
-def l_tree3():
-    global temp_sheet
-    del_t()
-    og_sheets_row()
-    setlist()
-
-    temp_sheet = og_sheets[2]
-    for i in range(1, og_row[2]):
-        tree.insert('', 'end', text="", values=og_l[2][i])
-    tree.place(x=10, y=200)
-def l_tree4():
-    global temp_sheet
-    temp_sheet=[]
-    del_t()
-    og_sheets_row()
-    setlist()
-
-    temp_sheet = og_sheets[3]
-    for i in range(1, og_row[3]):
-        tree.insert('', 'end', text="", values=og_l[3][i])
-    print(temp_sheet.cell(2, 1).value)
-    temp_sheet.cell(2, 1).value = 3
-    print(temp_sheet.cell(2, 1).value)
-    print(og_sheets[3].cell(2,1).value)
-    tree.place(x=10, y=200)
-def l_tree5():
-    global temp_sheet
-    temp_sheet=[]
-    del_t()
-    og_sheets_row()
-    setlist()
-    temp_sheet = og_sheets[4]
-    for i in range(1, og_row[4]):
-        tree.insert('', 'end', text="", values=og_l[4][i])
-    print(temp_sheet.cell(2, 1).value)
-    temp_sheet.cell(2, 1).value=3
-    print(temp_sheet.cell(2,1).value)
-    tree.place(x=10, y=200)
-
-
 
 def og_sheets_row(): #왼쪽 시트별 길이 저장 =>og_row(5개 기준)
     count = 0
@@ -106,141 +46,142 @@ def setlist(): #셀 값 저장 => og_l 시트 5개 기준(column 3개)
             row = []
     # for i in range(len(og_l)):
     #     print(og_l[i])
-# def left_double(event): #왼쪽 물품 더블클릭
-#     def close():
-#         center_tree()
-#         count_item.quit()
-#         count_item.destroy()
-#     def go(): #확인 버튼
-#         num=int(amount.get()) #입력된 텍스트(수량)저장
-#         selectedItem = tree.selection()[0]  # tree 선택한 위치 받기
-#         #물품명 단가 수량 금액
-#
-#         row=[] #지역변수 리셋 필요 없음
-#         if(((tree.item(selectedItem)['values'][2])==None)| (tree.item(selectedItem)['values'][2]<num)):
-#             messagebox.showinfo("","수량보다 많이 입력하였습니다.")
-#         else:
-#             # tree.item(selectedItem)['values'][2]=num-int(tree.item(selectedItem)['values'][2])
-#             print(tree.item(selectedItem)['values'][2])
-#
-#             row.append(tree.item(selectedItem)['values'][0]) #물품명
-#             row.append(tree.item(selectedItem)['values'][1]) #단가
-#             row.append(num) #수량
-#             row.append(row[1]*num) #금액
-#             # messagebox.showinfo("",tree.item(selectedItem)['values'][0]) 물품명만 받기
-#             new_p.append(row) #new_p에 저장(선택한 값 모두 받기
-#         print(new_p)
-#         close()
-#     def go_enter(event): #엔터 사용을 위한 함수
-#         num = int(amount.get())
-#         selectedItem = tree.selection()[0]
-#         row = []
-#         if (((tree.item(selectedItem)['values'][2]) == None) | (tree.item(selectedItem)['values'][2] < num)):
-#             messagebox.showinfo("", "수량보다 많이 입력하였습니다.")
-#         else:
-#             row.append(tree.item(selectedItem)['values'][0])  # 물품명
-#             row.append(tree.item(selectedItem)['values'][1])  # 단가
-#             row.append(num)  # 수량
-#             row.append(row[1] * num)  # 금액
-#             # messagebox.showinfo("",tree.item(selectedItem)['values'][0]) 물품명만 받기
-#             new_p.append(row)
-#         print(new_p)
-#         close()
-#
-#
-#     count_item = Tk()  # 불러오기 하면 나오는 화면
-#
-#     count_item.geometry("200x150+500+300")  # 창의 크기
-#     count_item.title("수량 입력")  # 창의 제목
-#     count_item.option_add("*Font", "맑은고딕 14")  # 전체 폰트
-#
-#     ontk = Label(count_item) #수량 레이블
-#     ontk.config(text="수량", width=10, relief="solid")
-#     ontk.pack(side="top", pady=10)
-#
-#     amount = Entry(count_item) #수량 엔트리 go_enter 연결
-#     amount.config(width=10, relief="solid", borderwidth=0)
-#     amount.focus()
-#     amount.bind("<Return>", go_enter)
-#     amount.place(x=60,y=50)
-#     amount.pack()
-#
-#     conf = Button(count_item, text="확인") #확인 버튼
-#     conf.config(width=10, height=3, command=go) #go 연결
-#     # conf.place(x=30,y=200)
-#     conf.pack(side="bottom",pady=10)
-#     count_item.mainloop()
+def left_double(event): #왼쪽 물품 더블클릭
+    def close():
+        center_tree()
+        count_item.quit()
+        count_item.destroy()
+    def go(): #확인 버튼
+        num=int(amount.get()) #입력된 텍스트(수량)저장
+        selectedItem = tree.selection()[0]  # tree 선택한 위치 받기
+        #물품명 단가 수량 금액
+
+        row=[] #지역변수 리셋 필요 없음
+        if(((tree.item(selectedItem)['values'][2])==None)| (tree.item(selectedItem)['values'][2]<num)):
+            messagebox.showinfo("","수량보다 많이 입력하였습니다.")
+        else:
+            # tree.item(selectedItem)['values'][2]=num-int(tree.item(selectedItem)['values'][2])
+            print(tree.item(selectedItem)['values'][2])
+
+            row.append(tree.item(selectedItem)['values'][0]) #물품명
+            row.append(tree.item(selectedItem)['values'][1]) #단가
+            row.append(num) #수량
+            row.append(row[1]*num) #금액
+            # messagebox.showinfo("",tree.item(selectedItem)['values'][0]) 물품명만 받기
+            new_p.append(row) #new_p에 저장(선택한 값 모두 받기
+        print(new_p)
+        close()
+    def go_enter(event): #엔터 사용을 위한 함수
+        num = int(amount.get())
+        selectedItem = tree.selection()[0]
+        row = []
+        if (((tree.item(selectedItem)['values'][2]) == None) | (tree.item(selectedItem)['values'][2] < num)):
+            messagebox.showinfo("", "수량보다 많이 입력하였습니다.")
+        else:
+            row.append(tree.item(selectedItem)['values'][0])  # 물품명
+            row.append(tree.item(selectedItem)['values'][1])  # 단가
+            row.append(num)  # 수량
+            row.append(row[1] * num)  # 금액
+            # messagebox.showinfo("",tree.item(selectedItem)['values'][0]) 물품명만 받기
+            new_p.append(row)
+        print(new_p)
+        close()
+
+
+    count_item = Tk()  # 불러오기 하면 나오는 화면
+
+    count_item.geometry("200x150+500+300")  # 창의 크기
+    count_item.title("수량 입력")  # 창의 제목
+    count_item.option_add("*Font", "맑은고딕 14")  # 전체 폰트
+
+    ontk = Label(count_item) #수량 레이블
+    ontk.config(text="수량", width=10, relief="solid")
+    ontk.pack(side="top", pady=10)
+
+    amount = Entry(count_item) #수량 엔트리 go_enter 연결
+    amount.config(width=10, relief="solid", borderwidth=0)
+    amount.focus()
+    amount.bind("<Return>", go_enter)
+    amount.place(x=60,y=50)
+    amount.pack()
+
+    conf = Button(count_item, text="확인") #확인 버튼
+    conf.config(width=10, height=3, command=go) #go 연결
+    # conf.place(x=30,y=200)
+    conf.pack(side="bottom",pady=10)
+    count_item.mainloop()
 def center_tree():
     del_t2()
     for i in range(len(new_p)):
         tree2.insert('', 'end', text="", values=new_p[i])
     tree2.place(x=500, y=200)
 
-
-def trees1():
-    del_t()
-    row=[]
-    b=[]
-    for x in range(2, (og_sheets[0].max_row + 1)):
-        for y in range(1, 4):
-            row.append(og_sheets[0].cell(x, y).value)
-        b.append(row)
-        row = []
-        tree.insert('', 'end', text="", values=b[x - 2])
-def trees2():
-    del_t()
-    row=[]
-    b=[]
-    for x in range(2, (og_sheets[1].max_row + 1)):
-        for y in range(1, 4):
-            row.append(og_sheets[1].cell(x, y).value)
-        b.append(row)
-        row = []
-        tree.insert('', 'end', text="", values=b[x - 2])
-def trees3():
-    del_t()
-    row=[]
-    b=[]
-    for x in range(2, (og_sheets[2].max_row + 1)):
-        for y in range(1, 4):
-            row.append(og_sheets[2].cell(x, y).value)
-        b.append(row)
-        row = []
-        tree.insert('', 'end', text="", values=b[x - 2])
-def trees4():
-    del_t()
-    row=[]
-    b=[]
-    for x in range(2, (og_sheets[3].max_row + 1)):
-        for y in range(1, 4):
-            row.append(og_sheets[3].cell(x, y).value)
-        b.append(row)
-        row = []
-        tree.insert('', 'end', text="", values=b[x - 2])
 def trees5():
     del_t()
     row=[]
     b=[]
-    for x in range(2,(og_sheets[4].max_row+1)):
-        for y in range(1,4):
-            if y==2:
-                print(2)
-                row.append(int(float(og_sheets[4].cell(x,y).value))) #가격이 str로 저장되어 있어서 int로 바꿔줌...
-            elif (y==3):
-                print(3)
-                if(type(og_sheets[4].cell(x, y).value)==str):
-                    row.append(int(float(og_sheets[4].cell(x, y).value)))
-                elif(type(og_sheets[4].cell(x, y).value)==float):
-                    row.append(int(og_sheets[4].cell(x, y).value))
-                else:
-                    row.append(og_sheets[4].cell(x, y).value) #수량이 None이거나
-            else:
-                print(1)
-                row.append(og_sheets[4].cell(x, y).value)
 
+    for x in range(2, (og_sheets[4].max_row + 1)):
+        for y in range(1, 4):
+            if(og_sheets[4].cell(x,1).value==None) | (og_sheets[4].cell(x,1).value=='') | (og_sheets[4].cell(x,1).value==0): #물품명이 None, '', 0 이면 참조 끝
+                break
+            elif og_sheets[4].cell(x, y).value==None:
+                row.append(0)
+            else:
+                row.append(og_sheets[4].cell(x, y).value)
         b.append(row)
-        row=[]
-        tree.insert('', 'end', text="", values=b[x-2])
+        row = []
+        tree.insert('', 'end', text="", values=b[x - 2])
+        # for x in range(2,(og_sheets[4].max_row+1)):
+        #     for y in range(1,4):
+        #         if y==2:
+        #             print(2)
+        #             row.append(int(float(og_sheets[4].cell(x,y).value))) #가격이 str로 저장되어 있어서 int로 바꿔줌...
+        #         elif (y==3):
+        #             print(3)
+        #             if(type(og_sheets[4].cell(x, y).value)==str):
+        #                 row.append(int(float(og_sheets[4].cell(x, y).value)))
+        #             elif(type(og_sheets[4].cell(x, y).value)==float):
+        #                 row.append(int(og_sheets[4].cell(x, y).value))
+        #             else:
+        #                 row.append(og_sheets[4].cell(x, y).value) #수량이 None이거나
+        #         else:
+        #             print(1)
+        #             row.append(og_sheets[4].cell(x, y).value)
+
+def btn1():
+    insert_tree(og_sheets[0])
+def btn2():
+    insert_tree(og_sheets[1])
+def btn3():
+    insert_tree(og_sheets[2])
+def btn4():
+    insert_tree(og_sheets[3])
+def btn5():
+    insert_tree(og_sheets[4])
+
+def insert_tree(sheet):
+    del_t()
+    row = []
+    b = []
+
+    for x in range(2, (sheet.max_row + 1)):
+        for y in range(1, 4):
+            if (sheet.cell(x, 1).value == None) | (sheet.cell(x, 1).value == '') | (sheet.cell(x, 1).value == 0):  # 물품명이 None, '', 0 이면 참조 끝
+                break
+            elif sheet.cell(x, y).value == None: #None이면 0으로
+                row.append(0)
+            elif y!=1:
+                row.append(int(float(sheet.cell(x,y).value)))
+            else:
+                row.append(sheet.cell(x, y).value)
+        b.append(row)
+        row = []
+        tree.insert('', 'end', text="", values=b[x - 2])
+
+
+
+
 
 
 def l_double(event): #왼쪽 물품 더블클릭
@@ -266,12 +207,6 @@ def l_double(event): #왼쪽 물품 더블클릭
                             og_file.save(home)
             # tree.item(selectedItem)['values'][2]=num-int(tree.item(selectedItem)['values'][2])
             del_t()
-
-            trees1()
-            trees2()
-            trees3()
-            trees4()
-            trees5()
 
 
             row.append(tree.item(selectedItem)['values'][0]) #물품명
@@ -331,7 +266,7 @@ if __name__ == "__main__":
 #시트기준
 
 
-#빈소 특 101,102,201,202, 안치1, 안치2, 안치3
+#빈소 특 101,102,201,202
     # sp101
     # sp102
     # sp201
@@ -407,23 +342,23 @@ if __name__ == "__main__":
     #-------------------------------------------------
 
     시트1 = Button(win, text = "식당판매")
-    시트1.config(width=7,height=2,command=trees1)
+    시트1.config(width=7,height=2,command=btn1)
     시트1.place(x=10,y=10)
 
     시트2 = Button(win, text = "매점판매")
-    시트2.config(width=7,height=2,command=trees2)
+    시트2.config(width=7,height=2,command=btn2)
     시트2.place(x=100,y=10)
 
     시트3 = Button(win, text = "장의용품")
-    시트3.config(width=7,height=2,command=trees3)
+    시트3.config(width=7,height=2,command=btn3)
     시트3.place(x=190,y=10)
 
     시트4 = Button(win, text = "상복")
-    시트4.config(width=7,height=2,command=trees4)
+    시트4.config(width=7,height=2,command=btn4)
     시트4.place(x=280,y=10)
 
     시트5 = Button(win, text = "기타")
-    시트5.config(width=7,height=2,command=trees5)
+    시트5.config(width=7,height=2,command=btn5)
     시트5.place(x=370,y=10)
 
     tree.place(x=10,y=200)
