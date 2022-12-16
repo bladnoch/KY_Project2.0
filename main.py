@@ -106,6 +106,7 @@ def btn5():
     temp_sheet=og_sheets[4]
 def insert_tree(sheet): #자료형 변환해서 화면 표시, 저장
     del_t()
+    print("inset_tree()")
     row = []
     modified_sheet = []
 
@@ -134,7 +135,7 @@ def l_double(event): #왼쪽 물품 더블클릭
         num=int(amount.get()) #입력된 텍스트(수량)저장
         selectedItem = tree.selection()[0]  # tree 선택한 위치 받기
         #물품명 단가 수량 금액
-        tree.item(selectedItem)['values'][2]
+        # tree.item(selectedItem)['values'][2]
         row=[] #지역변수 리셋 필요 없음
         if(((tree.item(selectedItem)['values'][2])==None)| (tree.item(selectedItem)['values'][2]<num)):
             messagebox.showinfo("","수량보다 많이 입력하였습니다.")
@@ -152,27 +153,31 @@ def l_double(event): #왼쪽 물품 더블클릭
             # messagebox.showinfo("",tree.item(selectedItem)['values'][0]) 물품명만 받기
             new_p.append(row) #new_p에 저장(선택한 값 모두 받기
         print(new_p)
+        insert_tree(temp_sheet)
         close()
     def go_enter(event): #엔터 사용을 위한 함수
-        num = int(amount.get())
-        selectedItem = tree.selection()[0]
-        row = []
-        if (((tree.item(selectedItem)['values'][2]) == None) | int(tree.item(selectedItem)['values'][2] < num)):
+        num = int(amount.get())  # 입력된 텍스트(수량)저장
+        selectedItem = tree.selection()[0]  # tree 선택한 위치 받기
+        # 물품명 단가 수량 금액
+        # tree.item(selectedItem)['values'][2]
+        row = []  # 지역변수 리셋 필요 없음
+        if (((tree.item(selectedItem)['values'][2]) == None) | (tree.item(selectedItem)['values'][2] < num)):
             messagebox.showinfo("", "수량보다 많이 입력하였습니다.")
         else:
-            for i in range(5):
-                for row2 in og_sheets[i].iter_rows(min_row=2):
-                    for cell in row2:
-                        if cell.value == tree.item(selectedItem)['values'][0]:
-                            row2[2].value = int(tree.item(selectedItem)['values'][2]) - num
-                            og_file.save(home)
+            for row2 in temp_sheet.iter_rows(min_row=2):
+                for cell in row2:
+                    if cell.value == tree.item(selectedItem)['values'][0]:
+                        row2[2].value = int(tree.item(selectedItem)['values'][2]) - num
+                        og_file.save(home)
+            # tree.item(selectedItem)['values'][2]=num-int(tree.item(selectedItem)['values'][2])
             row.append(tree.item(selectedItem)['values'][0])  # 물품명
             row.append(tree.item(selectedItem)['values'][1])  # 단가
             row.append(num)  # 수량
             row.append(row[1] * num)  # 금액
             # messagebox.showinfo("",tree.item(selectedItem)['values'][0]) 물품명만 받기
-            new_p.append(row)
+            new_p.append(row)  # new_p에 저장(선택한 값 모두 받기
         print(new_p)
+        insert_tree(temp_sheet)
         close()
 
     global temp_sheet
