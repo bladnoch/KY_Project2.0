@@ -4,6 +4,7 @@ from tkinter import messagebox, filedialog
 import os
 from pathlib import Path
 import openpyxl
+from openpyxl import load_workbook
 import os.path
 from openpyxl.worksheet.table import Table, TableStyleInfo
 import tkinter.ttk
@@ -163,6 +164,18 @@ def save(): #개인 정보 물품에 저장
             info_sheets[0].cell(x,y).value=new_p[x-1][y-1]
             info_file.save(info_xl)
 
+def exsave(): #물품명 읽어오기
+
+    row = []
+
+    for x in range(1, (info_sheets.max_row + 1)):
+        row.append(info_sheets.cell(x, 1).value)
+
+    print(row[0])
+
+
+
+
 
 if __name__ == "__main__":
 #시트기준
@@ -187,13 +200,12 @@ if __name__ == "__main__":
     og_row=['','','','',''] #길이 저장
 
 
+    exsave()
+
     global temp_sheet
 
     global new_p #중앙 목록 폼 출력용
     new_p=[]
-
-
-
 
     win = tk.Tk() # 창 생성
     win.geometry("1200x720") # 창의 크기
@@ -269,5 +281,4 @@ if __name__ == "__main__":
     # tree2.bind("<Double-Button-1>",center_double)
 
 
-
-    win.mainloop() # 창 실행
+win.mainloop() # 창 실행
