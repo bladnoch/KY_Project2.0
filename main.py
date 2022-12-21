@@ -187,7 +187,7 @@ def save(): #개인 물품에 저장
         for y in range(1,6):
             info_sheets[0].cell(x,y).value=new_p[x-1][y-1]
             info_file.save(info_xl)
-def lookup():
+# def lookup():
 
 
 
@@ -286,6 +286,10 @@ if __name__ == "__main__":
     시트5 = Button(win, text = "기타")
     시트5.config(width=7,height=2,command=btn5)
     시트5.place(x=100,y=10)
+
+    불러오기 = Button(win, text = "불러오기")
+    불러오기.config(width=7,height=2)
+    불러오기.place(x=600,y=10)
 
     tree.place(x=10,y=200)
     tree.bind("<Double-Button-1>",l_double)
