@@ -114,7 +114,7 @@ def l_double(event): #왼쪽 물품 더블클릭
                 if (new_p[i][0] == tree.item(selectedItem)['values'][0]):
                     new_p[i][2] += num
                     new_p[i][3] = tree.item(selectedItem)['values'][1] * new_p[i][2]
-                    new_p.remove(row)
+                    new_p.pop()
             insert_tree(temp_sheet)
         close()
 
@@ -187,7 +187,62 @@ def save(): #개인 물품에 저장
         for y in range(1,6):
             info_sheets[0].cell(x,y).value=new_p[x-1][y-1]
             info_file.save(info_xl)
-# def lookup():
+def c_double(event):
+    def close():
+        count_item2.quit()
+        count_item2.destroy()
+    def go(): #확인 버튼
+        num=int(amount.get())# 입력된 텍스트(수량)저장
+        selectedItem = tree2.selection()[0]  # tree 선택한 위치 받기
+        global new_p
+        temp=[]
+        for i in range(5):
+            temp.append(tree2.item(selectedItem)['values'][i])
+            print(temp[i])
+
+        if (((tree2.item(selectedItem)['values'][2]) == None) | (tree2.item(selectedItem)['values'][2] < num)):
+            messagebox.showinfo("", "수량보다 많이 입력하였습니다.")
+        elif (tree2.item(selectedItem)['values'][2]==num): #숫자만큼 뺀게 0이면 트리뷰에서 선택된 row를 삭제
+            for i in range(len(new_p)):
+                print("207",new_p)
+                if len(new_p)>0:
+                    new_p[i][0]=tree2.item(selectedItem)['values'][0]
+                    del new_p[i]
+            tree2.delete(selectedItem)
+            print(new_p)
+        else:
+            temp[2]=temp[2]-num
+            for i in range(len(new_p)):
+                new_p[i][0]=tree2.item(selectedItem)['values'][0]
+                del new_p[i]
+                new_p.insert(i,temp)
+            tree2.delete(selectedItem)
+            tree2.insert('', 'end', text="", values=temp)
+            print(new_p)
+        close()
+
+    count_item2 = Tk()  # 불러오기 하면 나오는 화면
+
+    count_item2.geometry("200x150+500+300")  # 창의 크기
+    count_item2.title("수량 입력")  # 창의 제목
+    count_item2.option_add("*Font", "맑은고딕 14")  # 전체 폰트
+
+    ontk = Label(count_item2)  # 수량 레이블
+    ontk.config(text="수량", width=10, relief="solid")
+    ontk.pack(side="top", pady=10)
+
+    amount = Entry(count_item2)  # 수량 엔트리 go_enter 연결
+    amount.config(width=10, relief="solid", borderwidth=0)
+    amount.focus()
+    # amount.bind("<Return>", go_enter)
+    amount.place(x=60, y=50)
+    amount.pack()
+
+    conf = Button(count_item2, text="확인")  # 확인 버튼
+    conf.config(width=10, height=3, command=go)  # go 연결
+    # conf.place(x=30,y=200)
+    conf.pack(side="bottom", pady=10)
+    count_item2.mainloop()
 
 
 
@@ -294,7 +349,7 @@ if __name__ == "__main__":
     tree.place(x=10,y=200)
     tree.bind("<Double-Button-1>",l_double)
     tree2.place(x=500,y=200)
-    # tree2.bind("<Double-Button-1>",center_double)
+    tree2.bind("<Double-Button-1>",c_double)
 
 
 
