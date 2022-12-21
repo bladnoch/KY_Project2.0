@@ -10,6 +10,36 @@ import tkinter.ttk
 import tkinter as tk
 
 #왼쪽 목록 관련 함수
+# def set():
+#     insert_tree(og_sheets[1])
+#     global temp_sheet
+#     temp_sheet = og_sheets[1]
+#     global new_p
+#     count=0
+#     row=[]
+#     for x in range(2, (temp_sheet.max_row + 1)):
+#         for y in range(1, 6):
+#             if (temp_sheet.cell(x, 1).value == None) | (temp_sheet.cell(x, 1).value == '') | (
+#                     temp_sheet.cell(x, 1).value == 0) :  # 물품명이 None, '', 0 이면 참조 끝
+#                 break
+#             elif (y==5)&(temp_sheet.cell(x, 5).value == None):  # None이면 빈셀로
+#                 row.append("")
+#             elif ((temp_sheet.cell(x, y).value == None) & (y!=5)) | ((y == 4) & (temp_sheet.cell(x, 4).value == None)):  # None이면 0으로
+#                 row.append(0)
+#             elif (y != 1) & (y != 4) & (type(temp_sheet.cell(x, y).value) == str):  # 물품명이 아니면서 str일 경우
+#                 print(1)
+#                 row.append(int(float(temp_sheet.cell(x, y).value)))
+#             else:
+#                 row.append(temp_sheet.cell(x, y).value)
+#             if(y==4):
+#                 row[3]=row[1]*row[2]
+#                 # row[y]
+#         new_p.append(row)
+#         row=[]
+#         print(new_p[x-2])
+#     center_tree()
+
+
 def del_t(): #오른쪽 트리 삭제용
     tree.delete(*tree.get_children())
 def del_t2(): #오른쪽 트리 삭제용
@@ -19,10 +49,6 @@ def btn1():
     insert_tree(og_sheets[0])
     global temp_sheet
     temp_sheet = og_sheets[0]
-def btn2():
-    insert_tree(og_sheets[1])
-    global temp_sheet
-    temp_sheet = og_sheets[1]
 def btn3():
     insert_tree(og_sheets[2])
     global temp_sheet
@@ -66,7 +92,6 @@ def l_double(event): #왼쪽 물품 더블클릭
     def go(): #확인 버튼
         num=int(amount.get()) #입력된 텍스트(수량)저장
         selectedItem = tree.selection()[0]  # tree 선택한 위치 받기
-
 
         row=[] #지역변수 리셋 필요 없음
         if(((tree.item(selectedItem)['values'][2])==None)| (tree.item(selectedItem)['values'][2]<num)):
@@ -154,20 +179,19 @@ def center_tree(): #중앙 트리뷰에 표시
         tree2.insert('', 'end', text="", values=new_p[i])
     tree2.place(x=500, y=200)
     save()
-def save(): #개인 정보 물품에 저장
+def save(): #개인 물품에 저장
     print(new_p)
     for i in range(len(new_p)):
-        info_sheets[0].delete_rows(0) #-----------info_sheets[0]은 시트가 늘어나면 숭자가 바뀔 예정
+        info_sheets[0].delete_rows(0) #-----------info_sheets[0]은 시트가 늘어나면 수가 바뀔 예정
     for x in range(1,(len(new_p)+1)):
         for y in range(1,6):
             info_sheets[0].cell(x,y).value=new_p[x-1][y-1]
             info_file.save(info_xl)
+def lookup():
+
 
 
 if __name__ == "__main__":
-#시트기준
-
-
 #빈소 특 101,102,201,202
     # sp101
     # sp102
@@ -175,13 +199,13 @@ if __name__ == "__main__":
     # sp202
 
 
-    home = 'xl/test.xlsx'
+    home = 'xl/전체물품리스트_세트저장용.xlsx'
     info_xl='xl/personal.xlsx'
 
     og_file= openpyxl.load_workbook(home, data_only=True) #초기 시트 위치 저장(값으로)
     info_file=openpyxl.load_workbook(info_xl,data_only=True) #개인정보, 빈소별 물품정보 저장 공간(값으)
 
-    info_sheets=[info_file['빈소1']] #지금은 하나만 사용하지만 빈소 창이 생기면 9개로 늘어날 것임
+    info_sheets=[info_file['빈소1'],info_file['빈소2'],info_file['빈소3'],info_file['빈소5'],info_file['빈소6'],info_file['특101'],info_file['특102'],info_file['특201'],info_file['특202']]
     og_sheets=[og_file['식당판매'], og_file['매점판매'], og_file['장의용품'], og_file['상복'], og_file['기타']]  #시트 리스트에 저장 시트 이름 바꾸면 같이 바꿔야 함
 
     og_row=['','','','',''] #길이 저장
@@ -247,9 +271,9 @@ if __name__ == "__main__":
     시트1.config(width=7,height=2,command=btn1)
     시트1.place(x=10,y=10)
 
-    시트2 = Button(win, text = "매점판매")
-    시트2.config(width=7,height=2,command=btn2)
-    시트2.place(x=100,y=10)
+    # 세트 = Button(win, text = "세트")
+    # 세트.config(width=7,height=2,command=set)
+    # 세트.place(x=370,y=10)
 
     시트3 = Button(win, text = "장의용품")
     시트3.config(width=7,height=2,command=btn3)
@@ -261,7 +285,7 @@ if __name__ == "__main__":
 
     시트5 = Button(win, text = "기타")
     시트5.config(width=7,height=2,command=btn5)
-    시트5.place(x=370,y=10)
+    시트5.place(x=100,y=10)
 
     tree.place(x=10,y=200)
     tree.bind("<Double-Button-1>",l_double)
