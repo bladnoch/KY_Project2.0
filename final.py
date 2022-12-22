@@ -62,7 +62,6 @@ def l_click(event):
         num=int(amount.get()) #입력된 텍스트(수량)저장
         selectedItem = tree.selection()[0]  # tree 선택한 위치 받기
         onoff=True
-        onoff2=True
 
         row=[] #지역변수 리셋 필요 없음
         if(((tree.item(selectedItem)['values'][2])==None)| (tree.item(selectedItem)['values'][2]<num)):
@@ -79,8 +78,6 @@ def l_click(event):
                         og_file.save(home)
                         print("og_file.save(home)")
                         break
-
-
             for row3 in info_sheets[0].iter_rows(min_row=1): #중앙 수량 조절
                 for cell in row3:
                     if cell.value==tree.item(selectedItem)['values'][0]:
@@ -92,9 +89,43 @@ def l_click(event):
                 info_sheets[0].append([tree.item(selectedItem)['values'][0],tree.item(selectedItem)['values'][1],num,(tree.item(selectedItem)['values'][1]*num),tree.item(selectedItem)['values'][3]])
             # for rows in info_sheets[0].iter_rows(min_row=1):
             #     info_sheets[0].delete_rows(0)
-            info_file.save(info_xl)
-        l_refrech()
+            info_file.save(info_xl) #오른쪽 시트 저장
+        insert_tree2(info_sheets[0]) #오른쪽에 물건 표시
+        l_refrech() #왼쪽 수량 변화용 리프레시
         close()
+    def go_enter(event): #확인 버튼
+        num=int(amount.get()) #입력된 텍스트(수량)저장
+        selectedItem = tree.selection()[0]  # tree 선택한 위치 받기
+        onoff=True
+        row=[] #지역변수 리셋 필요 없음
+        if(((tree.item(selectedItem)['values'][2])==None)| (tree.item(selectedItem)['values'][2]<num)):
+            messagebox.showinfo("","수량보다 많이 입력하였습니다.")
+        else:
+            for row2 in temp_sheet.iter_rows(min_row=2): #왼쪽 수량 조절
+                for cell in row2:
+                    print("cell in row2")
+                    if cell.value == tree.item(selectedItem)['values'][0]:
+                        row2[2].value = int(tree.item(selectedItem)['values'][2])-num
+                        og_file.save(home)
+                        print("og_file.save(home)")
+                        break
+
+            for row3 in info_sheets[0].iter_rows(min_row=1): #중앙 수량 조절
+                for cell in row3:
+                    if cell.value==tree.item(selectedItem)['values'][0]:
+                        row3[2].value +=num
+                        row3[3].value=row3[1].value*row3[2].value
+                        onoff=False
+                        break
+
+            if onoff==True:
+                info_sheets[0].append([tree.item(selectedItem)['values'][0],tree.item(selectedItem)['values'][1],num,(tree.item(selectedItem)['values'][1]*num),tree.item(selectedItem)['values'][3]])
+
+            info_file.save(info_xl) #오른쪽 시트 저장
+        insert_tree2(info_sheets[0]) #오른쪽에 물건 표시
+        l_refrech() #왼쪽 수량 변화용 리프레시
+        close()
+
     global temp_sheet
     print(temp_sheet)
 
@@ -111,7 +142,7 @@ def l_click(event):
     amount = Entry(count_item)  # 수량 엔트리 go_enter 연결
     amount.config(width=10, relief="solid", borderwidth=0)
     amount.focus()
-    # amount.bind("<Return>", go_enter)
+    amount.bind("<Return>", go_enter)
     amount.place(x=60, y=50)
     amount.pack()
 
@@ -126,6 +157,14 @@ def l_refrech():
     for rows in temp_sheet.iter_rows(min_row=2):
         tree.insert('', 'end', text="", values=[rows[0].value,rows[1].value,rows[2].value,rows[3].value])
         i+=1
+def insert_tree2(sheet):
+    del_t2()
+    for row2 in sheet.iter_rows(min_row=1):
+        if (row2[4].value==None)|(row2[4].value=="None"):
+            tree2.insert('', 'end', text="", values=[row2[0].value,row2[1].value,row2[2].value,row2[3].value,""])
+        else:
+            tree2.insert('', 'end', text="", values=[row2[0].value,row2[1].value,row2[2].value,row2[3].value,row2[4].value])
+
 if __name__ == "__main__":
     home = 'xl/전체물품리스트_세트저장용.xlsx'
     info_xl='xl/personal.xlsx'
