@@ -144,7 +144,7 @@ def l_double(event): #왼쪽 물품 더블클릭
                 if (new_p[i][0] == tree.item(selectedItem)['values'][0]):
                     new_p[i][2] += num
                     new_p[i][3] = tree.item(selectedItem)['values'][1] * new_p[i][2]
-                    new_p.remove(row)
+                    new_p.pop()
             insert_tree(temp_sheet)
         close()
 
@@ -191,31 +191,61 @@ def c_double(event):
     def close():
         count_item2.quit()
         count_item2.destroy()
-    def go(): #확인 버튼
-        num=int(amount.get())# 입력된 텍스트(수량)저장
+    # def go(): #확인 버튼
+    #     num=int(amount.get())# 입력된 텍스트(수량)저장
+    #     selectedItem = tree2.selection()[0]  # tree 선택한 위치 받기
+    #     global new_p
+    #     temp=[]
+    #     for i in range(5):
+    #         temp.append(tree2.item(selectedItem)['values'][i])
+    #         print(temp[i])
+    #
+    #     if (((tree2.item(selectedItem)['values'][2]) == None) | (tree2.item(selectedItem)['values'][2] < num)):
+    #         messagebox.showinfo("", "수량보다 많이 입력하였습니다.")
+    #     elif (tree2.item(selectedItem)['values'][2]==num): #숫자만큼 뺀게 0이면 트리뷰에서 선택된 row를 삭제
+    #         for i in range(len(new_p)):
+    #             print("207",new_p)
+    #             if len(new_p)>0:
+    #                 new_p[i][0]=tree2.item(selectedItem)['values'][0]
+    #                 del new_p[i]
+    #         tree2.delete(selectedItem)
+    #         print(new_p)
+    #     else:
+    #         temp[2]=temp[2]-num
+    #         for i in range(len(new_p)):
+    #             new_p[i][0]=tree2.item(selectedItem)['values'][0]
+    #             del new_p[i]
+    #             new_p.insert(i,temp)
+    #         tree2.delete(selectedItem)
+    #         tree2.insert('', 'end', text="", values=temp)
+    #         print(new_p)
+    #     close()
+    def go_enter(event): #확인 버튼
+        num = int(amount.get())  # 입력된 텍스트(수량)저장
         selectedItem = tree2.selection()[0]  # tree 선택한 위치 받기
         global new_p
-        temp=[]
+        temp = []
         for i in range(5):
             temp.append(tree2.item(selectedItem)['values'][i])
             print(temp[i])
 
         if (((tree2.item(selectedItem)['values'][2]) == None) | (tree2.item(selectedItem)['values'][2] < num)):
             messagebox.showinfo("", "수량보다 많이 입력하였습니다.")
-        elif (tree2.item(selectedItem)['values'][2]==num): #숫자만큼 뺀게 0이면 트리뷰에서 선택된 row를 삭제
+        elif (tree2.item(selectedItem)['values'][2] == num):  # 숫자만큼 뺀게 0이면 트리뷰에서 선택된 row를 삭제
             for i in range(len(new_p)):
-                print("207",new_p)
-                if len(new_p)>0:
-                    new_p[i][0]=tree2.item(selectedItem)['values'][0]
-                    del new_p[i]
+                print("207", new_p)
+                if len(new_p) > 0:
+                    if(new_p[i][0] == tree2.item(selectedItem)['values'][0]):
+                        del new_p[i]
+                        break
             tree2.delete(selectedItem)
             print(new_p)
         else:
-            temp[2]=temp[2]-num
+            temp[2] = temp[2] - num
             for i in range(len(new_p)):
-                new_p[i][0]=tree2.item(selectedItem)['values'][0]
-                del new_p[i]
-                new_p.insert(i,temp)
+                if(new_p[i][0] == tree2.item(selectedItem)['values'][0]):
+                    del new_p[i]
+                    new_p.insert(i, temp)
             tree2.delete(selectedItem)
             tree2.insert('', 'end', text="", values=temp)
             print(new_p)
@@ -234,12 +264,12 @@ def c_double(event):
     amount = Entry(count_item2)  # 수량 엔트리 go_enter 연결
     amount.config(width=10, relief="solid", borderwidth=0)
     amount.focus()
-    # amount.bind("<Return>", go_enter)
+    amount.bind("<Return>", go_enter)
     amount.place(x=60, y=50)
     amount.pack()
 
     conf = Button(count_item2, text="확인")  # 확인 버튼
-    conf.config(width=10, height=3, command=go)  # go 연결
+    # conf.config(width=10, height=3, command=go)  # go 연결
     # conf.place(x=30,y=200)
     conf.pack(side="bottom", pady=10)
     count_item2.mainloop()
@@ -263,15 +293,13 @@ if __name__ == "__main__":
     info_sheets=[info_file['빈소1'],info_file['빈소2'],info_file['빈소3'],info_file['빈소5'],info_file['빈소6'],info_file['특101'],info_file['특102'],info_file['특201'],info_file['특202']]
     og_sheets=[og_file['식당판매'], og_file['매점판매'], og_file['장의용품'], og_file['상복'], og_file['기타']]  #시트 리스트에 저장 시트 이름 바꾸면 같이 바꿔야 함
 
-    og_row=['','','','',''] #길이 저장
+
 
 
     global temp_sheet
 
     global new_p #중앙 목록 폼 출력용
     new_p=[]
-
-
 
 
     win = tk.Tk() # 창 생성
