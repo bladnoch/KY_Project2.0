@@ -9,6 +9,60 @@ from openpyxl.worksheet.table import Table, TableStyleInfo
 import tkinter.ttk
 import tkinter as tk
 
+def recall():
+    def close():
+        count_item.quit()
+        count_item.destroy()
+    def go():
+        global temp_sheet2
+        print(amount.get())
+        print(type(amount.get()))
+
+        if amount.get()=="0":
+            temp_sheet2=info_sheets[0]
+        elif amount.get()=="1":
+            temp_sheet2=info_sheets[1]
+        elif amount.get()=="2":
+            temp_sheet2=info_sheets[2]
+        elif amount.get()=="3":
+            temp_sheet2=info_sheets[3]
+            print(temp_sheet2)
+        elif amount.get()=="4":
+            temp_sheet2=info_sheets[4]
+        elif amount.get()=="5":
+            temp_sheet2=info_sheets[5]
+        elif amount.get()=="6":
+            temp_sheet2=info_sheets[6]
+        elif amount.get()=="7":
+            temp_sheet2=info_sheets[7]
+        elif amount.get()=="8":
+            temp_sheet2=info_sheets[8]
+        print(amount.get())
+        close()
+
+
+    count_item = Tk()  # 불러오기 하면 나오는 화면
+
+    count_item.geometry("200x150+500+300")  # 창의 크기
+    count_item.title("수량 입력")  # 창의 제목
+    count_item.option_add("*Font", "맑은고딕 14")  # 전체 폰트
+
+    ontk = Label(count_item)  # 수량 레이블
+    ontk.config(text="수량", width=10, relief="solid")
+    ontk.pack(side="top", pady=10)
+
+    amount = Entry(count_item)  # 수량 엔트리 go_enter 연결
+    amount.config(width=10, relief="solid", borderwidth=0)
+    amount.focus()
+    # amount.bind("<Return>", go_enter)
+    amount.place(x=60, y=50)
+    amount.pack()
+
+    conf = Button(count_item, text="확인")  # 확인 버튼
+    conf.config(width=10, height=3, command=go)  # go 연결
+    # conf.place(x=30,y=200)
+    conf.pack(side="bottom", pady=10)
+    count_item.mainloop()
 def del_t(): #오른쪽 트리 삭제용
     tree.delete(*tree.get_children())
 def del_t2(): #오른쪽 트리 삭제용
@@ -78,7 +132,7 @@ def l_click(event):
                         og_file.save(home)
                         print("og_file.save(home)")
                         break
-            for row3 in info_sheets[0].iter_rows(min_row=1): #중앙 수량 조절
+            for row3 in temp_sheet2.iter_rows(): #중앙 수량 조절
                 for cell in row3:
                     if cell.value==tree.item(selectedItem)['values'][0]:
                         row3[2].value +=num
@@ -86,11 +140,11 @@ def l_click(event):
                         onoff=False
                         break
             if onoff==True:
-                info_sheets[0].append([tree.item(selectedItem)['values'][0],tree.item(selectedItem)['values'][1],num,(tree.item(selectedItem)['values'][1]*num),tree.item(selectedItem)['values'][3]])
+                temp_sheet2.append([tree.item(selectedItem)['values'][0],tree.item(selectedItem)['values'][1],num,(tree.item(selectedItem)['values'][1]*num),tree.item(selectedItem)['values'][3]])
             # for rows in info_sheets[0].iter_rows(min_row=1):
             #     info_sheets[0].delete_rows(0)
             info_file.save(info_xl) #오른쪽 시트 저장
-        insert_tree2(info_sheets[0]) #오른쪽에 물건 표시
+        insert_tree2(temp_sheet2) #오른쪽에 물건 표시
         l_refrech() #왼쪽 수량 변화용 리프레시
         close()
     def go_enter(event): #확인 버튼
@@ -110,7 +164,7 @@ def l_click(event):
                         print("og_file.save(home)")
                         break
 
-            for row3 in info_sheets[0].iter_rows(min_row=1): #중앙 수량 조절
+            for row3 in temp_sheet2.iter_rows(): #중앙 수량 조절
                 for cell in row3:
                     if cell.value==tree.item(selectedItem)['values'][0]:
                         row3[2].value +=num
@@ -119,16 +173,16 @@ def l_click(event):
                         break
 
             if onoff==True:
-                info_sheets[0].append([tree.item(selectedItem)['values'][0],tree.item(selectedItem)['values'][1],num,(tree.item(selectedItem)['values'][1]*num),tree.item(selectedItem)['values'][3]])
+                temp_sheet2.append([tree.item(selectedItem)['values'][0],tree.item(selectedItem)['values'][1],num,(tree.item(selectedItem)['values'][1]*num),tree.item(selectedItem)['values'][3]])
 
             info_file.save(info_xl) #오른쪽 시트 저장
-        insert_tree2(info_sheets[0]) #오른쪽에 물건 표시
+        insert_tree2(temp_sheet2) #오른쪽에 물건 표시
         l_refrech() #왼쪽 수량 변화용 리프레시
         close()
 
     global temp_sheet
     print(temp_sheet)
-
+    print(temp_sheet2)
     count_item = Tk()  # 불러오기 하면 나오는 화면
 
     count_item.geometry("200x150+500+300")  # 창의 크기
@@ -178,6 +232,7 @@ if __name__ == "__main__":
 
 
     global temp_sheet
+    global temp_sheet2
 
     global new_p #중앙 목록 폼 출력용
     new_p=[]
@@ -252,13 +307,13 @@ if __name__ == "__main__":
     시트5.place(x=100,y=10)
 
     불러오기 = Button(win, text = "불러오기")
-    불러오기.config(width=7,height=2)
+    불러오기.config(width=7,height=2, command=recall)
     불러오기.place(x=600,y=10)
 
     tree.place(x=10,y=200)
     tree.bind("<Double-Button-1>",l_click)
     tree2.place(x=500,y=200)
-    # tree2.bind("<Double-Button-1>",c_double)
+    # tree2.bind("<Double-Button-1>",c_click)
 
 
 
