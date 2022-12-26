@@ -9,7 +9,7 @@ from openpyxl.worksheet.table import Table, TableStyleInfo
 import tkinter.ttk
 import tkinter as tk
 
-def recall():
+def recall(): #
     def close():
         count_item.quit()
         count_item.destroy()
@@ -69,7 +69,6 @@ def del_t(): #오른쪽 트리 삭제용
     tree.delete(*tree.get_children())
 def del_t2(): #오른쪽 트리 삭제용
     tree2.delete(*tree2.get_children())
-
 def btn1():
     insert_tree(og_sheets[0])
     global temp_sheet
