@@ -98,7 +98,7 @@ def insert_tree(sheet): #자료형 변환해서 화면 표시, 저장
                     sheet.cell(x, 1).value == 0):  # 물품명이 None, '', 0 이면 참조 끝
                 break
             elif (y == 4) & (sheet.cell(x, 4).value == None):  # None이면 빈셀로
-                row.append("")
+                row.append(" ")
             elif sheet.cell(x, y).value == None:  # None이면 0으로
                 row.append(0)
             elif (y != 1) & (y != 4) & (type(sheet.cell(x, y).value) == str):  # 물품명이 아니면서 str일 경우
@@ -210,7 +210,10 @@ def l_refrech():
     del_t()
     i=0
     for rows in temp_sheet.iter_rows(min_row=2):
+        if rows[2].value==None: #None으로 나오는걸 숫자 0으로 바꿔준다
+            rows[2].value=0
         tree.insert('', 'end', text="", values=[rows[0].value,rows[1].value,rows[2].value,rows[3].value])
+        print(rows[2].value)
         i+=1
 def insert_tree2(sheet):
     del_t2()
@@ -220,7 +223,7 @@ def insert_tree2(sheet):
             print("continue")
             continue
         elif (row2[4].value==None)|(row2[4].value=="None"):
-            tree2.insert('', 'end', text="", values=[row2[0].value,row2[1].value,row2[2].value,row2[3].value,"단위 없음"])
+            tree2.insert('', 'end', text="", values=[row2[0].value,row2[1].value,row2[2].value,row2[3].value," "])
             print("save with '' ")
         else:
             tree2.insert('', 'end', text="", values=[row2[0].value,row2[1].value,row2[2].value,row2[3].value,row2[4].value])
@@ -233,7 +236,46 @@ def c_click(event):
         num = int(amount.get())  # 입력된 텍스트(수량)저장
         selectedItem = tree2.selection()[0]  # tree 선택한 위치 받기
         print(selectedItem)
-        onoff = True
+
+        if (((tree2.item(selectedItem)['values'][2]) == None) | (tree2.item(selectedItem)['values'][2] < num)):
+            messagebox.showinfo("", "수량보다 많이 입력하였습니다.")
+        else:
+            count=1
+            temp_item=""
+            for row3 in temp_sheet2.iter_rows():  # 중앙 수량 조절
+                for cell in row3:
+                    if cell.value == tree2.item(selectedItem)['values'][0]:
+                        temp_item=row3[0].value
+                        print(temp_item)
+                        row3[2].value-=num
+                        row3[3].value = row3[1].value * row3[2].value
+                        if row3[2].value==0:
+                            temp_sheet2.delete_rows(count,1)
+                            info_file.save(info_xl)
+                            print("sheet2.delete...")
+                            break
+                count+=1
+            insert_tree2(temp_sheet2)
+            print("lstart")
+            for i in range (len(og_sheets)):
+                for row2 in og_sheets[i]:
+                    print(row2[0].value)
+                    if row2[0].value==temp_item:
+                        print("equals")
+                        print(row2[2].value)
+                        if (row2[2].value==None) | (row2[2].value=="") |(row2[2].value=="0"):
+                            row2[2].value=num
+                        else:
+                            row2[2].value+=num
+                        print(row2[2].value)
+                        og_file.save(home)
+                        l_refrech()
+                        break
+            close()
+    def go_enter(event):
+        num = int(amount.get())  # 입력된 텍스트(수량)저장
+        selectedItem = tree2.selection()[0]  # tree 선택한 위치 받기
+        print(selectedItem)
 
         if (((tree2.item(selectedItem)['values'][2]) == None) | (tree2.item(selectedItem)['values'][2] < num)):
             messagebox.showinfo("", "수량보다 많이 입력하였습니다.")
@@ -271,7 +313,6 @@ def c_click(event):
                         break
             close()
 
-
     global temp_sheet
     print(temp_sheet)
     print(temp_sheet2)
@@ -288,7 +329,7 @@ def c_click(event):
     amount = Entry(count_item)  # 수량 엔트리 go_enter 연결
     amount.config(width=10, relief="solid", borderwidth=0)
     amount.focus()
-    # amount.bind("<Return>", go_enter)
+    amount.bind("<Return>", go_enter)
     amount.place(x=60, y=50)
     amount.pack()
 
