@@ -38,7 +38,9 @@ def recall():
         elif amount.get()=="8":
             temp_sheet2=info_sheets[8]
         print(amount.get())
+        insert_tree2(temp_sheet2)
         close()
+
 
 
     count_item = Tk()  # 불러오기 하면 나오는 화면
@@ -213,37 +215,45 @@ def l_refrech():
         i+=1
 def insert_tree2(sheet):
     del_t2()
-    for row2 in sheet.iter_rows(min_row=1):
-        if (row2[4].value==None)|(row2[4].value=="None"):
-            tree2.insert('', 'end', text="", values=[row2[0].value,row2[1].value,row2[2].value,row2[3].value,""])
+    for row2 in sheet.iter_rows():
+        if row2[0].value==None:
+            print(type(row2[0].value))
+            print("continue")
+            continue
+        elif (row2[4].value==None)|(row2[4].value=="None"):
+            tree2.insert('', 'end', text="", values=[row2[0].value,row2[1].value,row2[2].value,row2[3].value,"단위 없음"])
+            print("save with '' ")
         else:
             tree2.insert('', 'end', text="", values=[row2[0].value,row2[1].value,row2[2].value,row2[3].value,row2[4].value])
+            print("else")
 def c_click(event):
+    def close():
+        count_item.quit()
+        count_item.destroy()
     def go():
         num = int(amount.get())  # 입력된 텍스트(수량)저장
         selectedItem = tree2.selection()[0]  # tree 선택한 위치 받기
+        print(selectedItem)
         onoff = True
 
         if (((tree2.item(selectedItem)['values'][2]) == None) | (tree2.item(selectedItem)['values'][2] < num)):
             messagebox.showinfo("", "수량보다 많이 입력하였습니다.")
         else:
-
-            count=0
+            count=1
             for row3 in temp_sheet2.iter_rows():  # 중앙 수량 조절
                 for cell in row3:
                     if cell.value == tree2.item(selectedItem)['values'][0]:
+                        print()
                         row3[2].value-=num
+                        row3[3].value = row3[1].value * row3[2].value
                         if row3[2].value==0:
+                            temp_sheet2.delete_rows(count,1)
+                            info_file.save(info_xl)
                             print("sheet2.delete...")
-                            temp_sheet2.delete_rows(count)
                             break
-                        row3[3].value=row3[1].value*row3[2].value
-                        info_file.save(info_xl)
-                        print(info_file.save)
-                        break
                 count+=1
             insert_tree2(temp_sheet2)
-
+            close()
             # for i in range (len(og_sheets)):
             #     for row2 in og_sheets[i]:
             #         for cell in row2:
