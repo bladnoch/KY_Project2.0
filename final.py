@@ -218,7 +218,63 @@ def insert_tree2(sheet):
             tree2.insert('', 'end', text="", values=[row2[0].value,row2[1].value,row2[2].value,row2[3].value,""])
         else:
             tree2.insert('', 'end', text="", values=[row2[0].value,row2[1].value,row2[2].value,row2[3].value,row2[4].value])
+def c_click(event):
+    def go():
+        num = int(amount.get())  # 입력된 텍스트(수량)저장
+        selectedItem = tree2.selection()[0]  # tree 선택한 위치 받기
+        onoff = True
 
+        if (((tree2.item(selectedItem)['values'][2]) == None) | (tree2.item(selectedItem)['values'][2] < num)):
+            messagebox.showinfo("", "수량보다 많이 입력하였습니다.")
+        else:
+
+            count=0
+            for row3 in temp_sheet2.iter_rows():  # 중앙 수량 조절
+                for cell in row3:
+                    if cell.value == tree2.item(selectedItem)['values'][0]:
+                        row3[2].value-=num
+                        if row3[2].value==0:
+                            print("sheet2.delete...")
+                            temp_sheet2.delete_rows(count)
+                            break
+                        row3[3].value=row3[1].value*row3[2].value
+                        info_file.save(info_xl)
+                        print(info_file.save)
+                        break
+                count+=1
+            insert_tree2(temp_sheet2)
+
+            # for i in range (len(og_sheets)):
+            #     for row2 in og_sheets[i]:
+            #         for cell in row2:
+            #             if cell.value ==
+
+
+    global temp_sheet
+    print(temp_sheet)
+    print(temp_sheet2)
+    count_item = Tk()  # 불러오기 하면 나오는 화면
+
+    count_item.geometry("200x150+500+300")  # 창의 크기
+    count_item.title("수량 입력")  # 창의 제목
+    count_item.option_add("*Font", "맑은고딕 14")  # 전체 폰트
+
+    ontk = Label(count_item)  # 수량 레이블
+    ontk.config(text="수량", width=10, relief="solid")
+    ontk.pack(side="top", pady=10)
+
+    amount = Entry(count_item)  # 수량 엔트리 go_enter 연결
+    amount.config(width=10, relief="solid", borderwidth=0)
+    amount.focus()
+    # amount.bind("<Return>", go_enter)
+    amount.place(x=60, y=50)
+    amount.pack()
+
+    conf = Button(count_item, text="확인")  # 확인 버튼
+    conf.config(width=10, height=3, command=go)  # go 연결
+    # conf.place(x=30,y=200)
+    conf.pack(side="bottom", pady=10)
+    count_item.mainloop()
 if __name__ == "__main__":
     home = 'xl/전체물품리스트_세트저장용.xlsx'
     info_xl='xl/personal.xlsx'
@@ -313,7 +369,7 @@ if __name__ == "__main__":
     tree.place(x=10,y=200)
     tree.bind("<Double-Button-1>",l_click)
     tree2.place(x=500,y=200)
-    # tree2.bind("<Double-Button-1>",c_click)
+    tree2.bind("<Double-Button-1>",c_click)
 
 
 
