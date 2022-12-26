@@ -125,7 +125,6 @@ def l_click(event):
         else:
             # for row2 in temp_sheet.iter_rows(min_row=2):
             #     print(row2[0].value)
-            #     if
             for row2 in temp_sheet.iter_rows(min_row=2): #왼쪽 수량 조절
                 for cell in row2:
                     print("cell in row2")
@@ -240,10 +239,12 @@ def c_click(event):
             messagebox.showinfo("", "수량보다 많이 입력하였습니다.")
         else:
             count=1
+            temp_item=""
             for row3 in temp_sheet2.iter_rows():  # 중앙 수량 조절
                 for cell in row3:
                     if cell.value == tree2.item(selectedItem)['values'][0]:
-                        print()
+                        temp_item=row3[0].value
+                        print(temp_item)
                         row3[2].value-=num
                         row3[3].value = row3[1].value * row3[2].value
                         if row3[2].value==0:
@@ -253,11 +254,22 @@ def c_click(event):
                             break
                 count+=1
             insert_tree2(temp_sheet2)
+            print("lstart")
+            for i in range (len(og_sheets)):
+                for row2 in og_sheets[i]:
+                    print(row2[0].value)
+                    if row2[0].value==temp_item:
+                        print("equals")
+                        print(row2[2].value)
+                        if (row2[2].value==None) | (row2[2].value=="") |(row2[2].value=="0"):
+                            row2[2].value=num
+                        else:
+                            row2[2].value+=num
+                        print(row2[2].value)
+                        og_file.save(home)
+                        l_refrech()
+                        break
             close()
-            # for i in range (len(og_sheets)):
-            #     for row2 in og_sheets[i]:
-            #         for cell in row2:
-            #             if cell.value ==
 
 
     global temp_sheet
