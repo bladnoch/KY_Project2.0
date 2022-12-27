@@ -1,3 +1,5 @@
+#주석 처리된것은 작동은 되나, 정확하게 필요하지 않은 코드
+
 import tkinter
 from tkinter import * # tkinter의 모든 함수 가져오기
 from tkinter import messagebox, filedialog
