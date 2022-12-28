@@ -1,5 +1,7 @@
 from tkinter import *
 
+
+
 win = Tk() # 창 생성
 win.geometry("1600x900")
 win.title("리스트")
@@ -8,8 +10,9 @@ win.resizable(False, False)
 
 # 1호 리스트박스 정의
 
-일호=Listbox(win,selectmode='extended', height=0)
-text1=Text(width=20, height=1.5)
+
+일호=Listbox(selectmode='single', height=0)
+entry1 = Entry(width=20)
 일호.insert(0,'상주성명')
 일호.insert(1,'안치일시')
 일호.insert(2,'입관일시')
@@ -18,20 +21,39 @@ text1=Text(width=20, height=1.5)
 일호.insert(5,'장지')
 일호.insert(6,'상차림')
 일호.insert(7,'상주')
-text1.pack()
+entry1.pack()
 일호.pack()
+
+
+일호일=Listbox(selectmode='single', height=8)
+일호일.pack()
+일호일.place(x=300, y=110)
+
+def change():
+    일호일.insert(0, entry1.get())
+    일호일.insert(1, entry1.get())
+    일호일.insert(2,entry1.get())
+    일호일.insert(3,entry1.get())
+    일호일.insert(4,entry1.get())
+    일호일.insert(5,entry1.get())
+    일호일.insert(6,entry1.get())
+    일호일.insert(7,entry1.get())
+
+
+
+
 
 
 # 1호입력 버튼 정의
 
-일호입력 =Button(win, text='입력', padx=5, pady=5)
-일호입력.pack
+일호입력 =Button(text='입력', padx=5, pady=5, command=change)
+일호입력.pack()
 
 
 # 1호 위치 정의
 
 일호.place(x=40,y=110)
-text1.place(x=40,y=70)
+entry1.place(x=40,y=70)
 일호입력.place(x=210,y=70)
 
 
