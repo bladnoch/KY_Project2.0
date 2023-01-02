@@ -16,48 +16,73 @@ def recall(): #
     def go():
         global temp_sheet2
         global room
+
         print(amount.get())
         print(type(amount.get()))
+
         def setroom():
             빈소 = tkinter.Label(win, text=room, width=35, height=2, relief="solid")
             빈소.place(x=50, y=60)
+        def setpinfo(num):
+
+            ID = tkinter.Label(win, text=str(int(pinfo_sheet.cell(num, 1).value)), width=10, height=2, relief="solid")
+            ID.place(x=50, y=10)
+
+            고인명 = tkinter.Label(win, text=pinfo_sheet.cell(num, 2).value, width=10, height=2, relief="solid")
+            고인명.place(x=150, y=10)
+
+            상주명 = tkinter.Label(win, text=pinfo_sheet.cell(num, 3).value, width=10, height=2, relief="solid")
+            상주명.place(x=250, y=10)
+
+            Date = tkinter.Label(win, text=pinfo_sheet.cell(num, 4).value, width=35, height=2, relief="solid")
+            Date.place(x=50, y=110)
+
         if amount.get()=="0":
             temp_sheet2=info_sheets[0]
             room="빈소1"
             setroom()
+            setpinfo(1)
         elif amount.get()=="1":
             temp_sheet2=info_sheets[1]
             room = "빈소2"
             setroom()
+            setpinfo(2)
         elif amount.get()=="2":
             temp_sheet2=info_sheets[2]
             room = "빈소3"
             setroom()
+            setpinfo(3)
         elif amount.get()=="3":
             temp_sheet2=info_sheets[3]
             room = "빈소5"
             setroom()
+            setpinfo(4)
             print(temp_sheet2)
         elif amount.get()=="4":
             temp_sheet2=info_sheets[4]
             room = "빈소6"
             setroom()
+            setpinfo(5)
         elif amount.get()=="5":
             temp_sheet2=info_sheets[5]
             room = "특101"
             setroom()
+            setpinfo(6)
         elif amount.get()=="6":
             temp_sheet2=info_sheets[6]
             room = "특102"
             setroom()
+            setpinfo(7)
         elif amount.get()=="7":
             temp_sheet2=info_sheets[7]
             room = "특201"
             setroom()
+            setpinfo(8)
         elif amount.get()=="8":
             temp_sheet2=info_sheets[8]
             room = "특202"
             setroom()
+            setpinfo(9)
 
         print(amount.get())
         insert_tree2(temp_sheet2)
@@ -111,6 +136,7 @@ def btn5():
     insert_tree(og_sheets[4])
     global temp_sheet
     temp_sheet=og_sheets[4]
+
 def insert_tree(sheet): #자료형 변환해서 화면 표시, 저장
     del_t()
     print("inset_tree()")
@@ -158,14 +184,14 @@ def l_click(event):
                         og_file.save(home)
                         print("og_file.save(home)")
                         break
-            for row3 in temp_sheet2.iter_rows(): #중앙 수량 조절
+            for row3 in temp_sheet2.iter_rows(): #중앙 수량 조절: 이름이 겹치면 실행. 추가 안하고 특정 값만 수정
                 for cell in row3:
                     if cell.value==tree.item(selectedItem)['values'][0]:
                         row3[2].value +=num
                         row3[3].value=row3[1].value*row3[2].value
-                        onoff=False
+                        onoff=False #물품명이 겹치면 아래의 (if onoff=True:)를 사용 안함
                         break
-            if onoff==True:
+            if onoff==True: #중앙 수량 조절: 이름이 안겹칠때 실행. 새로 물품을 추가
                 temp_sheet2.append([tree.item(selectedItem)['values'][0],tree.item(selectedItem)['values'][1],num,(tree.item(selectedItem)['values'][1]*num),tree.item(selectedItem)['values'][3]])
             # for rows in info_sheets[0].iter_rows(min_row=1):
             #     info_sheets[0].delete_rows(0)
@@ -269,31 +295,31 @@ def c_click(event):
             temp_item=""
             for row3 in temp_sheet2.iter_rows():  # 중앙 수량 조절
                 for cell in row3:
-                    if cell.value == tree2.item(selectedItem)['values'][0]:
-                        temp_item=row3[0].value
+                    if cell.value == tree2.item(selectedItem)['values'][0]: #풀품명이 같으면
+                        temp_item=row3[0].value #temp_item은 물품명
                         print(temp_item)
-                        row3[2].value-=num
-                        row3[3].value = row3[1].value * row3[2].value
-                        if row3[2].value==0:
-                            temp_sheet2.delete_rows(count,1)
+                        row3[2].value-=num #수량 조절
+                        row3[3].value = row3[1].value * row3[2].value #가격 조정
+                        if row3[2].value==0: #수량이 0이면
+                            temp_sheet2.delete_rows(count,1) #삭제
                             info_file.save(info_xl)
                             print("sheet2.delete...")
                             break
                 count+=1
             insert_tree2(temp_sheet2)
             print("lstart")
-            for i in range (len(og_sheets)):
-                for row2 in og_sheets[i]:
+            for i in range (len(og_sheets)-1): #세트는 건들면 안되서 -1
+                for row2 in og_sheets[i]: #왼쪽 시트를 i를 통해서 특정
                     print(row2[0].value)
-                    if row2[0].value==temp_item:
+                    if row2[0].value==temp_item: #물품명이 같으면
                         print("equals")
                         print(row2[2].value)
-                        if (row2[2].value==None) | (row2[2].value=="") |(row2[2].value=="0"):
-                            row2[2].value=num
+                        if (row2[2].value==None) | (row2[2].value=="") | (row2[2].value=="0"): #수량이 없으면
+                            row2[2].value=num #입력된 숫자만큼 추가
                         else:
-                            row2[2].value+=num
+                            row2[2].value+=num #수량 + 입력된 숫자만큼 추가
                         print(row2[2].value)
-                        og_file.save(home)
+                        og_file.save(home) #왼쪽 시트 저장
                         l_refrech()
                         break
             close()
@@ -372,9 +398,8 @@ if __name__ == "__main__":
     info_file=openpyxl.load_workbook(info_xl,data_only=True) #개인정보, 빈소별 물품정보 저장 공간(값으)
 
     info_sheets=[info_file['빈소1'],info_file['빈소2'],info_file['빈소3'],info_file['빈소5'],info_file['빈소6'],info_file['특101'],info_file['특102'],info_file['특201'],info_file['특202']]
-    og_sheets=[og_file['식당판매'], og_file['매점판매'], og_file['장의용품'], og_file['상복'], og_file['기타'], '''og_file['세트']''']  #시트 리스트에 저장 시트 이름 바꾸면 같이 바꿔야 함
-
-
+    og_sheets=[og_file['식당판매'], og_file['매점판매'], og_file['장의용품'], og_file['상복'], og_file['기타'], og_file['세트']]  #시트 리스트에 저장 시트 이름 바꾸면 같이 바꿔야 함
+    pinfo_sheet=info_file['개인정보'] #개인정보 출력용
 
     global temp_sheet
     global temp_sheet2
