@@ -15,28 +15,57 @@ def recall(): #
         count_item.destroy()
     def go():
         global temp_sheet2
+        global room
         print(amount.get())
         print(type(amount.get()))
 
         if amount.get()=="0":
             temp_sheet2=info_sheets[0]
+            room="빈소1"
+            빈소 = tkinter.Label(win, text=room, width=30, height=2, relief="solid")
+            빈소.place(x=50, y=60)
         elif amount.get()=="1":
             temp_sheet2=info_sheets[1]
+            room = "빈소2"
+            빈소 = tkinter.Label(win, text=room, width=30, height=2, relief="solid")
+            빈소.place(x=50, y=60)
         elif amount.get()=="2":
             temp_sheet2=info_sheets[2]
+            room = "빈소3"
+            빈소 = tkinter.Label(win, text=room, width=30, height=2, relief="solid")
+            빈소.place(x=50, y=60)
         elif amount.get()=="3":
             temp_sheet2=info_sheets[3]
+            room = "빈소5"
+            빈소 = tkinter.Label(win, text=room, width=30, height=2, relief="solid")
+            빈소.place(x=50, y=60)
             print(temp_sheet2)
         elif amount.get()=="4":
             temp_sheet2=info_sheets[4]
+            room = "빈소6"
+            빈소 = tkinter.Label(win, text=room, width=30, height=2, relief="solid")
+            빈소.place(x=50, y=60)
         elif amount.get()=="5":
             temp_sheet2=info_sheets[5]
+            room = "특101"
+            빈소 = tkinter.Label(win, text=room, width=30, height=2, relief="solid")
+            빈소.place(x=50, y=60)
         elif amount.get()=="6":
             temp_sheet2=info_sheets[6]
+            room = "특102"
+            빈소 = tkinter.Label(win, text=room, width=30, height=2, relief="solid")
+            빈소.place(x=50, y=60)
         elif amount.get()=="7":
             temp_sheet2=info_sheets[7]
+            room = "특201"
+            빈소 = tkinter.Label(win, text=room, width=30, height=2, relief="solid")
+            빈소.place(x=50, y=60)
         elif amount.get()=="8":
             temp_sheet2=info_sheets[8]
+            room = "특202"
+            빈소 = tkinter.Label(win, text=room, width=30, height=2, relief="solid")
+            빈소.place(x=50, y=60)
+
         print(amount.get())
         insert_tree2(temp_sheet2)
         close()
@@ -338,6 +367,7 @@ def c_click(event):
     conf.pack(side="bottom", pady=10)
     count_item.mainloop()
 if __name__ == "__main__":
+
     home = 'xl/전체물품리스트_세트저장용.xlsx'
     info_xl='xl/personal.xlsx'
 
@@ -351,10 +381,7 @@ if __name__ == "__main__":
 
     global temp_sheet
     global temp_sheet2
-
-    global new_p #중앙 목록 폼 출력용
-    new_p=[]
-
+    global room
 
     win = tk.Tk() # 창 생성
     win.geometry("1200x720") # 창의 크기
@@ -406,7 +433,7 @@ if __name__ == "__main__":
 
     시트1 = Button(win, text = "식당판매")
     시트1.config(width=7,height=2,command=btn1)
-    시트1.place(x=10,y=10)
+    시트1.place(x=50,y=150)
 
     # 세트 = Button(win, text = "세트")
     # 세트.config(width=7,height=2,command=set)
@@ -414,25 +441,38 @@ if __name__ == "__main__":
 
     시트3 = Button(win, text = "장의용품")
     시트3.config(width=7,height=2,command=btn3)
-    시트3.place(x=190,y=10)
+    시트3.place(x=230,y=150)
 
     시트4 = Button(win, text = "상복")
     시트4.config(width=7,height=2,command=btn4)
-    시트4.place(x=280,y=10)
+    시트4.place(x=320,y=150)
 
     시트5 = Button(win, text = "기타")
     시트5.config(width=7,height=2,command=btn5)
-    시트5.place(x=100,y=10)
+    시트5.place(x=140,y=150)
 
     불러오기 = Button(win, text = "불러오기")
     불러오기.config(width=7,height=2, command=recall)
-    불러오기.place(x=600,y=10)
+    불러오기.place(x=600,y=150)
 
-    tree.place(x=10,y=200)
+    tree.place(x=50,y=200)
     tree.bind("<Double-Button-1>",l_click)
     tree2.place(x=500,y=200)
     tree2.bind("<Double-Button-1>",c_click)
 
+    ID = tkinter.Label(win, text="ID", width=10, height=2, relief="solid")
+    ID.place(x=50,y=10)
 
+    고인명 = tkinter.Label(win, text="고인명", width=10, height=2, relief="solid")
+    고인명.place(x=150, y=10)
+
+    상주명 = tkinter.Label(win, text="상주명", width=10, height=2, relief="solid")
+    상주명.place(x=250, y=10)
+
+    빈소 = tkinter.Label(win, text="빈소", width=30, height=2, relief="solid")
+    빈소.place(x=50, y=60)
+
+    Date = tkinter.Label(win, text="Date", width=30, height=2, relief="solid")
+    Date.place(x=50, y=110)
 
     win.mainloop() # 창 실행
