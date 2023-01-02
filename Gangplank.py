@@ -30,21 +30,20 @@ entry1.pack()
 일호일.place(x=300, y=110)
 
 def change():
-    일호일.insert(0, entry1.get())
-    일호일.insert(1, entry1.get())
-    일호일.insert(2,entry1.get())
-    일호일.insert(3,entry1.get())
-    일호일.insert(4,entry1.get())
-    일호일.insert(5,entry1.get())
-    일호일.insert(6,entry1.get())
-    일호일.insert(7,entry1.get())
 
-
-
+    일호일.insert(일호.curselection(),entry1.get())
+    일호일.insert(일호.curselection(),entry1.get())
+    일호일.insert(일호.curselection(),entry1.get())
+    일호일.insert(일호.curselection(),entry1.get())
+    일호일.insert(일호.curselection(),entry1.get())
+    일호일.insert(일호.curselection(),entry1.get())
+    일호일.insert(일호.curselection(),entry1.get())
+    일호일.insert(일호.curselection(),entry1.get())
 
 
 
 # 1호입력 버튼 정의
+
 
 일호입력 =Button(text='입력', padx=5, pady=5, command=change)
 일호입력.pack()
