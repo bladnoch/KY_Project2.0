@@ -275,7 +275,7 @@ def insert_tree2(sheet):
             print(type(row2[0].value))
             print("continue")
             continue
-        elif (row2[4].value==None)|(row2[4].value=="None"):
+        elif (row2[4].value==None)|(row2[4].value=="None") | (row2[0].value!=" "):
             tree2.insert('', 'end', text="", values=[row2[0].value,row2[1].value,row2[2].value,row2[3].value," "])
             print("save with '' ")
         else:
@@ -392,32 +392,71 @@ def c_click(event):
     conf.pack(side="bottom", pady=10)
     count_item.mainloop()
 def set():
+    print("set()")
+    stop=False
+    count=0
     #세트시트의 물품명과 다른 시트들의 물품명을 비교 --(리스트로 물품명 수량 저장)
     #같은 이름이 있으면 수량을 확인 --(리스트속 물품명으로 찾은 후 리스트속 수량으로 비교)
     #수량에 문제가 없으면 시트의 수량을 줄임 --(시트의 수량 - 리스트속 수량)
+
     #중앙 시트에 추가 전에 수량 확인 --(리스트속 물품명으로 찾은 후, or 같은게 없을 경우 추가)
     #수량 확인후 값 수정 -- (리스트속 값으로 수량 수정, 총 금액 수정)
     #세트속 물품 비교가 전부 끝날때 까지 반복
+
     #왼쪽 시트 저장
     #중앙 시트 저장
     #양쪽 리프레시
 
-    for i in range(len(og_sheets) - 1):  # 세트는 건들면 안되서 -1
-        for row2 in og_sheets[i]:  # 왼쪽 시트를 i를 통해서 특정
-            print(row2[0].value)
-            if row2[0].value == temp_item:  # 물품명이 같으면
-                print("equals")
-                print(row2[2].value)
-                if (row2[2].value == None) | (row2[2].value == "") | (row2[2].value == "0"):  # 수량이 없으면
-                    row2[2].value = num  # 입력된 숫자만큼 추가
-                else:
-                    row2[2].value += num  # 수량 + 입력된 숫자만큼 추가
-                print(row2[2].value)
-                og_file.save(home)  # 왼쪽 시트 저장
-                l_refrech()
-                break
-if __name__ == "__main__":
+    for rows in og_sheets[5].iter_rows(): #세트에 row 길이만큼 반복
+        if ((rows[0].value==None) | (rows[0].value==" ") | (rows[0].value=="")) & (stop==True):
+            print("for rows in pinfo...if")
+            break
+        else:
+            print("for rows in pinfo...else")
+            for i in range(len(og_sheets) - 1):  # 세트는 건들면 안되서 -1
+                for row2 in og_sheets[i]:  # 왼쪽 시트를 i를 통해서 특정
+                    print(rows[0].value)
+                    print(row2[0].value)
+                    if (row2[0].value == rows[0].value) & (rows[0].value!="물품명"):  # 물품명이 같으면
+                        if row2[2].value<rows[2].value: #세트의 수량보다 적으면
+                            messagebox.showinfo("",(rows[0].value+"의 수량이 부족합니다."))
+                            stop=True
 
+                        else:
+                            row2[2].value-=rows[2].value #왼쪽 수량 - 사용수량
+                            print("touch left sheets")
+
+    for rows in og_sheets[5].iter_rows():
+        print("for rows in pinfo....2")
+        print(stop)
+        if stop==False:
+            for row3 in temp_sheet2.iter_rows():  # 중앙 수량 조절
+                print("working now?")
+                if row3[0].value==rows[0].value: #물품명이 같으면
+                    print("if")
+                    row3[2].value+=rows[2].value
+                    row3[3].value = row3[1].value * row3[2].value
+
+            if ((rows[0].value==None) | (rows[0].value==" ") | (rows[0].value=="") |(rows[0].value!="물품명")):
+                if (rows[3].value==None) | (rows[3].value==" ") | (rows[3].value==""):
+                    temp_sheet2.append([rows[0].value, rows[1].value, rows[2].value,
+                                        (rows[1].value * rows[2].value),
+                                        " "])
+                else:
+                    print("else",rows[1].value, rows[2].value)
+                    temp_sheet2.append([rows[0].value, rows[1].value, rows[2].value,
+                                    (rows[1].value*rows[2].value),
+                                    rows[3].value])
+
+    if stop==False:
+        print("stop==False")
+        info_file.save(info_xl)
+        og_file.save(home)  # 왼쪽 시트 저장
+        l_refrech()
+        insert_tree2(temp_sheet2)
+
+
+if __name__ == "__main__":
     home = 'xl/전체물품리스트_세트저장용.xlsx'
     info_xl='xl/personal.xlsx'
 
