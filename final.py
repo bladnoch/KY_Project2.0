@@ -173,7 +173,7 @@ def l_click(event):
         onoff=True
 
         row=[] #지역변수 리셋 필요 없음
-        if(((tree.item(selectedItem)['values'][2])==None)| (tree.item(selectedItem)['values'][2]<num)):
+        if (((tree.item(selectedItem)['values'][2])==None) | (tree.item(selectedItem)['values'][2]<num)):
             messagebox.showinfo("","수량보다 많이 입력하였습니다.")
         else:
             # for row2 in temp_sheet.iter_rows(min_row=2):
@@ -310,7 +310,7 @@ def c_click(event):
                 count+=1
             insert_tree2(temp_sheet2)
             print("lstart")
-            for i in range (len(og_sheets)-1): #세트는 건들면 안되서 -1
+            for i in range (len(og_sheets)):
                 for row2 in og_sheets[i]: #왼쪽 시트를 i를 통해서 특정
                     print(row2[0].value)
                     if row2[0].value==temp_item: #물품명이 같으면
@@ -407,13 +407,13 @@ def set():
     #중앙 시트 저장
     #양쪽 리프레시
 
-    for rows in og_sheets[5].iter_rows(): #세트에 row 길이만큼 반복
+    for rows in set_sheet.iter_rows(): #세트에 row 길이만큼 반복
         if ((rows[0].value==None) | (rows[0].value==" ") | (rows[0].value=="")) & (stop==True):
             print("for rows in pinfo...if")
             break
         else:
             print("for rows in pinfo...else")
-            for i in range(len(og_sheets) - 1):  # 세트는 건들면 안되서 -1
+            for i in range(len(og_sheets)):  #
                 for row2 in og_sheets[i]:  # 왼쪽 시트를 i를 통해서 특정
                     print(rows[0].value)
                     print(row2[0].value)
@@ -426,27 +426,30 @@ def set():
                             row2[2].value-=rows[2].value #왼쪽 수량 - 사용수량
                             print("touch left sheets")
 
-    for rows in og_sheets[5].iter_rows():
+
+    for rows in set_sheet.iter_rows():
+        visit = False
         print("for rows in pinfo....2")
+        print("rows",rows[0].value)
         print(stop)
-        if stop==False:
+        if stop==False: #수량에 문제가 없을경우
             for row3 in temp_sheet2.iter_rows():  # 중앙 수량 조절
-                print("working now?")
+                print("수량조절 시작",row3[0].value)
                 if row3[0].value==rows[0].value: #물품명이 같으면
-                    print("if")
+                    print("물품명이 같아서 값을 바꾸는 중",row3[0].value==rows[0].value)
                     row3[2].value+=rows[2].value
                     row3[3].value = row3[1].value * row3[2].value
-
-            if ((rows[0].value==None) | (rows[0].value==" ") | (rows[0].value=="") |(rows[0].value!="물품명")):
-                if (rows[3].value==None) | (rows[3].value==" ") | (rows[3].value==""):
-                    temp_sheet2.append([rows[0].value, rows[1].value, rows[2].value,
-                                        (rows[1].value * rows[2].value),
-                                        " "])
-                else:
-                    print("else",rows[1].value, rows[2].value)
-                    temp_sheet2.append([rows[0].value, rows[1].value, rows[2].value,
-                                    (rows[1].value*rows[2].value),
-                                    rows[3].value])
+                    visit=True
+                if (visit==False) & (rows[0].value!="물품명"):
+                    print("값이 달라서 어펜드 할 예정")
+                    if (rows[3].value==None) | (rows[3].value==" ") | (rows[3].value==""):
+                        print("단위가 비어있음")
+                        temp_sheet2.append([rows[0].value, rows[1].value, rows[2].value,
+                                            (rows[1].value * rows[2].value)," "])
+                    else:
+                        print("단위가 비어있지 않음")
+                        print("else",rows[1].value, rows[2].value)
+                        temp_sheet2.append([rows[0].value, rows[1].value, rows[2].value,(rows[1].value*rows[2].value),rows[3].value])
 
     if stop==False:
         print("stop==False")
@@ -464,7 +467,8 @@ if __name__ == "__main__":
     info_file=openpyxl.load_workbook(info_xl,data_only=True) #개인정보, 빈소별 물품정보 저장 공간(값으)
 
     info_sheets=[info_file['빈소1'],info_file['빈소2'],info_file['빈소3'],info_file['빈소5'],info_file['빈소6'],info_file['특101'],info_file['특102'],info_file['특201'],info_file['특202']]
-    og_sheets=[og_file['식당판매'], og_file['매점판매'], og_file['장의용품'], og_file['상복'], og_file['기타'], og_file['세트']]  #시트 리스트에 저장 시트 이름 바꾸면 같이 바꿔야 함
+    og_sheets=[og_file['식당판매'], og_file['매점판매'], og_file['장의용품'], og_file['상복'], og_file['기타']]
+    set_sheet=og_file['세트']
     pinfo_sheet=info_file['개인정보'] #개인정보 출력용
 
     global temp_sheet
@@ -538,9 +542,9 @@ if __name__ == "__main__":
     시트5.config(width=7,height=2,command=btn5)
     시트5.place(x=410,y=150)
 
-    세트 = Button(win, text = "세트")
-    세트.config(width=7,height=2, command=set)
-    세트.place(x=500,y=150)
+    # 세트 = Button(win, text = "세트")
+    # 세트.config(width=7,height=2, command=set)
+    # 세트.place(x=500,y=150)
 
     # -------------------------------------------------
 
