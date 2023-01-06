@@ -24,7 +24,7 @@ def print_sheet():
 
 
 home = '/Users/doungukkim/Desktop/workspace/gyproject/test/test.xlsx'
-info_xl='/Users/doungukkim/Desktop/workspace/gyproject/test/personal.xlsx'
+info_xl='/Users/doungukkim/Desktop/workspace/gyproject/test/개인정보_물품.xlsx'
 
 og_file= openpyxl.load_workbook(home, data_only=True) #초기 시트 위치 저장(값으로)
 info_file=openpyxl.load_workbook(info_xl,data_only=True) #개인정보, 빈소별 물품정보 저장 공간(값으)

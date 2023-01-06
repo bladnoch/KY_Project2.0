@@ -9,104 +9,74 @@ from openpyxl.worksheet.table import Table, TableStyleInfo
 import tkinter.ttk
 import tkinter as tk
 
+
 def secwin():
+    def open_sheet():
+        print("시트 여는거 연결")
     def recall():  #
-        def close():
-            count_item.quit()
-            count_item.destroy()
+        global temp_sheet2
+        global room
+        global call
+        def setroom():
+            빈소 = tkinter.Label(win, text=room, width=35, height=2, relief="solid")
+            빈소.place(x=50, y=10)
 
-        def go():
-            global temp_sheet2
-            global room
+        def setpinfo(num):
 
-            print(amount.get())
-            print(type(amount.get()))
+            상주성명 = tkinter.Label(win, text=pinfo_sheet.cell(num, 1).value, width=35, height=2, relief="solid")
+            상주성명.place(x=50, y=60)
 
-            def setroom():
-                빈소 = tkinter.Label(win, text=room, width=35, height=2, relief="solid")
-                빈소.place(x=50, y=10)
+            빈소기간 = tkinter.Label(win, text=pinfo_sheet.cell(num, 2).value, width=35, height=2, relief="solid")
+            빈소기간.place(x=50, y=110)
 
-            def setpinfo(num):
+        if call==0:
+            temp_sheet2 = info_sheets[0]
+            room = "빈소1"
+            setroom()
+            setpinfo(1)
+        elif call==1:
+            temp_sheet2 = info_sheets[1]
+            room = "빈소2"
+            setroom()
+            setpinfo(2)
+        elif call==2:
+            temp_sheet2 = info_sheets[2]
+            room = "빈소3"
+            setroom()
+            setpinfo(3)
+        elif call==3:
+            temp_sheet2 = info_sheets[3]
+            room = "빈소5"
+            setroom()
+            setpinfo(4)
+            print(temp_sheet2)
+        elif call==4:
+            temp_sheet2 = info_sheets[4]
+            room = "빈소6"
+            setroom()
+            setpinfo(5)
+        elif call==5:
+            temp_sheet2 = info_sheets[5]
+            room = "특101"
+            setroom()
+            setpinfo(6)
+        elif call==6:
+            temp_sheet2 = info_sheets[6]
+            room = "특102"
+            setroom()
+            setpinfo(7)
+        elif call==7:
+            temp_sheet2 = info_sheets[7]
+            room = "특201"
+            setroom()
+            setpinfo(8)
+        elif call==8:
+            temp_sheet2 = info_sheets[8]
+            room = "특202"
+            setroom()
+            setpinfo(9)
 
-                상주성명 = tkinter.Label(win, text=pinfo_sheet.cell(num, 1).value, width=35, height=2, relief="solid")
-                상주성명.place(x=50, y=60)
-
-                빈소기간 = tkinter.Label(win, text=pinfo_sheet.cell(num, 2).value, width=35, height=2, relief="solid")
-                빈소기간.place(x=50, y=110)
-
-            if amount.get() == "0":
-                temp_sheet2 = info_sheets[0]
-                room = "빈소1"
-                setroom()
-                setpinfo(1)
-            elif amount.get() == "1":
-                temp_sheet2 = info_sheets[1]
-                room = "빈소2"
-                setroom()
-                setpinfo(2)
-            elif amount.get() == "2":
-                temp_sheet2 = info_sheets[2]
-                room = "빈소3"
-                setroom()
-                setpinfo(3)
-            elif amount.get() == "3":
-                temp_sheet2 = info_sheets[3]
-                room = "빈소5"
-                setroom()
-                setpinfo(4)
-                print(temp_sheet2)
-            elif amount.get() == "4":
-                temp_sheet2 = info_sheets[4]
-                room = "빈소6"
-                setroom()
-                setpinfo(5)
-            elif amount.get() == "5":
-                temp_sheet2 = info_sheets[5]
-                room = "특101"
-                setroom()
-                setpinfo(6)
-            elif amount.get() == "6":
-                temp_sheet2 = info_sheets[6]
-                room = "특102"
-                setroom()
-                setpinfo(7)
-            elif amount.get() == "7":
-                temp_sheet2 = info_sheets[7]
-                room = "특201"
-                setroom()
-                setpinfo(8)
-            elif amount.get() == "8":
-                temp_sheet2 = info_sheets[8]
-                room = "특202"
-                setroom()
-                setpinfo(9)
-
-            print(amount.get())
-            insert_tree2(temp_sheet2)
-            close()
-
-        count_item = Tk()  # 불러오기 하면 나오는 화면
-
-        count_item.geometry("200x150+500+300")  # 창의 크기
-        count_item.title("수량 입력")  # 창의 제목
-        count_item.option_add("*Font", "맑은고딕 14")  # 전체 폰트
-
-        ontk = Label(count_item)  # 수량 레이블
-        ontk.config(text="수량", width=10, relief="solid")
-        ontk.pack(side="top", pady=10)
-
-        amount = Entry(count_item)  # 수량 엔트리 go_enter 연결
-        amount.config(width=10, relief="solid", borderwidth=0)
-        amount.focus()
-        # amount.bind("<Return>", go_enter)
-        amount.place(x=60, y=50)
-        amount.pack()
-
-        conf = Button(count_item, text="확인")  # 확인 버튼
-        conf.config(width=10, height=3, command=go)  # go 연결
-        # conf.place(x=30,y=200)
-        conf.pack(side="bottom", pady=10)
-        count_item.mainloop()
+        insert_tree2(temp_sheet2)
     def del_t():  # 오른쪽 트리 삭제용
         tree.delete(*tree.get_children())
     def del_t2():  # 오른쪽 트리 삭제용
@@ -468,7 +438,7 @@ def secwin():
             insert_tree2(temp_sheet2)
 
     home = 'xl/전체물품리스트_세트저장용.xlsx'
-    info_xl = 'xl/personal.xlsx'
+    info_xl = 'xl/개인정보_물품.xlsx'
 
     og_file = openpyxl.load_workbook(home, data_only=True)  # 초기 시트 위치 저장(값으로)
     info_file = openpyxl.load_workbook(info_xl, data_only=True)  # 개인정보, 빈소별 물품정보 저장 공간(값으)
@@ -534,7 +504,7 @@ def secwin():
     시트1.config(width=7, height=2, command=btn1)
     시트1.place(x=50, y=150)
 
-    시트2 = Button(win, text="장의용품")
+    시트2 = Button(win, text="매점용품")
     시트2.config(width=7, height=2, command=btn2)
     시트2.place(x=140, y=150)
 
@@ -556,9 +526,9 @@ def secwin():
 
     # -------------------------------------------------
 
-    불러오기 = Button(win, text="불러오기")
-    불러오기.config(width=7, height=2, command=recall)
-    불러오기.place(x=600, y=10)
+    # 불러오기 = Button(win, text="불러오기")
+    # 불러오기.config(width=7, height=2, command=newwin)
+    # 불러오기.place(x=600, y=10)
 
     # -------------------------------------------------
 
@@ -578,22 +548,69 @@ def secwin():
     빈소기간 = tkinter.Label(win, text="빈소기간", width=35, height=2, relief="solid")
     빈소기간.place(x=50, y=110)
 
+    시트불러오기 = Button(win, text="시트불러오기")
+    시트불러오기.config(width=7, height=2, command=open_sheet)
+    시트불러오기.place(x=720, y=120)
+
+    recall()
+
     win.mainloop()  # 창 실행
 
 def b1():
     global b
+    global call
+    call=0
     b=1
     print(b)
     put()
 def b2():
     global b
+    global call
+    call = 1
     b=2
     print(b)
     put()
 def b3():
     global b
+    global call
+    call = 2
     b=3
-    print(b)
+    put()
+def b4():
+    global b
+    global call
+    call = 3
+    b=4
+    put()
+def b5():
+    global b
+    global call
+    call = 4
+    b=5
+    put()
+def b6():
+    global b
+    global call
+    call = 5
+    b=6
+    put()
+def b7():
+    global b
+    global call
+    call = 6
+    b=7
+    put()
+def b8():
+    global b
+    global call
+    call = 7
+    b=8
+    put()
+def b9():
+    global b
+    global call
+    call = 8
+    b=9
     put()
 def put():
     def close():
@@ -617,17 +634,17 @@ def put():
     wi.option_add("*Font", "맑은고딕 12")  # 전체 폰트
 
 
-    상주성명 = tkinter.Label(wi, text="상주성명", width=10, height=1, relief="solid", background="white")
+    상주성명 = tkinter.Label(wi, text="상주성명", width=10, height=1, relief="solid", background="gray")
     상주성명.place(x=20, y=20)
-    빈소기간 = tkinter.Label(wi, text="빈소기간", width=10, height=1, relief="solid", background="white")
+    빈소기간 = tkinter.Label(wi, text="빈소기간", width=10, height=1, relief="solid", background="gray")
     빈소기간.place(x=20, y=50)
-    상조회 = tkinter.Label(wi, text="상조회", width=10, height=1, relief="solid", background="white")
+    상조회 = tkinter.Label(wi, text="상조회", width=10, height=1, relief="solid", background="gray")
     상조회.place(x=20, y=80)
-    장지 = tkinter.Label(wi, text="장지", width=10, height=1, relief="solid", background="white")
+    장지 = tkinter.Label(wi, text="장지", width=10, height=1, relief="solid", background="gray")
     장지.place(x=20, y=110)
-    상차림 = tkinter.Label(wi, text="상차림", width=10, height=1, relief="solid", background="white")
+    상차림 = tkinter.Label(wi, text="상차림", width=10, height=1, relief="solid", background="gray")
     상차림.place(x=20, y=140)
-    상주 = tkinter.Label(wi, text="상주", width=10, height=1, relief="solid", background="white")
+    상주 = tkinter.Label(wi, text="상주", width=10, height=1, relief="solid", background="gray")
     상주.place(x=20, y=170)
 
     상주성명e = tkinter.Entry(wi)
@@ -655,32 +672,36 @@ def showpage():
                              command=b1)
     button1.place(x=20, y=160)
 
-    빈소1 = tkinter.Label(window, text="빈소1", width=30, height=1, relief="solid", background="white")
+    button1 = tkinter.Button(window, text="입력", overrelief="solid", width=10, repeatdelay=1000, repeatinterval=100,
+                             command=b1)
+    button1.place(x=20, y=160)
+
+    빈소1 = tkinter.Label(window, text="빈소1", width=30, height=1, relief="solid", background="gray")
     빈소1.place(x=20, y=20)
-    상주성명1 = tkinter.Label(window, text="상주성명", width=10, height=1, relief="solid", background="white")
+    상주성명1 = tkinter.Label(window, text="상주성명", width=10, height=1, relief="solid", background="gray")
     상주성명1.place(x=20, y=40)
-    빈소기간1 = tkinter.Label(window, text="빈소기간", width=10, height=1, relief="solid", background="white")
+    빈소기간1 = tkinter.Label(window, text="빈소기간", width=10, height=1, relief="solid", background="gray")
     빈소기간1.place(x=20, y=60)
-    상조회1 = tkinter.Label(window, text="상조회", width=10, height=1, relief="solid", background="white")
+    상조회1 = tkinter.Label(window, text="상조회", width=10, height=1, relief="solid", background="gray")
     상조회1.place(x=20, y=80)
-    장지1 = tkinter.Label(window, text="장지", width=10, height=1, relief="solid", background="white")
+    장지1 = tkinter.Label(window, text="장지", width=10, height=1, relief="solid", background="gray")
     장지1.place(x=20, y=100)
-    상차림1 = tkinter.Label(window, text="상차림", width=10, height=1, relief="solid", background="white")
+    상차림1 = tkinter.Label(window, text="상차림", width=10, height=1, relief="solid", background="gray")
     상차림1.place(x=20, y=120)
-    상주1 = tkinter.Label(window, text="상주", width=10, height=1, relief="solid", background="white")
+    상주1 = tkinter.Label(window, text="상주", width=10, height=1, relief="solid", background="gray")
     상주1.place(x=20, y=140)
 
-    상주성명11 = tkinter.Label(window, text=pinfo_sheet['A1'].value, width=20, height=1, relief="solid", background="white")
+    상주성명11 = tkinter.Label(window, text=pinfo_sheet['A1'].value, width=20, height=1, relief="solid", background="gray")
     상주성명11.place(x=100, y=40)
-    빈소기간11 = tkinter.Label(window, text=pinfo_sheet['B1'].value, width=20, height=1, relief="solid", background="white")
+    빈소기간11 = tkinter.Label(window, text=pinfo_sheet['B1'].value, width=20, height=1, relief="solid", background="gray")
     빈소기간11.place(x=100, y=60)
-    상조회11 = tkinter.Label(window, text=pinfo_sheet['C1'].value, width=20, height=1, relief="solid", background="white")
+    상조회11 = tkinter.Label(window, text=pinfo_sheet['C1'].value, width=20, height=1, relief="solid", background="gray")
     상조회11.place(x=100, y=80)
-    장지11 = tkinter.Label(window, text=pinfo_sheet['D1'].value, width=20, height=1, relief="solid", background="white")
+    장지11 = tkinter.Label(window, text=pinfo_sheet['D1'].value, width=20, height=1, relief="solid", background="gray")
     장지11.place(x=100, y=100)
-    상차림11 = tkinter.Label(window, text=pinfo_sheet['E1'].value, width=20, height=1, relief="solid", background="white")
+    상차림11 = tkinter.Label(window, text=pinfo_sheet['E1'].value, width=20, height=1, relief="solid", background="gray")
     상차림11.place(x=100, y=120)
-    상주11 = tkinter.Label(window, text=pinfo_sheet['F1'].value, width=20, height=1, relief="solid", background="white")
+    상주11 = tkinter.Label(window, text=pinfo_sheet['F1'].value, width=20, height=1, relief="solid", background="gray")
     상주11.place(x=100, y=140)
 
     # ---------
@@ -689,32 +710,32 @@ def showpage():
                              command=b2)
     button2.place(x=20 + 400, y=160)
 
-    빈소2 = tkinter.Label(window, text="빈소2", width=30, height=1, relief="solid", background="white")
+    빈소2 = tkinter.Label(window, text="빈소2", width=30, height=1, relief="solid", background="gray")
     빈소2.place(x=20 + 400, y=20)
-    상주성명2 = tkinter.Label(window, text="상주성명", width=10, height=1, relief="solid", background="white")
+    상주성명2 = tkinter.Label(window, text="상주성명", width=10, height=1, relief="solid", background="gray")
     상주성명2.place(x=20 + 400, y=40)
-    빈소기간2 = tkinter.Label(window, text="빈소기간", width=10, height=1, relief="solid", background="white")
+    빈소기간2 = tkinter.Label(window, text="빈소기간", width=10, height=1, relief="solid", background="gray")
     빈소기간2.place(x=20 + 400, y=60)
-    상조회2 = tkinter.Label(window, text="상조회", width=10, height=1, relief="solid", background="white")
+    상조회2 = tkinter.Label(window, text="상조회", width=10, height=1, relief="solid", background="gray")
     상조회2.place(x=20 + 400, y=80)
-    장지2 = tkinter.Label(window, text="장지", width=10, height=1, relief="solid", background="white")
+    장지2 = tkinter.Label(window, text="장지", width=10, height=1, relief="solid", background="gray")
     장지2.place(x=20 + 400, y=100)
-    상차림2 = tkinter.Label(window, text="상차림", width=10, height=1, relief="solid", background="white")
+    상차림2 = tkinter.Label(window, text="상차림", width=10, height=1, relief="solid", background="gray")
     상차림2.place(x=20 + 400, y=120)
-    상주2 = tkinter.Label(window, text="상주", width=10, height=1, relief="solid", background="white")
+    상주2 = tkinter.Label(window, text="상주", width=10, height=1, relief="solid", background="gray")
     상주2.place(x=20 + 400, y=140)
 
-    상주성명22 = tkinter.Label(window, text=pinfo_sheet['A2'].value, width=20, height=1, relief="solid", background="white")
+    상주성명22 = tkinter.Label(window, text=pinfo_sheet['A2'].value, width=20, height=1, relief="solid", background="gray")
     상주성명22.place(x=100 + 400, y=40)
-    빈소기간22 = tkinter.Label(window, text=pinfo_sheet['B2'].value, width=20, height=1, relief="solid", background="white")
+    빈소기간22 = tkinter.Label(window, text=pinfo_sheet['B2'].value, width=20, height=1, relief="solid", background="gray")
     빈소기간22.place(x=100 + 400, y=60)
-    상조회22 = tkinter.Label(window, text=pinfo_sheet['C2'].value, width=20, height=1, relief="solid", background="white")
+    상조회22 = tkinter.Label(window, text=pinfo_sheet['C2'].value, width=20, height=1, relief="solid", background="gray")
     상조회22.place(x=100 + 400, y=80)
-    장지22 = tkinter.Label(window, text=pinfo_sheet['D2'].value, width=20, height=1, relief="solid", background="white")
+    장지22 = tkinter.Label(window, text=pinfo_sheet['D2'].value, width=20, height=1, relief="solid", background="gray")
     장지22.place(x=100 + 400, y=100)
-    상차림22 = tkinter.Label(window, text=pinfo_sheet['E2'].value, width=20, height=1, relief="solid", background="white")
+    상차림22 = tkinter.Label(window, text=pinfo_sheet['E2'].value, width=20, height=1, relief="solid", background="gray")
     상차림22.place(x=100 + 400, y=120)
-    상주22 = tkinter.Label(window, text=pinfo_sheet['F2'].value, width=20, height=1, relief="solid", background="white")
+    상주22 = tkinter.Label(window, text=pinfo_sheet['F2'].value, width=20, height=1, relief="solid", background="gray")
     상주22.place(x=100 + 400, y=140)
 
     # --------
@@ -723,36 +744,253 @@ def showpage():
                              command=b3)
     button3.place(x=20 + 800, y=160)
 
-    빈소3 = tkinter.Label(window, text="빈소3", width=30, height=1, relief="solid", background="white")
+    빈소3 = tkinter.Label(window, text="빈소3", width=30, height=1, relief="solid", background="gray")
     빈소3.place(x=20 + 800, y=20)
-    상주성명3 = tkinter.Label(window, text="상주성명", width=10, height=1, relief="solid", background="white")
+    상주성명3 = tkinter.Label(window, text="상주성명", width=10, height=1, relief="solid", background="gray")
     상주성명3.place(x=20 + 800, y=40)
-    빈소기간3 = tkinter.Label(window, text="빈소기간", width=10, height=1, relief="solid", background="white")
+    빈소기간3 = tkinter.Label(window, text="빈소기간", width=10, height=1, relief="solid", background="gray")
     빈소기간3.place(x=20 + 800, y=60)
-    상조회3 = tkinter.Label(window, text="상조회", width=10, height=1, relief="solid", background="white")
+    상조회3 = tkinter.Label(window, text="상조회", width=10, height=1, relief="solid", background="gray")
     상조회3.place(x=20 + 800, y=80)
-    장지3 = tkinter.Label(window, text="장지", width=10, height=1, relief="solid", background="white")
+    장지3 = tkinter.Label(window, text="장지", width=10, height=1, relief="solid", background="gray")
     장지3.place(x=20 + 800, y=100)
-    상차림3 = tkinter.Label(window, text="상차림", width=10, height=1, relief="solid", background="white")
+    상차림3 = tkinter.Label(window, text="상차림", width=10, height=1, relief="solid", background="gray")
     상차림3.place(x=20 + 800, y=120)
-    상주3 = tkinter.Label(window, text="상주", width=10, height=1, relief="solid", background="white")
+    상주3 = tkinter.Label(window, text="상주", width=10, height=1, relief="solid", background="gray")
     상주3.place(x=20 + 800, y=140)
 
-    상주성명33 = tkinter.Label(window, text=pinfo_sheet['A3'].value, width=20, height=1, relief="solid", background="white")
+    상주성명33 = tkinter.Label(window, text=pinfo_sheet['A3'].value, width=20, height=1, relief="solid", background="gray")
     상주성명33.place(x=100 + 800, y=40)
-    빈소기간33 = tkinter.Label(window, text=pinfo_sheet['B3'].value, width=20, height=1, relief="solid", background="white")
+    빈소기간33 = tkinter.Label(window, text=pinfo_sheet['B3'].value, width=20, height=1, relief="solid", background="gray")
     빈소기간33.place(x=100 + 800, y=60)
-    상조회33 = tkinter.Label(window, text=pinfo_sheet['C3'].value, width=20, height=1, relief="solid", background="white")
+    상조회33 = tkinter.Label(window, text=pinfo_sheet['C3'].value, width=20, height=1, relief="solid", background="gray")
     상조회33.place(x=100 + 800, y=80)
-    장지33 = tkinter.Label(window, text=pinfo_sheet['D3'].value, width=20, height=1, relief="solid", background="white")
+    장지33 = tkinter.Label(window, text=pinfo_sheet['D3'].value, width=20, height=1, relief="solid", background="gray")
     장지33.place(x=100 + 800, y=100)
-    상차림33 = tkinter.Label(window, text=pinfo_sheet['E3'].value, width=20, height=1, relief="solid", background="white")
+    상차림33 = tkinter.Label(window, text=pinfo_sheet['E3'].value, width=20, height=1, relief="solid", background="gray")
     상차림33.place(x=100 + 800, y=120)
-    상주33 = tkinter.Label(window, text=pinfo_sheet['F3'].value, width=20, height=1, relief="solid", background="white")
+    상주33 = tkinter.Label(window, text=pinfo_sheet['F3'].value, width=20, height=1, relief="solid", background="gray")
     상주33.place(x=100 + 800, y=140)
+
+    빈소4 = tkinter.Label(window, text="빈소5", width=30, height=1, relief="solid", background="gray")
+    빈소4.place(x=20, y=20 + 200)
+    상주성명4 = tkinter.Label(window, text="상주성명", width=10, height=1, relief="solid", background="gray")
+    상주성명4.place(x=20, y=40 + 200)
+    빈소기간4 = tkinter.Label(window, text="빈소기간", width=10, height=1, relief="solid", background="gray")
+    빈소기간4.place(x=20, y=60 + 200)
+    상조회4 = tkinter.Label(window, text="상조회", width=10, height=1, relief="solid", background="gray")
+    상조회4.place(x=20, y=80 + 200)
+    장지4 = tkinter.Label(window, text="장지", width=10, height=1, relief="solid", background="gray")
+    장지4.place(x=20, y=100 + 200)
+    상차림4 = tkinter.Label(window, text="상차림", width=10, height=1, relief="solid", background="gray")
+    상차림4.place(x=20, y=120 + 200)
+    상주4 = tkinter.Label(window, text="상주", width=10, height=1, relief="solid", background="gray")
+    상주4.place(x=20, y=140 + 200)
+
+    상주성명44 = tkinter.Label(window, text=pinfo_sheet['A4'].value, width=20, height=1, relief="solid", background="gray")
+    상주성명44.place(x=100, y=40 + 200)
+    빈소기간44 = tkinter.Label(window, text=pinfo_sheet['B4'].value, width=20, height=1, relief="solid", background="gray")
+    빈소기간44.place(x=100, y=60 + 200)
+    상조회44 = tkinter.Label(window, text=pinfo_sheet['C4'].value, width=20, height=1, relief="solid", background="gray")
+    상조회44.place(x=100, y=80 + 200)
+    장지44 = tkinter.Label(window, text=pinfo_sheet['D4'].value, width=20, height=1, relief="solid", background="gray")
+    장지44.place(x=100, y=100 + 200)
+    상차림44 = tkinter.Label(window, text=pinfo_sheet['E4'].value, width=20, height=1, relief="solid", background="gray")
+    상차림44.place(x=100, y=120 + 200)
+    상주44 = tkinter.Label(window, text=pinfo_sheet['F4'].value, width=20, height=1, relief="solid", background="gray")
+    상주44.place(x=100, y=140 + 200)
+
+    빈소5 = tkinter.Label(window, text="빈소6", width=30, height=1, relief="solid", background="gray")
+    빈소5.place(x=20 + 400, y=20 + 200)
+    상주성명5 = tkinter.Label(window, text="상주성명", width=10, height=1, relief="solid", background="gray")
+    상주성명5.place(x=20 + 400, y=40 + 200)
+    빈소기간5 = tkinter.Label(window, text="빈소기간", width=10, height=1, relief="solid", background="gray")
+    빈소기간5.place(x=20 + 400, y=60 + 200)
+    상조회5 = tkinter.Label(window, text="상조회", width=10, height=1, relief="solid", background="gray")
+    상조회5.place(x=20 + 400, y=80 + 200)
+    장지5 = tkinter.Label(window, text="장지", width=10, height=1, relief="solid", background="gray")
+    장지5.place(x=20 + 400, y=100 + 200)
+    상차림5 = tkinter.Label(window, text="상차림", width=10, height=1, relief="solid", background="gray")
+    상차림5.place(x=20 + 400, y=120 + 200)
+    상주5 = tkinter.Label(window, text="상주", width=10, height=1, relief="solid", background="gray")
+    상주5.place(x=20 + 400, y=140 + 200)
+
+    상주성명55 = tkinter.Label(window, text=pinfo_sheet['A5'].value, width=20, height=1, relief="solid", background="gray")
+    상주성명55.place(x=100 + 400, y=40 + 200)
+    빈소기간55 = tkinter.Label(window, text=pinfo_sheet['B5'].value, width=20, height=1, relief="solid", background="gray")
+    빈소기간55.place(x=100 + 400, y=60 + 200)
+    상조회55 = tkinter.Label(window, text=pinfo_sheet['C5'].value, width=20, height=1, relief="solid", background="gray")
+    상조회55.place(x=100 + 400, y=80 + 200)
+    장지55 = tkinter.Label(window, text=pinfo_sheet['D5'].value, width=20, height=1, relief="solid", background="gray")
+    장지55.place(x=100 + 400, y=100 + 200)
+    상차림55 = tkinter.Label(window, text=pinfo_sheet['E5'].value, width=20, height=1, relief="solid", background="gray")
+    상차림55.place(x=100 + 400, y=120 + 200)
+    상주55 = tkinter.Label(window, text=pinfo_sheet['F5'].value, width=20, height=1, relief="solid", background="gray")
+    상주55.place(x=100 + 400, y=140 + 200)
+
+    빈소6 = tkinter.Label(window, text="특101", width=30, height=1, relief="solid", background="gray")
+    빈소6.place(x=20 + 800, y=20 + 200)
+    상주성명6 = tkinter.Label(window, text="상주성명", width=10, height=1, relief="solid", background="gray")
+    상주성명6.place(x=20 + 800, y=40 + 200)
+    빈소기간6 = tkinter.Label(window, text="빈소기간", width=10, height=1, relief="solid", background="gray")
+    빈소기간6.place(x=20 + 800, y=60 + 200)
+    상조회6 = tkinter.Label(window, text="상조회", width=10, height=1, relief="solid", background="gray")
+    상조회6.place(x=20 + 800, y=80 + 200)
+    장지6 = tkinter.Label(window, text="장지", width=10, height=1, relief="solid", background="gray")
+    장지6.place(x=20 + 800, y=100 + 200)
+    상차림6 = tkinter.Label(window, text="상차림", width=10, height=1, relief="solid", background="gray")
+    상차림6.place(x=20 + 800, y=120 + 200)
+    상주6 = tkinter.Label(window, text="상주", width=10, height=1, relief="solid", background="gray")
+    상주6.place(x=20 + 800, y=140 + 200)
+
+    상주성명66 = tkinter.Label(window, text=pinfo_sheet['A6'].value, width=20, height=1, relief="solid", background="gray")
+    상주성명66.place(x=100 + 800, y=40 + 200)
+    빈소기간66 = tkinter.Label(window, text=pinfo_sheet['B6'].value, width=20, height=1, relief="solid", background="gray")
+    빈소기간66.place(x=100 + 800, y=60 + 200)
+    상조회66 = tkinter.Label(window, text=pinfo_sheet['C6'].value, width=20, height=1, relief="solid", background="gray")
+    상조회66.place(x=100 + 800, y=80 + 200)
+    장지66 = tkinter.Label(window, text=pinfo_sheet['D6'].value, width=20, height=1, relief="solid", background="gray")
+    장지66.place(x=100 + 800, y=100 + 200)
+    상차림66 = tkinter.Label(window, text=pinfo_sheet['E6'].value, width=20, height=1, relief="solid", background="gray")
+    상차림66.place(x=100 + 800, y=120 + 200)
+    상주66 = tkinter.Label(window, text=pinfo_sheet['F6'].value, width=20, height=1, relief="solid", background="gray")
+    상주66.place(x=100 + 800, y=140 + 200)
+
+
+    빈소7 = tkinter.Label(window, text="특102", width=30, height=1, relief="solid", background="gray")
+    빈소7.place(x=20, y=20 + 200 + 200)
+    상주성명7 = tkinter.Label(window, text="상주성명", width=10, height=1, relief="solid", background="gray")
+    상주성명7.place(x=20, y=40 + 200 + 200)
+    빈소기간7 = tkinter.Label(window, text="빈소기간", width=10, height=1, relief="solid", background="gray")
+    빈소기간7.place(x=20, y=60 + 200 + 200)
+    상조회7 = tkinter.Label(window, text="상조회", width=10, height=1, relief="solid", background="gray")
+    상조회7.place(x=20, y=80 + 200 + 200)
+    장지7 = tkinter.Label(window, text="장지", width=10, height=1, relief="solid", background="gray")
+    장지7.place(x=20, y=100 + 200 + 200)
+    상차림7 = tkinter.Label(window, text="상차림", width=10, height=1, relief="solid", background="gray")
+    상차림7.place(x=20, y=120 + 200 + 200)
+    상주7 = tkinter.Label(window, text="상주", width=10, height=1, relief="solid", background="gray")
+    상주7.place(x=20, y=140 + 200 + 200)
+
+    상주성명77 = tkinter.Label(window, text=pinfo_sheet['A7'].value, width=20, height=1, relief="solid", background="gray")
+    상주성명77.place(x=100, y=40 + 200 + 200)
+    빈소기간77 = tkinter.Label(window, text=pinfo_sheet['B7'].value, width=20, height=1, relief="solid", background="gray")
+    빈소기간77.place(x=100, y=60 + 200 + 200)
+    상조회77 = tkinter.Label(window, text=pinfo_sheet['C7'].value, width=20, height=1, relief="solid", background="gray")
+    상조회77.place(x=100, y=80 + 200 + 200)
+    장지77 = tkinter.Label(window, text=pinfo_sheet['D7'].value, width=20, height=1, relief="solid", background="gray")
+    장지77.place(x=100, y=100 + 200 + 200)
+    상차림77 = tkinter.Label(window, text=pinfo_sheet['E7'].value, width=20, height=1, relief="solid", background="gray")
+    상차림77.place(x=100, y=120 + 200 + 200)
+    상주77 = tkinter.Label(window, text=pinfo_sheet['F7'].value, width=20, height=1, relief="solid", background="gray")
+    상주77.place(x=100, y=140 + 200 + 200)
+
+    # ---------
+
+    빈소8 = tkinter.Label(window, text="특201", width=30, height=1, relief="solid", background="gray")
+    빈소8.place(x=20 + 400, y=20 + 200 + 200)
+    상주성명8 = tkinter.Label(window, text="상주성명", width=10, height=1, relief="solid", background="gray")
+    상주성명8.place(x=20 + 400, y=40 + 200 + 200)
+    빈소기간8 = tkinter.Label(window, text="빈소기간", width=10, height=1, relief="solid", background="gray")
+    빈소기간8.place(x=20 + 400, y=60 + 200 + 200)
+    상조회8 = tkinter.Label(window, text="상조회", width=10, height=1, relief="solid", background="gray")
+    상조회8.place(x=20 + 400, y=80 + 200 + 200)
+    장지8 = tkinter.Label(window, text="장지", width=10, height=1, relief="solid", background="gray")
+    장지8.place(x=20 + 400, y=100 + 200 + 200)
+    상차림8 = tkinter.Label(window, text="상차림", width=10, height=1, relief="solid", background="gray")
+    상차림8.place(x=20 + 400, y=120 + 200 + 200)
+    상주8 = tkinter.Label(window, text="상주", width=10, height=1, relief="solid", background="gray")
+    상주8.place(x=20 + 400, y=140 + 200 + 200)
+
+    상주성명88 = tkinter.Label(window, text=pinfo_sheet['A8'].value, width=20, height=1, relief="solid", background="gray")
+    상주성명88.place(x=100 + 400, y=40 + 200 + 200)
+    빈소기간88 = tkinter.Label(window, text=pinfo_sheet['B8'].value, width=20, height=1, relief="solid", background="gray")
+    빈소기간88.place(x=100 + 400, y=60 + 200 + 200)
+    상조회88 = tkinter.Label(window, text=pinfo_sheet['C8'].value, width=20, height=1, relief="solid", background="gray")
+    상조회88.place(x=100 + 400, y=80 + 200 + 200)
+    장지88 = tkinter.Label(window, text=pinfo_sheet['D8'].value, width=20, height=1, relief="solid", background="gray")
+    장지88.place(x=100 + 400, y=100 + 200 + 200)
+    상차림88 = tkinter.Label(window, text=pinfo_sheet['E8'].value, width=20, height=1, relief="solid", background="gray")
+    상차림88.place(x=100 + 400, y=120 + 200 + 200)
+    상주88 = tkinter.Label(window, text=pinfo_sheet['F8'].value, width=20, height=1, relief="solid", background="gray")
+    상주88.place(x=100 + 400, y=140 + 200 + 200)
+
+    # --------
+
+
+    빈소9 = tkinter.Label(window, text="특202", width=30, height=1, relief="solid", background="gray")
+    빈소9.place(x=20 + 800, y=20 + 200 + 200)
+    상주성명9 = tkinter.Label(window, text="상주성명", width=10, height=1, relief="solid", background="gray")
+    상주성명9.place(x=20 + 800, y=40 + 200 + 200)
+    빈소기간9 = tkinter.Label(window, text="빈소기간", width=10, height=1, relief="solid", background="gray")
+    빈소기간9.place(x=20 + 800, y=60 + 200 + 200)
+    상조회9 = tkinter.Label(window, text="상조회", width=10, height=1, relief="solid", background="gray")
+    상조회9.place(x=20 + 800, y=80 + 200 + 200)
+    장지9 = tkinter.Label(window, text="장지", width=10, height=1, relief="solid", background="gray")
+    장지9.place(x=20 + 800, y=100 + 200 + 200)
+    상차림9 = tkinter.Label(window, text="상차림", width=10, height=1, relief="solid", background="gray")
+    상차림9.place(x=20 + 800, y=120 + 200 + 200)
+    상주9 = tkinter.Label(window, text="상주", width=10, height=1, relief="solid", background="gray")
+    상주9.place(x=20 + 800, y=140 + 200 + 200)
+
+    상주성명99 = tkinter.Label(window, text=pinfo_sheet['A9'].value, width=20, height=1, relief="solid", background="gray")
+    상주성명99.place(x=100 + 800, y=40 + 200 + 200)
+    빈소기간99 = tkinter.Label(window, text=pinfo_sheet['B9'].value, width=20, height=1, relief="solid", background="gray")
+    빈소기간99.place(x=100 + 800, y=60 + 200 + 200)
+    상조회99 = tkinter.Label(window, text=pinfo_sheet['C9'].value, width=20, height=1, relief="solid", background="gray")
+    상조회99.place(x=100 + 800, y=80 + 200 + 200)
+    장지99 = tkinter.Label(window, text=pinfo_sheet['D9'].value, width=20, height=1, relief="solid", background="gray")
+    장지99.place(x=100 + 800, y=100 + 200 + 200)
+    상차림99 = tkinter.Label(window, text=pinfo_sheet['E9'].value, width=20, height=1, relief="solid", background="gray")
+    상차림99.place(x=100 + 800, y=120 + 200 + 200)
+    상주99 = tkinter.Label(window, text=pinfo_sheet['F9'].value, width=20, height=1, relief="solid", background="gray")
+    상주99.place(x=100 + 800, y=140 + 200 + 200)
+
+def bt1():
+    global call
+    call=0
+    secwin()
+def bt2():
+    global call
+    call=1
+    secwin()
+def bt3():
+    global call
+    call=2
+    secwin()
+def bt4():
+    global call
+    call=3
+    secwin()
+def bt5():
+    global call
+    call=4
+    secwin()
+def bt6():
+    global call
+    call=5
+    secwin()
+def bt7():
+    global call
+    call=6
+    secwin()
+def bt8():
+    global call
+    call=7
+    secwin()
+def bt9():
+    global call
+    call=8
+    secwin()
+
+
+def close():
+    window.quit()
+    window.destroy()
+
 if __name__ == "__main__":
     home = 'xl/전체물품리스트_세트저장용.xlsx'
-    info_xl='xl/personal.xlsx'
+    info_xl='xl/개인정보_물품.xlsx'
 
     og_file= openpyxl.load_workbook(home, data_only=True) #초기 시트 위치 저장(값으로)
     info_file=openpyxl.load_workbook(info_xl,data_only=True) #개인정보, 빈소별 물품정보 저장 공간(값으)
@@ -765,7 +1003,7 @@ if __name__ == "__main__":
     global temp_sheet #2
     global temp_sheet2 #2
     global room #2
-
+    global call
     global b #1
 
     window = tk.Tk() # 창 생성
@@ -776,101 +1014,336 @@ if __name__ == "__main__":
     button1 = tkinter.Button(window, text="입력",overrelief="solid", width=10, repeatdelay=1000, repeatinterval=100, command=b1)
     button1.place(x=20, y=160)
 
-    빈소1 = tkinter.Label(window, text="빈소1", width=30, height=1, relief="solid",background="white")
+    button11 = tkinter.Button(window, text="물품관리", overrelief="solid", width=10, repeatdelay=1000, repeatinterval=100,
+                             command=bt1)
+    button11.place(x=150, y=160)
+
+
+    빈소1 = tkinter.Label(window, text="빈소1", width=30, height=1, relief="solid",background="gray")
     빈소1.place(x=20, y=20)
-    상주성명1 = tkinter.Label(window, text="상주성명", width=10, height=1, relief="solid",background="white")
+    상주성명1 = tkinter.Label(window, text="상주성명", width=10, height=1, relief="solid",background="gray")
     상주성명1.place(x=20,y=40)
-    빈소기간1 = tkinter.Label(window, text="빈소기간", width=10, height=1, relief="solid",background="white")
+    빈소기간1 = tkinter.Label(window, text="빈소기간", width=10, height=1, relief="solid",background="gray")
     빈소기간1.place(x=20, y=60)
-    상조회1 = tkinter.Label(window, text="상조회", width=10, height=1, relief="solid",background="white")
+    상조회1 = tkinter.Label(window, text="상조회", width=10, height=1, relief="solid",background="gray")
     상조회1.place(x=20, y=80)
-    장지1 = tkinter.Label(window, text="장지", width=10, height=1, relief="solid",background="white")
+    장지1 = tkinter.Label(window, text="장지", width=10, height=1, relief="solid",background="gray")
     장지1.place(x=20, y=100)
-    상차림1 = tkinter.Label(window, text="상차림", width=10, height=1, relief="solid",background="white")
+    상차림1 = tkinter.Label(window, text="상차림", width=10, height=1, relief="solid",background="gray")
     상차림1.place(x=20, y=120)
-    상주1 = tkinter.Label(window, text="상주", width=10, height=1, relief="solid",background="white")
+    상주1 = tkinter.Label(window, text="상주", width=10, height=1, relief="solid",background="gray")
     상주1.place(x=20, y=140)
 
-    상주성명11 = tkinter.Label(window, text=pinfo_sheet['A1'].value, width=20, height=1, relief="solid",background="white")
+    상주성명11 = tkinter.Label(window, text=pinfo_sheet['A1'].value, width=20, height=1, relief="solid",background="gray")
     상주성명11.place(x=100, y=40)
-    빈소기간11 = tkinter.Label(window, text=pinfo_sheet['B1'].value, width=20, height=1, relief="solid",background="white")
+    빈소기간11 = tkinter.Label(window, text=pinfo_sheet['B1'].value, width=20, height=1, relief="solid",background="gray")
     빈소기간11.place(x=100, y=60)
-    상조회11 = tkinter.Label(window, text=pinfo_sheet['C1'].value, width=20, height=1, relief="solid",background="white")
+    상조회11 = tkinter.Label(window, text=pinfo_sheet['C1'].value, width=20, height=1, relief="solid",background="gray")
     상조회11.place(x=100, y=80)
-    장지11 = tkinter.Label(window, text=pinfo_sheet['D1'].value, width=20, height=1, relief="solid",background="white")
+    장지11 = tkinter.Label(window, text=pinfo_sheet['D1'].value, width=20, height=1, relief="solid",background="gray")
     장지11.place(x=100, y=100)
-    상차림11 = tkinter.Label(window, text=pinfo_sheet['E1'].value, width=20, height=1, relief="solid",background="white")
+    상차림11 = tkinter.Label(window, text=pinfo_sheet['E1'].value, width=20, height=1, relief="solid",background="gray")
     상차림11.place(x=100, y=120)
-    상주11 = tkinter.Label(window, text=pinfo_sheet['F1'].value, width=20, height=1, relief="solid",background="white")
+    상주11 = tkinter.Label(window, text=pinfo_sheet['F1'].value, width=20, height=1, relief="solid",background="gray")
     상주11.place(x=100, y=140)
 
     #---------
 
     button2 = tkinter.Button(window, text="입력", overrelief="solid", width=10, repeatdelay=1000, repeatinterval=100, command=b2)
     button2.place(x=20+400, y=160)
+    button22 = tkinter.Button(window, text="물품관리", overrelief="solid", width=10, repeatdelay=1000, repeatinterval=100,
+                              command=bt2)
+    button22.place(x=20+400+130, y=160)
 
-    빈소2 = tkinter.Label(window, text="빈소2", width=30, height=1, relief="solid", background="white")
+    빈소2 = tkinter.Label(window, text="빈소2", width=30, height=1, relief="solid", background="gray")
     빈소2.place(x=20+400, y=20)
-    상주성명2 = tkinter.Label(window, text="상주성명", width=10, height=1, relief="solid", background="white")
+    상주성명2 = tkinter.Label(window, text="상주성명", width=10, height=1, relief="solid", background="gray")
     상주성명2.place(x=20+400, y=40)
-    빈소기간2 = tkinter.Label(window, text="빈소기간", width=10, height=1, relief="solid", background="white")
+    빈소기간2 = tkinter.Label(window, text="빈소기간", width=10, height=1, relief="solid", background="gray")
     빈소기간2.place(x=20+400, y=60)
-    상조회2 = tkinter.Label(window, text="상조회", width=10, height=1, relief="solid", background="white")
+    상조회2 = tkinter.Label(window, text="상조회", width=10, height=1, relief="solid", background="gray")
     상조회2.place(x=20+400, y=80)
-    장지2 = tkinter.Label(window, text="장지", width=10, height=1, relief="solid", background="white")
+    장지2 = tkinter.Label(window, text="장지", width=10, height=1, relief="solid", background="gray")
     장지2.place(x=20+400, y=100)
-    상차림2 = tkinter.Label(window, text="상차림", width=10, height=1, relief="solid", background="white")
+    상차림2 = tkinter.Label(window, text="상차림", width=10, height=1, relief="solid", background="gray")
     상차림2.place(x=20+400, y=120)
-    상주2 = tkinter.Label(window, text="상주", width=10, height=1, relief="solid", background="white")
+    상주2 = tkinter.Label(window, text="상주", width=10, height=1, relief="solid", background="gray")
     상주2.place(x=20+400, y=140)
 
-    상주성명22 = tkinter.Label(window, text=pinfo_sheet['A2'].value, width=20, height=1, relief="solid", background="white")
+    상주성명22 = tkinter.Label(window, text=pinfo_sheet['A2'].value, width=20, height=1, relief="solid", background="gray")
     상주성명22.place(x=100+400, y=40)
-    빈소기간22 = tkinter.Label(window, text=pinfo_sheet['B2'].value, width=20, height=1, relief="solid", background="white")
+    빈소기간22 = tkinter.Label(window, text=pinfo_sheet['B2'].value, width=20, height=1, relief="solid", background="gray")
     빈소기간22.place(x=100+400, y=60)
-    상조회22 = tkinter.Label(window, text=pinfo_sheet['C2'].value, width=20, height=1, relief="solid", background="white")
+    상조회22 = tkinter.Label(window, text=pinfo_sheet['C2'].value, width=20, height=1, relief="solid", background="gray")
     상조회22.place(x=100+400, y=80)
-    장지22 = tkinter.Label(window, text=pinfo_sheet['D2'].value, width=20, height=1, relief="solid", background="white")
+    장지22 = tkinter.Label(window, text=pinfo_sheet['D2'].value, width=20, height=1, relief="solid", background="gray")
     장지22.place(x=100+400, y=100)
-    상차림22 = tkinter.Label(window, text=pinfo_sheet['E2'].value, width=20, height=1, relief="solid", background="white")
+    상차림22 = tkinter.Label(window, text=pinfo_sheet['E2'].value, width=20, height=1, relief="solid", background="gray")
     상차림22.place(x=100+400, y=120)
-    상주22 = tkinter.Label(window, text=pinfo_sheet['F2'].value, width=20, height=1, relief="solid", background="white")
+    상주22 = tkinter.Label(window, text=pinfo_sheet['F2'].value, width=20, height=1, relief="solid", background="gray")
     상주22.place(x=100+400, y=140)
 
     #--------
 
     button3 = tkinter.Button(window, text="입력", overrelief="solid", width=10, repeatdelay=1000, repeatinterval=100, command=b3)
     button3.place(x=20 + 800, y=160)
+    button33 = tkinter.Button(window, text="물품관리", overrelief="solid", width=10, repeatdelay=1000, repeatinterval=100,
+                              command=bt3)
+    button33.place(x=20 + 800 + 130, y=160)
 
-    빈소3 = tkinter.Label(window, text="빈소3", width=30, height=1, relief="solid", background="white")
+    빈소3 = tkinter.Label(window, text="빈소3", width=30, height=1, relief="solid", background="gray")
     빈소3.place(x=20 + 800, y=20)
-    상주성명3 = tkinter.Label(window, text="상주성명", width=10, height=1, relief="solid", background="white")
+    상주성명3 = tkinter.Label(window, text="상주성명", width=10, height=1, relief="solid", background="gray")
     상주성명3.place(x=20 + 800, y=40)
-    빈소기간3 = tkinter.Label(window, text="빈소기간", width=10, height=1, relief="solid", background="white")
+    빈소기간3 = tkinter.Label(window, text="빈소기간", width=10, height=1, relief="solid", background="gray")
     빈소기간3.place(x=20 + 800, y=60)
-    상조회3 = tkinter.Label(window, text="상조회", width=10, height=1, relief="solid", background="white")
+    상조회3 = tkinter.Label(window, text="상조회", width=10, height=1, relief="solid", background="gray")
     상조회3.place(x=20 + 800, y=80)
-    장지3 = tkinter.Label(window, text="장지", width=10, height=1, relief="solid", background="white")
+    장지3 = tkinter.Label(window, text="장지", width=10, height=1, relief="solid", background="gray")
     장지3.place(x=20 + 800, y=100)
-    상차림3 = tkinter.Label(window, text="상차림", width=10, height=1, relief="solid", background="white")
+    상차림3 = tkinter.Label(window, text="상차림", width=10, height=1, relief="solid", background="gray")
     상차림3.place(x=20 + 800, y=120)
-    상주3 = tkinter.Label(window, text="상주", width=10, height=1, relief="solid", background="white")
+    상주3 = tkinter.Label(window, text="상주", width=10, height=1, relief="solid", background="gray")
     상주3.place(x=20 + 800, y=140)
 
-    상주성명33 = tkinter.Label(window, text=pinfo_sheet['A3'].value, width=20, height=1, relief="solid", background="white")
+    상주성명33 = tkinter.Label(window, text=pinfo_sheet['A3'].value, width=20, height=1, relief="solid", background="gray")
     상주성명33.place(x=100 + 800, y=40)
-    빈소기간33 = tkinter.Label(window, text=pinfo_sheet['B3'].value, width=20, height=1, relief="solid", background="white")
+    빈소기간33 = tkinter.Label(window, text=pinfo_sheet['B3'].value, width=20, height=1, relief="solid", background="gray")
     빈소기간33.place(x=100 + 800, y=60)
-    상조회33 = tkinter.Label(window, text=pinfo_sheet['C3'].value, width=20, height=1, relief="solid", background="white")
+    상조회33 = tkinter.Label(window, text=pinfo_sheet['C3'].value, width=20, height=1, relief="solid", background="gray")
     상조회33.place(x=100 + 800, y=80)
-    장지33 = tkinter.Label(window, text=pinfo_sheet['D3'].value, width=20, height=1, relief="solid", background="white")
+    장지33 = tkinter.Label(window, text=pinfo_sheet['D3'].value, width=20, height=1, relief="solid", background="gray")
     장지33.place(x=100 + 800, y=100)
-    상차림33 = tkinter.Label(window, text=pinfo_sheet['E3'].value, width=20, height=1, relief="solid", background="white")
+    상차림33 = tkinter.Label(window, text=pinfo_sheet['E3'].value, width=20, height=1, relief="solid", background="gray")
     상차림33.place(x=100 + 800, y=120)
-    상주33 = tkinter.Label(window, text=pinfo_sheet['F3'].value, width=20, height=1, relief="solid", background="white")
+    상주33 = tkinter.Label(window, text=pinfo_sheet['F3'].value, width=20, height=1, relief="solid", background="gray")
     상주33.place(x=100 + 800, y=140)
 
-    button2 = tkinter.Button(window, text="두번째 창", overrelief="solid", width=10, height=2, repeatdelay=1000, repeatinterval=100,
-                             command=secwin)
-    button2.pack(side="bottom")
+# 4~6
+
+    button4 = tkinter.Button(window, text="입력", overrelief="solid", width=10, repeatdelay=1000, repeatinterval=100,command=b4)
+    button4.place(x=20, y=160+200)
+    button44 = tkinter.Button(window, text="물품관리", overrelief="solid", width=10, repeatdelay=1000, repeatinterval=100,
+                              command=bt4)
+    button44.place(x=20 + 130, y=160+200)
+
+    빈소4 = tkinter.Label(window, text="빈소5", width=30, height=1, relief="solid", background="gray")
+    빈소4.place(x=20, y=20+200)
+    상주성명4 = tkinter.Label(window, text="상주성명", width=10, height=1, relief="solid", background="gray")
+    상주성명4.place(x=20, y=40+200)
+    빈소기간4 = tkinter.Label(window, text="빈소기간", width=10, height=1, relief="solid", background="gray")
+    빈소기간4.place(x=20, y=60+200)
+    상조회4 = tkinter.Label(window, text="상조회", width=10, height=1, relief="solid", background="gray")
+    상조회4.place(x=20, y=80+200)
+    장지4 = tkinter.Label(window, text="장지", width=10, height=1, relief="solid", background="gray")
+    장지4.place(x=20, y=100+200)
+    상차림4 = tkinter.Label(window, text="상차림", width=10, height=1, relief="solid", background="gray")
+    상차림4.place(x=20, y=120+200)
+    상주4 = tkinter.Label(window, text="상주", width=10, height=1, relief="solid", background="gray")
+    상주4.place(x=20, y=140+200)
+
+    상주성명44 = tkinter.Label(window, text=pinfo_sheet['A4'].value, width=20, height=1, relief="solid", background="gray")
+    상주성명44.place(x=100, y=40+200)
+    빈소기간44 = tkinter.Label(window, text=pinfo_sheet['B4'].value, width=20, height=1, relief="solid", background="gray")
+    빈소기간44.place(x=100, y=60+200)
+    상조회44 = tkinter.Label(window, text=pinfo_sheet['C4'].value, width=20, height=1, relief="solid", background="gray")
+    상조회44.place(x=100, y=80+200)
+    장지44 = tkinter.Label(window, text=pinfo_sheet['D4'].value, width=20, height=1, relief="solid", background="gray")
+    장지44.place(x=100, y=100+200)
+    상차림44 = tkinter.Label(window, text=pinfo_sheet['E4'].value, width=20, height=1, relief="solid", background="gray")
+    상차림44.place(x=100, y=120+200)
+    상주44 = tkinter.Label(window, text=pinfo_sheet['F4'].value, width=20, height=1, relief="solid", background="gray")
+    상주44.place(x=100, y=140+200)
+
+    # ---------
+
+    button5 = tkinter.Button(window, text="입력", overrelief="solid", width=10, repeatdelay=1000, repeatinterval=100,
+                             command=b5)
+    button5.place(x=20 + 400, y=160+200)
+
+    button55 = tkinter.Button(window, text="물품관리", overrelief="solid", width=10, repeatdelay=1000, repeatinterval=100,
+                              command=bt5)
+    button55.place(x=20 + 400+130, y=160 + 200)
+
+    빈소5 = tkinter.Label(window, text="빈소6", width=30, height=1, relief="solid", background="gray")
+    빈소5.place(x=20 + 400, y=20+200)
+    상주성명5 = tkinter.Label(window, text="상주성명", width=10, height=1, relief="solid", background="gray")
+    상주성명5.place(x=20 + 400, y=40+200)
+    빈소기간5 = tkinter.Label(window, text="빈소기간", width=10, height=1, relief="solid", background="gray")
+    빈소기간5.place(x=20 + 400, y=60+200)
+    상조회5 = tkinter.Label(window, text="상조회", width=10, height=1, relief="solid", background="gray")
+    상조회5.place(x=20 + 400, y=80+200)
+    장지5 = tkinter.Label(window, text="장지", width=10, height=1, relief="solid", background="gray")
+    장지5.place(x=20 + 400, y=100+200)
+    상차림5 = tkinter.Label(window, text="상차림", width=10, height=1, relief="solid", background="gray")
+    상차림5.place(x=20 + 400, y=120+200)
+    상주5 = tkinter.Label(window, text="상주", width=10, height=1, relief="solid", background="gray")
+    상주5.place(x=20 + 400, y=140+200)
+
+    상주성명55 = tkinter.Label(window, text=pinfo_sheet['A5'].value, width=20, height=1, relief="solid", background="gray")
+    상주성명55.place(x=100 + 400, y=40+200)
+    빈소기간55 = tkinter.Label(window, text=pinfo_sheet['B5'].value, width=20, height=1, relief="solid", background="gray")
+    빈소기간55.place(x=100 + 400, y=60+200)
+    상조회55 = tkinter.Label(window, text=pinfo_sheet['C5'].value, width=20, height=1, relief="solid", background="gray")
+    상조회55.place(x=100 + 400, y=80+200)
+    장지55 = tkinter.Label(window, text=pinfo_sheet['D5'].value, width=20, height=1, relief="solid", background="gray")
+    장지55.place(x=100 + 400, y=100+200)
+    상차림55 = tkinter.Label(window, text=pinfo_sheet['E5'].value, width=20, height=1, relief="solid", background="gray")
+    상차림55.place(x=100 + 400, y=120+200)
+    상주55 = tkinter.Label(window, text=pinfo_sheet['F5'].value, width=20, height=1, relief="solid", background="gray")
+    상주55.place(x=100 + 400, y=140+200)
+
+    # --------
+
+    button6 = tkinter.Button(window, text="입력", overrelief="solid", width=10, repeatdelay=1000, repeatinterval=100,
+                             command=b6)
+    button6.place(x=20 + 800, y=160+200)
+
+    button66 = tkinter.Button(window, text="물품관리", overrelief="solid", width=10, repeatdelay=1000, repeatinterval=100,
+                              command=bt6)
+    button66.place(x=20 + 130+800, y=160 + 200)
+
+    빈소6 = tkinter.Label(window, text="특101", width=30, height=1, relief="solid", background="gray")
+    빈소6.place(x=20 + 800, y=20+200)
+    상주성명6 = tkinter.Label(window, text="상주성명", width=10, height=1, relief="solid", background="gray")
+    상주성명6.place(x=20 + 800, y=40+200)
+    빈소기간6 = tkinter.Label(window, text="빈소기간", width=10, height=1, relief="solid", background="gray")
+    빈소기간6.place(x=20 + 800, y=60+200)
+    상조회6 = tkinter.Label(window, text="상조회", width=10, height=1, relief="solid", background="gray")
+    상조회6.place(x=20 + 800, y=80+200)
+    장지6 = tkinter.Label(window, text="장지", width=10, height=1, relief="solid", background="gray")
+    장지6.place(x=20 + 800, y=100+200)
+    상차림6 = tkinter.Label(window, text="상차림", width=10, height=1, relief="solid", background="gray")
+    상차림6.place(x=20 + 800, y=120+200)
+    상주6 = tkinter.Label(window, text="상주", width=10, height=1, relief="solid", background="gray")
+    상주6.place(x=20 + 800, y=140+200)
+
+    상주성명66 = tkinter.Label(window, text=pinfo_sheet['A6'].value, width=20, height=1, relief="solid", background="gray")
+    상주성명66.place(x=100 + 800, y=40+200)
+    빈소기간66 = tkinter.Label(window, text=pinfo_sheet['B6'].value, width=20, height=1, relief="solid", background="gray")
+    빈소기간66.place(x=100 + 800, y=60+200)
+    상조회66 = tkinter.Label(window, text=pinfo_sheet['C6'].value, width=20, height=1, relief="solid", background="gray")
+    상조회66.place(x=100 + 800, y=80+200)
+    장지66 = tkinter.Label(window, text=pinfo_sheet['D6'].value, width=20, height=1, relief="solid", background="gray")
+    장지66.place(x=100 + 800, y=100+200)
+    상차림66 = tkinter.Label(window, text=pinfo_sheet['E6'].value, width=20, height=1, relief="solid", background="gray")
+    상차림66.place(x=100 + 800, y=120+200)
+    상주66 = tkinter.Label(window, text=pinfo_sheet['F6'].value, width=20, height=1, relief="solid", background="gray")
+    상주66.place(x=100 + 800, y=140+200)
+
+#7~9
+
+    button7 = tkinter.Button(window, text="입력", overrelief="solid", width=10, repeatdelay=1000, repeatinterval=100,
+                             command=b7)
+    button7.place(x=20, y=160 + 200+ 200)
+
+    button77 = tkinter.Button(window, text="물품관리", overrelief="solid", width=10, repeatdelay=1000, repeatinterval=100,
+                              command=bt7)
+    button77.place(x=20 + 130, y=160 + 200+200)
+
+    빈소7 = tkinter.Label(window, text="특102", width=30, height=1, relief="solid", background="gray")
+    빈소7.place(x=20, y=20 + 200+ 200)
+    상주성명7 = tkinter.Label(window, text="상주성명", width=10, height=1, relief="solid", background="gray")
+    상주성명7.place(x=20, y=40 + 200+ 200)
+    빈소기간7 = tkinter.Label(window, text="빈소기간", width=10, height=1, relief="solid", background="gray")
+    빈소기간7.place(x=20, y=60 + 200+ 200)
+    상조회7 = tkinter.Label(window, text="상조회", width=10, height=1, relief="solid", background="gray")
+    상조회7.place(x=20, y=80 + 200+ 200)
+    장지7 = tkinter.Label(window, text="장지", width=10, height=1, relief="solid", background="gray")
+    장지7.place(x=20, y=100 + 200+ 200)
+    상차림7 = tkinter.Label(window, text="상차림", width=10, height=1, relief="solid", background="gray")
+    상차림7.place(x=20, y=120 + 200+ 200)
+    상주7 = tkinter.Label(window, text="상주", width=10, height=1, relief="solid", background="gray")
+    상주7.place(x=20, y=140 + 200+ 200)
+
+    상주성명77 = tkinter.Label(window, text=pinfo_sheet['A7'].value, width=20, height=1, relief="solid", background="gray")
+    상주성명77.place(x=100, y=40 + 200+ 200)
+    빈소기간77 = tkinter.Label(window, text=pinfo_sheet['B7'].value, width=20, height=1, relief="solid", background="gray")
+    빈소기간77.place(x=100, y=60 + 200+ 200)
+    상조회77 = tkinter.Label(window, text=pinfo_sheet['C7'].value, width=20, height=1, relief="solid", background="gray")
+    상조회77.place(x=100, y=80 + 200+ 200)
+    장지77 = tkinter.Label(window, text=pinfo_sheet['D7'].value, width=20, height=1, relief="solid", background="gray")
+    장지77.place(x=100, y=100 + 200+ 200)
+    상차림77 = tkinter.Label(window, text=pinfo_sheet['E7'].value, width=20, height=1, relief="solid", background="gray")
+    상차림77.place(x=100, y=120 + 200+ 200)
+    상주77 = tkinter.Label(window, text=pinfo_sheet['F7'].value, width=20, height=1, relief="solid", background="gray")
+    상주77.place(x=100, y=140 + 200+ 200)
+
+    # ---------
+
+    button8 = tkinter.Button(window, text="입력", overrelief="solid", width=10, repeatdelay=1000, repeatinterval=100,
+                             command=b8)
+    button8.place(x=20 + 400, y=160 + 200+ 200)
+
+    button88 = tkinter.Button(window, text="물품관리", overrelief="solid", width=10, repeatdelay=1000, repeatinterval=100,
+                              command=bt8)
+    button88.place(x=20 + 130+400, y=160 + 200+200)
+
+    빈소8 = tkinter.Label(window, text="특201", width=30, height=1, relief="solid", background="gray")
+    빈소8.place(x=20 + 400, y=20 + 200+ 200)
+    상주성명8 = tkinter.Label(window, text="상주성명", width=10, height=1, relief="solid", background="gray")
+    상주성명8.place(x=20 + 400, y=40 + 200+ 200)
+    빈소기간8 = tkinter.Label(window, text="빈소기간", width=10, height=1, relief="solid", background="gray")
+    빈소기간8.place(x=20 + 400, y=60 + 200+ 200)
+    상조회8 = tkinter.Label(window, text="상조회", width=10, height=1, relief="solid", background="gray")
+    상조회8.place(x=20 + 400, y=80 + 200+ 200)
+    장지8 = tkinter.Label(window, text="장지", width=10, height=1, relief="solid", background="gray")
+    장지8.place(x=20 + 400, y=100 + 200+ 200)
+    상차림8 = tkinter.Label(window, text="상차림", width=10, height=1, relief="solid", background="gray")
+    상차림8.place(x=20 + 400, y=120 + 200+ 200)
+    상주8 = tkinter.Label(window, text="상주", width=10, height=1, relief="solid", background="gray")
+    상주8.place(x=20 + 400, y=140 + 200+ 200)
+
+    상주성명88 = tkinter.Label(window, text=pinfo_sheet['A8'].value, width=20, height=1, relief="solid", background="gray")
+    상주성명88.place(x=100 + 400, y=40 + 200+ 200)
+    빈소기간88 = tkinter.Label(window, text=pinfo_sheet['B8'].value, width=20, height=1, relief="solid", background="gray")
+    빈소기간88.place(x=100 + 400, y=60 + 200+ 200)
+    상조회88 = tkinter.Label(window, text=pinfo_sheet['C8'].value, width=20, height=1, relief="solid", background="gray")
+    상조회88.place(x=100 + 400, y=80 + 200+ 200)
+    장지88 = tkinter.Label(window, text=pinfo_sheet['D8'].value, width=20, height=1, relief="solid", background="gray")
+    장지88.place(x=100 + 400, y=100 + 200+ 200)
+    상차림88 = tkinter.Label(window, text=pinfo_sheet['E8'].value, width=20, height=1, relief="solid", background="gray")
+    상차림88.place(x=100 + 400, y=120 + 200+ 200)
+    상주88 = tkinter.Label(window, text=pinfo_sheet['F8'].value, width=20, height=1, relief="solid", background="gray")
+    상주88.place(x=100 + 400, y=140 + 200+ 200)
+
+    # --------
+
+    button9 = tkinter.Button(window, text="입력", overrelief="solid", width=10, repeatdelay=1000, repeatinterval=100,
+                             command=b9)
+    button9.place(x=20 + 800, y=160 + 200+ 200)
+
+    button99 = tkinter.Button(window, text="물품관리", overrelief="solid", width=10, repeatdelay=1000, repeatinterval=100,
+                              command=bt9)
+    button99.place(x=20 + 130+800, y=160 + 200+200)
+
+    빈소9 = tkinter.Label(window, text="특202", width=30, height=1, relief="solid", background="gray")
+    빈소9.place(x=20 + 800, y=20 + 200+ 200)
+    상주성명9 = tkinter.Label(window, text="상주성명", width=10, height=1, relief="solid", background="gray")
+    상주성명9.place(x=20 + 800, y=40 + 200+ 200)
+    빈소기간9 = tkinter.Label(window, text="빈소기간", width=10, height=1, relief="solid", background="gray")
+    빈소기간9.place(x=20 + 800, y=60 + 200+ 200)
+    상조회9 = tkinter.Label(window, text="상조회", width=10, height=1, relief="solid", background="gray")
+    상조회9.place(x=20 + 800, y=80 + 200+ 200)
+    장지9 = tkinter.Label(window, text="장지", width=10, height=1, relief="solid", background="gray")
+    장지9.place(x=20 + 800, y=100 + 200+ 200)
+    상차림9 = tkinter.Label(window, text="상차림", width=10, height=1, relief="solid", background="gray")
+    상차림9.place(x=20 + 800, y=120 + 200+ 200)
+    상주9 = tkinter.Label(window, text="상주", width=10, height=1, relief="solid", background="gray")
+    상주9.place(x=20 + 800, y=140 + 200+ 200)
+
+    상주성명99 = tkinter.Label(window, text=pinfo_sheet['A9'].value, width=20, height=1, relief="solid", background="gray")
+    상주성명99.place(x=100 + 800, y=40 + 200+ 200)
+    빈소기간99 = tkinter.Label(window, text=pinfo_sheet['B9'].value, width=20, height=1, relief="solid", background="gray")
+    빈소기간99.place(x=100 + 800, y=60 + 200+ 200)
+    상조회99 = tkinter.Label(window, text=pinfo_sheet['C9'].value, width=20, height=1, relief="solid", background="gray")
+    상조회99.place(x=100 + 800, y=80 + 200+ 200)
+    장지99 = tkinter.Label(window, text=pinfo_sheet['D9'].value, width=20, height=1, relief="solid", background="gray")
+    장지99.place(x=100 + 800, y=100 + 200+ 200)
+    상차림99 = tkinter.Label(window, text=pinfo_sheet['E9'].value, width=20, height=1, relief="solid", background="gray")
+    상차림99.place(x=100 + 800, y=120 + 200+ 200)
+    상주99 = tkinter.Label(window, text=pinfo_sheet['F9'].value, width=20, height=1, relief="solid", background="gray")
+    상주99.place(x=100 + 800, y=140 + 200+ 200)
+
+
     window.mainloop()
