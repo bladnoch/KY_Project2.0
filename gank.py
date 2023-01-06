@@ -2,10 +2,86 @@ from tkinter import *
 from openpyxl import *
 
 wb = Workbook()
-ws = wb.active
-ws.title = '개인정보'
-wb.save('개인정보.xlsx')
-wb.close()
+ws1 = wb.active
+ws2 = wb.active
+ws3 = wb.active
+ws4 = wb.active
+ws5 = wb.active
+ws6 = wb.active
+ws7 = wb.active
+ws8 = wb.active
+ws9 = wb.active
+
+
+ws1 = wb.create_sheet('1호',0)
+ws2 = wb.create_sheet('2호',1)
+ws3 = wb.create_sheet('3호',2)
+ws4 = wb.create_sheet('5호',3)
+ws5 = wb.create_sheet('6호',4)
+ws6 = wb.create_sheet('특101호',5)
+ws7 = wb.create_sheet('특102호',6)
+ws8 = wb.create_sheet('특201호',7)
+ws9 = wb.create_sheet('특202호',8)
+
+
+ws1['A1'] = '상주성명'
+ws2['A1'] = '상주성명'
+ws3['A1'] = '상주성명'
+ws4['A1'] = '상주성명'
+ws5['A1'] = '상주성명'
+ws6['A1'] = '상주성명'
+ws7['A1'] = '상주성명'
+ws8['A1'] = '상주성명'
+ws9['A1'] = '상주성명'
+ws1['B1'] = '빈소기간'
+ws2['B1'] = '빈소기간'
+ws3['B1'] = '빈소기간'
+ws4['B1'] = '빈소기간'
+ws5['B1'] = '빈소기간'
+ws6['B1'] = '빈소기간'
+ws7['B1'] = '빈소기간'
+ws8['B1'] = '빈소기간'
+ws9['B1'] = '빈소기간'
+ws1['C1'] = '상조회'
+ws2['C1'] = '상조회'
+ws3['C1'] = '상조회'
+ws4['C1'] = '상조회'
+ws5['C1'] = '상조회'
+ws6['C1'] = '상조회'
+ws7['C1'] = '상조회'
+ws8['C1'] = '상조회'
+ws9['C1'] = '상조회'
+ws1['D1'] = '장지'
+ws2['D1'] = '장지'
+ws3['D1'] = '장지'
+ws4['D1'] = '장지'
+ws5['D1'] = '장지'
+ws6['D1'] = '장지'
+ws7['D1'] = '장지'
+ws8['D1'] = '장지'
+ws9['D1'] = '장지'
+ws1['E1'] = '상차림'
+ws2['E1'] = '상차림'
+ws3['E1'] = '상차림'
+ws4['E1'] = '상차림'
+ws5['E1'] = '상차림'
+ws6['E1'] = '상차림'
+ws7['E1'] = '상차림'
+ws8['E1'] = '상차림'
+ws9['E1'] = '상차림'
+ws1['F1'] = '상주'
+ws2['F1'] = '상주'
+ws3['F1'] = '상주'
+ws4['F1'] = '상주'
+ws5['F1'] = '상주'
+ws6['F1'] = '상주'
+ws7['F1'] = '상주'
+ws8['F1'] = '상주'
+ws9['F1'] = '상주'
+
+
+
+
 
 win = Tk() # 창 생성
 win.geometry("1600x900")
@@ -130,6 +206,7 @@ def change52() :
 def change53() :
     특이백이호일.insert(특이백이호.curselection(),특이백이호상주.get())
 
+
 # 1호 리스트박스 정의
 
 
@@ -187,7 +264,8 @@ def change53() :
 일호상차림입력.pack()
 일호상주입력 =Button(text='입력', padx=1, pady=1, command=change5)
 일호상주입력.pack()
-
+일호저장 = Button(text='저장', padx=5, pady=5, command=0)
+일호저장.pack()
 
 # 1호 위치 정의
 
@@ -204,6 +282,7 @@ def change53() :
 일호장지입력.place(x=265,y=180)
 일호상차림입력.place(x=265,y=215)
 일호상주입력.place(x=265,y=250)
+일호저장.place(x=1,y=1)
 
 
 # 2호 리스트박스 정의
@@ -809,5 +888,6 @@ def change53() :
 특이백이호상차림입력.place(x=1265,y=735)
 특이백이호상주입력.place(x=1265,y=770)
 
-
+wb.save('개인정보.xlsx')
+wb.close()
 win.mainloop()
