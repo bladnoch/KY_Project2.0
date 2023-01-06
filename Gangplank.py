@@ -24,7 +24,6 @@ ws8 = wb.create_sheet('특201호',7)
 ws9 = wb.create_sheet('특202호',8)
 
 
-ws1['A1'] = '상주성명'
 ws2['A1'] = '상주성명'
 ws3['A1'] = '상주성명'
 ws4['A1'] = '상주성명'
@@ -89,122 +88,249 @@ win.title("리스트")
 win.option_add("*Font", "맑은고딕 13")
 win.resizable(False, False)
 
+
+
+
 def change():
-    일호일.insert(일호.curselection(),일호상주성명.get())
-def change1() :
-    일호일.insert(일호.curselection(),일호빈소기간.get())
+    일호일.insert(0,일호상주성명.get())
+    ws1['A1'].value = 일호상주성명.get()
+    wb.save('개인정보.xlsx')
+def change1():
+    일호일.insert(1,일호빈소기간.get())
+    ws1['B1'].value = 일호빈소기간.get()
+    wb.save('개인정보.xlsx')
 def change2() :
-    일호일.insert(일호.curselection(),일호상조회.get())
+    일호일.insert(2,일호상조회.get())
+    ws1['C1'].value = 일호상조회.get()
+    wb.save('개인정보.xlsx')
 def change3() :
-    일호일.insert(일호.curselection(),일호장지.get())
+    일호일.insert(3,일호장지.get())
+    ws1['D1'].value = 일호장지.get()
+    wb.save('개인정보.xlsx')
 def change4() :
-    일호일.insert(일호.curselection(),일호상차림.get())
+    일호일.insert(4,일호상차림.get())
+    ws1['E1'].value = 일호상차림.get()
+    wb.save('개인정보.xlsx')
 def change5() :
-    일호일.insert(일호.curselection(),일호상주.get())
+    일호일.insert(5,일호상주.get())
+    ws1['F1'].value = 일호상주.get()
+    wb.save('개인정보.xlsx')
+
+
 
 def change6():
-    이호일.insert(이호.curselection(),이호상주성명.get())
+    이호일.insert(0,이호상주성명.get())
+    ws2['A1'].value = 이호상주성명.get()
+    wb.save('개인정보.xlsx')
 def change7() :
-    이호일.insert(이호.curselection(),이호빈소기간.get())
+    이호일.insert(1,이호빈소기간.get())
+    ws2['B1'].value = 이호빈소기간.get()
+    wb.save('개인정보.xlsx')
 def change8() :
-    이호일.insert(이호.curselection(),이호상조회.get())
+    이호일.insert(2,이호상조회.get())
+    ws2['C1'].value = 이호상조회.get()
+    wb.save('개인정보.xlsx')
 def change9() :
-    이호일.insert(이호.curselection(),이호장지.get())
+    이호일.insert(3,이호장지.get())
+    ws2['D1'].value = 이호장지.get()
+    wb.save('개인정보.xlsx')
 def change10() :
-    이호일.insert(이호.curselection(),이호상차림.get())
+    이호일.insert(4,이호상차림.get())
+    ws2['E1'].value = 이호상차림.get()
+    wb.save('개인정보.xlsx')
 def change11() :
-    이호일.insert(이호.curselection(),이호상주.get())
+    이호일.insert(5,이호상주.get())
+    ws2['F1'].value = 이호상주.get()
+    wb.save('개인정보.xlsx')
+
+
 
 def change12():
-    삼호일.insert(삼호.curselection(),삼호상주성명.get())
+    삼호일.insert(0,삼호상주성명.get())
+    ws3['A1'].value = 삼호상주성명.get()
+    wb.save('개인정보.xlsx')
 def change13() :
-    삼호일.insert(삼호.curselection(),삼호빈소기간.get())
+    삼호일.insert(1,삼호빈소기간.get())
+    ws3['B1'].value = 삼호빈소기간.get()
+    wb.save('개인정보.xlsx')
 def change14() :
-    삼호일.insert(삼호.curselection(),삼호상조회.get())
+    삼호일.insert(2,삼호상조회.get())
+    ws3['C1'].value = 삼호상조회.get()
+    wb.save('개인정보.xlsx')
 def change15() :
-    삼호일.insert(삼호.curselection(),삼호장지.get())
+    삼호일.insert(3,삼호장지.get())
+    ws3['D1'].value = 삼호장지.get()
+    wb.save('개인정보.xlsx')
 def change16() :
-    삼호일.insert(삼호.curselection(),삼호상차림.get())
+    삼호일.insert(4,삼호상차림.get())
+    ws3['E1'].value = 삼호상차림.get()
+    wb.save('개인정보.xlsx')
 def change17() :
-    삼호일.insert(삼호.curselection(),삼호상주.get())
+    삼호일.insert(5,삼호상주.get())
+    ws3['F1'].value = 삼호상주.get()
+    wb.save('개인정보.xlsx')
+
+
 
 def change18():
-    오호일.insert(오호.curselection(),오호상주성명.get())
+    오호일.insert(0,오호상주성명.get())
+    ws4['A1'].value = 오호상주.get()
+    wb.save('개인정보.xlsx')
 def change19() :
-    오호일.insert(오호.curselection(),오호빈소기간.get())
+    오호일.insert(1,오호빈소기간.get())
+    ws4['B1'].value = 오호상주.get()
+    wb.save('개인정보.xlsx')
 def change20() :
-    오호일.insert(오호.curselection(),오호상조회.get())
+    오호일.insert(2,오호상조회.get())
+    ws4['C1'].value = 오호상주.get()
+    wb.save('개인정보.xlsx')
 def change21() :
-    오호일.insert(오호.curselection(),오호장지.get())
+    오호일.insert(3,오호장지.get())
+    ws4['D1'].value = 오호상주.get()
+    wb.save('개인정보.xlsx')
 def change22() :
-    오호일.insert(오호.curselection(),오호상차림.get())
+    오호일.insert(4,오호상차림.get())
+    ws4['E1'].value = 오호상주.get()
+    wb.save('개인정보.xlsx')
 def change23() :
-    오호일.insert(오호.curselection(),오호상주.get())
+    오호일.insert(5,오호상주.get())
+    ws4['F1'].value = 삼호상주.get()
+    wb.save('개인정보.xlsx')
+
+
 
 def change24():
-    육호일.insert(육호.curselection(),육호상주성명.get())
+    육호일.insert(0,육호상주성명.get())
+    ws5['A1'].value = 육호상주성명.get()
+    wb.save('개인정보.xlsx')
 def change25() :
-    육호일.insert(육호.curselection(),육호빈소기간.get())
+    육호일.insert(1,육호빈소기간.get())
+    ws5['B1'].value = 육호빈소기간.get()
+    wb.save('개인정보.xlsx')
 def change26() :
-    육호일.insert(육호.curselection(),육호상조회.get())
+    육호일.insert(2,육호상조회.get())
+    ws5['C1'].value = 육호상조회.get()
+    wb.save('개인정보.xlsx')
 def change27() :
-    육호일.insert(육호.curselection(),육호장지.get())
+    육호일.insert(3,육호장지.get())
+    ws5['D1'].value = 육호장지.get()
+    wb.save('개인정보.xlsx')
 def change28() :
-    육호일.insert(육호.curselection(),육호상차림.get())
+    육호일.insert(4,육호상차림.get())
+    ws5['E1'].value = 육호상차림.get()
+    wb.save('개인정보.xlsx')
 def change29() :
-    육호일.insert(육호.curselection(),육호상주.get())
+    육호일.insert(5,육호상주.get())
+    ws5['F1'].value = 육호상주.get()
+    wb.save('개인정보.xlsx')
+
+
 
 def change30():
-    특백일호일.insert(특백일호.curselection(),특백일호상주성명.get())
+    특백일호일.insert(0,특백일호상주성명.get())
+    ws6['A1'].value = 특백일호상주성명.get()
+    wb.save('개인정보.xlsx')
 def change31() :
-    특백일호일.insert(특백일호.curselection(),특백일호빈소기간.get())
+    특백일호일.insert(1,특백일호빈소기간.get())
+    ws6['B1'].value = 특백일호상주성명.get()
+    wb.save('개인정보.xlsx')
 def change32() :
-    특백일호일.insert(특백일호.curselection(),특백일호상조회.get())
+    특백일호일.insert(2,특백일호상조회.get())
+    ws6['C1'].value = 특백일호상조회.get()
+    wb.save('개인정보.xlsx')
 def change33() :
-    특백일호일.insert(특백일호.curselection(),특백일호장지.get())
+    특백일호일.insert(3,특백일호장지.get())
+    ws6['D1'].value = 특백일호장지.get()
+    wb.save('개인정보.xlsx')
 def change34() :
-    특백일호일.insert(특백일호.curselection(),특백일호상차림.get())
+    특백일호일.insert(4,특백일호상차림.get())
+    ws6['E1'].value = 특백일호상차림.get()
+    wb.save('개인정보.xlsx')
 def change35() :
-    특백일호일.insert(특백일호.curselection(),특백일호상주.get())
+    특백일호일.insert(5,특백일호상주.get())
+    ws6['F1'].value = 특백일호상주성명.get()
+    wb.save('개인정보.xlsx')
+
+
 
 def change36():
-    특백이호일.insert(특백이호.curselection(),특백이호상주성명.get())
+    특백이호일.insert(0,특백이호상주성명.get())
+    ws7['A1'].value = 특백일호상주성명.get()
+    wb.save('개인정보.xlsx')
 def change37() :
-    특백이호일.insert(특백이호.curselection(),특백이호빈소기간.get())
+    특백이호일.insert(1,특백이호빈소기간.get())
+    ws7['B1'].value = 특백이호상주성명.get()
+    wb.save('개인정보.xlsx')
 def change38() :
-    특백이호일.insert(특백이호.curselection(),특백이호상조회.get())
+    특백이호일.insert(2,특백이호상조회.get())
+    ws7['C1'].value = 특백이호상조회.get()
+    wb.save('개인정보.xlsx')
 def change39() :
-    특백이호일.insert(특백이호.curselection(),특백이호장지.get())
+    특백이호일.insert(3,특백이호장지.get())
+    ws7['D1'].value = 특백이호장지.get()
+    wb.save('개인정보.xlsx')
 def change40() :
-    특백이호일.insert(특백이호.curselection(),특백이호상차림.get())
+    특백이호일.insert(4,특백이호상차림.get())
+    ws7['E1'].value = 특백이호상차림.get()
+    wb.save('개인정보.xlsx')
 def change41() :
-    특백이호일.insert(특백이호.curselection(),특백이호상주.get())
+    특백이호일.insert(5,특백이호상주.get())
+    ws7['F1'].value = 특백이호상주.get()
+    wb.save('개인정보.xlsx')
+
+
 
 def change42():
-    특이백일호일.insert(특이백일호.curselection(),특이백일호상주성명.get())
+    특이백일호일.insert(0,특이백일호상주성명.get())
+    ws8['A1'].value = 특이백일호상주성명.get()
+    wb.save('개인정보.xlsx')
 def change43() :
-    특이백일호일.insert(특이백일호.curselection(),특이백일호빈소기간.get())
+    특이백일호일.insert(1,특이백일호빈소기간.get())
+    ws8['B1'].value = 특이백일호빈소기간.get()
+    wb.save('개인정보.xlsx')
 def change44() :
-    특이백일호일.insert(특이백일호.curselection(),특이백일호상조회.get())
+    특이백일호일.insert(2,특이백일호상조회.get())
+    ws8['C1'].value = 특이백일호상조회.get()
+    wb.save('개인정보.xlsx')
 def change45() :
-    특이백일호일.insert(특이백일호.curselection(),특이백일호장지.get())
+    특이백일호일.insert(3,특이백일호장지.get())
+    ws8['D1'].value = 특이백일호장지.get()
+    wb.save('개인정보.xlsx')
 def change46() :
-    특이백일호일.insert(특이백일호.curselection(),특이백일호상차림.get())
+    특이백일호일.insert(4,특이백일호상차림.get())
+    ws8['E1'].value = 특백일호상차림.get()
+    wb.save('개인정보.xlsx')
 def change47() :
-    특이백일호일.insert(특이백일호.curselection(),특이백일호상주.get())
+    특이백일호일.insert(5,특이백일호상주.get())
+    ws8['F1'].value = 특이백일호상주.get()
+    wb.save('개인정보.xlsx')
+
+
 
 def change48():
-    특이백이호일.insert(특이백이호.curselection(),특이백이호상주성명.get())
+    특이백이호일.insert(0,특이백이호상주성명.get())
+    ws9['A1'].value = 특이백이호상주성명.get()
+    wb.save('개인정보.xlsx')
 def change49() :
-    특이백이호일.insert(특이백이호.curselection(),특이백이호빈소기간.get())
+    특이백이호일.insert(1,특이백이호빈소기간.get())
+    ws9['B1'].value = 특이백이호빈소기간.get()
+    wb.save('개인정보.xlsx')
 def change50() :
-    특이백이호일.insert(특이백이호.curselection(),특이백이호상조회.get())
+    특이백이호일.insert(2,특이백이호상조회.get())
+    ws9['C1'].value = 특이백이호상조회.get()
+    wb.save('개인정보.xlsx')
 def change51() :
-    특이백이호일.insert(특이백이호.curselection(),특이백이호장지.get())
+    특이백이호일.insert(3,특이백이호장지.get())
+    ws9['D1'].value = 특이백이호장지.get()
+    wb.save('개인정보.xlsx')
 def change52() :
-    특이백이호일.insert(특이백이호.curselection(),특이백이호상차림.get())
+    특이백이호일.insert(4,특이백이호상차림.get())
+    ws9['E1'].value = 특이백이호상차림.get()
+    wb.save('개인정보.xlsx')
 def change53() :
-    특이백이호일.insert(특이백이호.curselection(),특이백이호상주.get())
+    특이백이호일.insert(5,특이백이호상주.get())
+    ws9['F1'].value = 특이백이호상주.get()
+    wb.save('개인정보.xlsx')
 
 
 # 1호 리스트박스 정의
@@ -887,6 +1013,8 @@ def change53() :
 특이백이호장지입력.place(x=1265,y=700)
 특이백이호상차림입력.place(x=1265,y=735)
 특이백이호상주입력.place(x=1265,y=770)
+
+
 
 wb.save('개인정보.xlsx')
 wb.close()
