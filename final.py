@@ -22,20 +22,14 @@ def recall(): #
 
         def setroom():
             빈소 = tkinter.Label(win, text=room, width=35, height=2, relief="solid")
-            빈소.place(x=50, y=60)
+            빈소.place(x=50, y=10)
         def setpinfo(num):
 
-            ID = tkinter.Label(win, text=str(int(pinfo_sheet.cell(num, 1).value)), width=10, height=2, relief="solid")
-            ID.place(x=50, y=10)
+            상주성명 = tkinter.Label(win, text=pinfo_sheet.cell(num, 1).value, width=35, height=2, relief="solid")
+            상주성명.place(x=50, y=60)
 
-            고인명 = tkinter.Label(win, text=pinfo_sheet.cell(num, 2).value, width=10, height=2, relief="solid")
-            고인명.place(x=150, y=10)
-
-            상주명 = tkinter.Label(win, text=pinfo_sheet.cell(num, 3).value, width=10, height=2, relief="solid")
-            상주명.place(x=250, y=10)
-
-            Date = tkinter.Label(win, text=pinfo_sheet.cell(num, 4).value, width=35, height=2, relief="solid")
-            Date.place(x=50, y=110)
+            빈소기간 = tkinter.Label(win, text=pinfo_sheet.cell(num, 2).value, width=35, height=2, relief="solid")
+            빈소기간.place(x=50, y=110)
 
         if amount.get()=="0":
             temp_sheet2=info_sheets[0]
@@ -561,19 +555,13 @@ if __name__ == "__main__":
 
     # -------------------------------------------------
 
-    ID = tkinter.Label(win, text="ID", width=10, height=2, relief="solid")
-    ID.place(x=50,y=10)
-
-    고인명 = tkinter.Label(win, text="고인명", width=10, height=2, relief="solid")
-    고인명.place(x=150, y=10)
-
-    상주명 = tkinter.Label(win, text="상주명", width=10, height=2, relief="solid")
-    상주명.place(x=250, y=10)
+    상주성명 = tkinter.Label(win, text="상주성명", width=35, height=2, relief="solid")
+    상주성명.place(x=50,y=60)
 
     빈소 = tkinter.Label(win, text="빈소", width=35, height=2, relief="solid")
-    빈소.place(x=50, y=60)
+    빈소.place(x=50, y=10)
 
-    Date = tkinter.Label(win, text="Date", width=35, height=2, relief="solid")
-    Date.place(x=50, y=110)
+    빈소기간 = tkinter.Label(win, text="빈소기간", width=35, height=2, relief="solid")
+    빈소기간.place(x=50, y=110)
 
     win.mainloop() # 창 실행
